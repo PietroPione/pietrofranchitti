@@ -1,0 +1,14 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"testo_prova": {
+				"__TYPE__": "FieldContent",
+				"value": "within",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]
