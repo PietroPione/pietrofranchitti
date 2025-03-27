@@ -14,6 +14,7 @@ export default async function Page() {
     <div>
       {testoProva && <div>{testoProva}</div>}
       <div>Prova</div>
+      <div>Riprova</div>
     </div>
   );
 }
