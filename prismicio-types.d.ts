@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomepageDocumentDataSlicesSlice = TestoProvaSlice;
+type HomepageDocumentDataSlicesSlice = HeroHomeSlice;
 
 /**
  * Content for Homepage documents
@@ -106,6 +106,81 @@ export type ImpostazioniDocument<Lang extends string = string> =
 export type AllDocumentTypes = HomepageDocument | ImpostazioniDocument;
 
 /**
+ * Primary content in *HeroHome → Default → Primary*
+ */
+export interface HeroHomeSliceDefaultPrimary {
+  /**
+   * Titolo Hero field in *HeroHome → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_home.default.primary.titolo_hero
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  titolo_hero: prismic.RichTextField;
+
+  /**
+   * Testo hero field in *HeroHome → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_home.default.primary.testo_hero
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  testo_hero: prismic.RichTextField;
+
+  /**
+   * Sfondo Hero field in *HeroHome → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_home.default.primary.sfondo_hero
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  sfondo_hero: prismic.ImageField<never>;
+
+  /**
+   * Gfi stella field in *HeroHome → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_home.default.primary.gfi_stella
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  gfi_stella: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for HeroHome Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroHomeSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroHomeSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *HeroHome*
+ */
+type HeroHomeSliceVariation = HeroHomeSliceDefault;
+
+/**
+ * HeroHome Shared Slice
+ *
+ * - **API ID**: `hero_home`
+ * - **Description**: HeroHome
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroHomeSlice = prismic.SharedSlice<
+  "hero_home",
+  HeroHomeSliceVariation
+>;
+
+/**
  * Primary content in *TestoProva → Default → Primary*
  */
 export interface TestoProvaSliceDefaultPrimary {
@@ -178,6 +253,10 @@ declare module "@prismicio/client" {
       ImpostazioniDocumentData,
       ImpostazioniDocumentDataSlicesSlice,
       AllDocumentTypes,
+      HeroHomeSlice,
+      HeroHomeSliceDefaultPrimary,
+      HeroHomeSliceVariation,
+      HeroHomeSliceDefault,
       TestoProvaSlice,
       TestoProvaSliceDefaultPrimary,
       TestoProvaSliceVariation,

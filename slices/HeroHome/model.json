@@ -1,0 +1,53 @@
+{
+  "id": "hero_home",
+  "type": "SharedSlice",
+  "name": "HeroHome",
+  "description": "HeroHome",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "titolo_hero": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Titolo Hero",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "testo_hero": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Testo hero",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        },
+        "sfondo_hero": {
+          "type": "Image",
+          "config": {
+            "label": "Sfondo Hero",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "gfi_stella": {
+          "type": "Image",
+          "config": {
+            "label": "Gfi stella",
+            "constraint": {},
+            "thumbnails": []
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

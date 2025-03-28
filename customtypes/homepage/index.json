@@ -11,7 +11,7 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
-            "testo_prova": {
+            "hero_home": {
               "type": "SharedSlice"
             }
           }
