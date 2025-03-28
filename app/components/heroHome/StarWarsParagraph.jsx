@@ -2,7 +2,7 @@
 import { PrismicRichText } from "@prismicio/react";
 import "../../../app/assets/fonts.css";
 import "../../../app/globals.css";
-import { Space_Grotesk } from "@next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import { motion } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 
