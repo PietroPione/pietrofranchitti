@@ -106,6 +106,21 @@ export type ImpostazioniDocument<Lang extends string = string> =
 export type AllDocumentTypes = HomepageDocument | ImpostazioniDocument;
 
 /**
+ * Item in *HeroHome → Default → Primary → Elenco lista*
+ */
+export interface HeroHomeSliceDefaultPrimaryElencoListaItem {
+  /**
+   * Bullet point field in *HeroHome → Default → Primary → Elenco lista*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_home.default.primary.elenco_lista[].bullet_point
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  bullet_point: prismic.KeyTextField;
+}
+
+/**
  * Primary content in *HeroHome → Default → Primary*
  */
 export interface HeroHomeSliceDefaultPrimary {
@@ -148,6 +163,28 @@ export interface HeroHomeSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   gfi_stella: prismic.ImageField<never>;
+
+  /**
+   * Testo lista field in *HeroHome → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_home.default.primary.testo_lista
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_lista: prismic.KeyTextField;
+
+  /**
+   * Elenco lista field in *HeroHome → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero_home.default.primary.elenco_lista[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  elenco_lista: prismic.GroupField<
+    Simplify<HeroHomeSliceDefaultPrimaryElencoListaItem>
+  >;
 }
 
 /**
@@ -254,6 +291,7 @@ declare module "@prismicio/client" {
       ImpostazioniDocumentDataSlicesSlice,
       AllDocumentTypes,
       HeroHomeSlice,
+      HeroHomeSliceDefaultPrimaryElencoListaItem,
       HeroHomeSliceDefaultPrimary,
       HeroHomeSliceVariation,
       HeroHomeSliceDefault,

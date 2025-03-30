@@ -70,6 +70,29 @@
 						}
 					}
 				]
+			},
+			"testo_lista": {
+				"__TYPE__": "FieldContent",
+				"value": "pine",
+				"type": "Text"
+			},
+			"elenco_lista": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"bullet_point",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "stage",
+									"type": "Text"
+								}
+							]
+						]
+					}
+				]
 			}
 		},
 		"items": []

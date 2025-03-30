@@ -1,9 +1,8 @@
 import { createClient } from "@/prismicio";
-import { PrismicRichText } from "@prismicio/react";
-import "../app/assets/fonts.css"; // Importa il file CSS dei font
-import "./globals.css"; // Importa il file globals.css
-import StarWarsTitle from "./components/heroHome/StarWarsTitle";
-import StarWarsParagraph from "./components/heroHome/StarWarsParagraph";
+import "../app/assets/fonts.css";
+import "./globals.css";
+import StarWarsHero from "./components/heroHome/StarWarsHero";
+import ListaHero from "./components/heroHome/ListaHero";
 
 export default async function Page() {
   const client = createClient();
@@ -16,25 +15,14 @@ export default async function Page() {
   const titoloHero = heroHomeSlice?.primary?.titolo_hero;
   const testoHero = heroHomeSlice?.primary?.testo_hero;
   const sfondoHero = heroHomeSlice?.primary?.sfondo_hero?.url;
+  const testoLista = heroHomeSlice?.primary?.testo_lista;
+  const elencoLista = heroHomeSlice?.primary?.elenco_lista;
 
   return (
-    <div
-      className="h-screen flex flex-col justify-between items-center"
-      style={{
-        backgroundImage: `url(${sfondoHero})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Titolo Hero occupa metà dello spazio */}
-      <div className="h-1/2 flex items-end justify-center w-full">
-        {titoloHero && <StarWarsTitle titoloHero={titoloHero} />}
-      </div>
+    <div>
+      {titoloHero && testoHero && sfondoHero && <StarWarsHero titoloHero={titoloHero} testoHero={testoHero} sfondoHero={sfondoHero} />}
 
-      {/* Testo Hero occupa l'altra metà dello spazio */}
-      <div className="h-1/2 flex items-start justify-center w-full">
-        {testoHero && <StarWarsParagraph testoHero={testoHero} />}
-      </div>
+      {testoLista && elencoLista && <ListaHero testoLista={testoLista} elencoLista={elencoLista} />}
     </div>
   );
 }
