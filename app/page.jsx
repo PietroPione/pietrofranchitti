@@ -2,13 +2,19 @@ import { createClient } from "@/prismicio";
 import "./globals.css";
 import StarWarsHero from "./components/heroHome/StarWarsHero";
 import ListaHero from "./components/heroHome/ListaHero";
+import FalsaBio from "./components/FalsaBio";
 
 export default async function Page() {
   const client = createClient();
   const homepageResponse = await client.getSingle("homepage");
+  const biofalsaResponse = await client.getByType("biofalsa"); // Recupera i dati da "biofalsa"
 
   const heroHomeSlice = homepageResponse?.data?.slices?.find(
     (slice) => slice.slice_type === "hero_home"
+  );
+
+  const bioSlice = biofalsaResponse?.results[0]?.data?.slices?.find( // Modifica per accedere ai dati di biofalsa
+    (slice) => slice.slice_type === "bio_falsa"
   );
 
   const titoloHero = heroHomeSlice?.primary?.titolo_hero;
@@ -16,6 +22,9 @@ export default async function Page() {
   const sfondoHero = heroHomeSlice?.primary?.sfondo_hero?.url;
   const testoLista = heroHomeSlice?.primary?.testo_lista;
   const elencoLista = heroHomeSlice?.primary?.elenco_lista;
+  const bio = bioSlice?.primary?.bio;
+  const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
+  const fotofalsacattiva = bioSlice?.primary?.fotofalsacattiva;
 
   return (
     <div className="relative">
@@ -23,24 +32,18 @@ export default async function Page() {
         <StarWarsHero titoloHero={titoloHero} testoHero={testoHero} sfondoHero={sfondoHero} />
       )}
 
-      {testoLista && elencoLista && (
+      {/* {testoLista && elencoLista && (
         <ListaHero testoLista={testoLista} elencoLista={elencoLista} />
+      )} */}
+
+      {bioSlice && bio && fotofalsabuona && (
+        <FalsaBio bio={bio} fotofalsabuona={fotofalsabuona} fotofalsacattiva={fotofalsacattiva} />
       )}
 
-      <div className="bg-black h-screen text-white">
-        <div className="w-1/2 flex justify-center items-center">
-          <ul>
-            {elencoLista && elencoLista.map((item, index) => (
-              <li
-                key={index}
-                className="text-xl"
-              >
-                {item.bullet_point}
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="bg-black h-[25vh] text-center text-75 font-bold text-white">
+        Let's be honest
       </div>
+      <div className="h-screen"></div>
     </div>
   );
 }

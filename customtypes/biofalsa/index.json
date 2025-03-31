@@ -1,0 +1,22 @@
+{
+  "format": "custom",
+  "id": "biofalsa",
+  "label": "BioFalsa",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "bio_falsa": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}

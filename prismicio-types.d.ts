@@ -4,6 +4,40 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type BiofalsaDocumentDataSlicesSlice = BioFalsaSlice;
+
+/**
+ * Content for BioFalsa documents
+ */
+interface BiofalsaDocumentData {
+  /**
+   * Slice Zone field in *BioFalsa*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: biofalsa.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BiofalsaDocumentDataSlicesSlice>;
+}
+
+/**
+ * BioFalsa document from Prismic
+ *
+ * - **API ID**: `biofalsa`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BiofalsaDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<BiofalsaDocumentData>,
+    "biofalsa",
+    Lang
+  >;
+
 type HomepageDocumentDataSlicesSlice = HeroHomeSlice;
 
 /**
@@ -103,7 +137,111 @@ export type ImpostazioniDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomepageDocument | ImpostazioniDocument;
+export type AllDocumentTypes =
+  | BiofalsaDocument
+  | HomepageDocument
+  | ImpostazioniDocument;
+
+/**
+ * Item in *BioFalsa → Default → Primary → Bio*
+ */
+export interface BioFalsaSliceDefaultPrimaryBioItem {
+  /**
+   * Frase field in *BioFalsa → Default → Primary → Bio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_falsa.default.primary.bio[].frase
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  frase: prismic.KeyTextField;
+
+  /**
+   * Accento field in *BioFalsa → Default → Primary → Bio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_falsa.default.primary.bio[].accento
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  accento: prismic.KeyTextField;
+
+  /**
+   * Punto dopo field in *BioFalsa → Default → Primary → Bio*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: bio_falsa.default.primary.bio[].punto_dopo
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  punto_dopo: prismic.BooleanField;
+}
+
+/**
+ * Primary content in *BioFalsa → Default → Primary*
+ */
+export interface BioFalsaSliceDefaultPrimary {
+  /**
+   * Bio field in *BioFalsa → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_falsa.default.primary.bio[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  bio: prismic.GroupField<Simplify<BioFalsaSliceDefaultPrimaryBioItem>>;
+
+  /**
+   * FotoFalsaBuona field in *BioFalsa → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_falsa.default.primary.fotofalsabuona
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  fotofalsabuona: prismic.ImageField<never>;
+
+  /**
+   * FotoFalsaCattiva field in *BioFalsa → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_falsa.default.primary.fotofalsacattiva
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  fotofalsacattiva: prismic.ImageField<never>;
+}
+
+/**
+ * Default variation for BioFalsa Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BioFalsaSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BioFalsaSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BioFalsa*
+ */
+type BioFalsaSliceVariation = BioFalsaSliceDefault;
+
+/**
+ * BioFalsa Shared Slice
+ *
+ * - **API ID**: `bio_falsa`
+ * - **Description**: BioFalsa
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BioFalsaSlice = prismic.SharedSlice<
+  "bio_falsa",
+  BioFalsaSliceVariation
+>;
 
 /**
  * Item in *HeroHome → Default → Primary → Elenco lista*
@@ -217,51 +355,6 @@ export type HeroHomeSlice = prismic.SharedSlice<
   HeroHomeSliceVariation
 >;
 
-/**
- * Primary content in *TestoProva → Default → Primary*
- */
-export interface TestoProvaSliceDefaultPrimary {
-  /**
-   * Testo prova field in *TestoProva → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: testo_prova.default.primary.testo_prova
-   * - **Documentation**: https://prismic.io/docs/field#key-text
-   */
-  testo_prova: prismic.KeyTextField;
-}
-
-/**
- * Default variation for TestoProva Slice
- *
- * - **API ID**: `default`
- * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type TestoProvaSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<TestoProvaSliceDefaultPrimary>,
-  never
->;
-
-/**
- * Slice variation for *TestoProva*
- */
-type TestoProvaSliceVariation = TestoProvaSliceDefault;
-
-/**
- * TestoProva Shared Slice
- *
- * - **API ID**: `testo_prova`
- * - **Description**: TestoProva
- * - **Documentation**: https://prismic.io/docs/slice
- */
-export type TestoProvaSlice = prismic.SharedSlice<
-  "testo_prova",
-  TestoProvaSliceVariation
->;
-
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -283,6 +376,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BiofalsaDocument,
+      BiofalsaDocumentData,
+      BiofalsaDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -290,15 +386,16 @@ declare module "@prismicio/client" {
       ImpostazioniDocumentData,
       ImpostazioniDocumentDataSlicesSlice,
       AllDocumentTypes,
+      BioFalsaSlice,
+      BioFalsaSliceDefaultPrimaryBioItem,
+      BioFalsaSliceDefaultPrimary,
+      BioFalsaSliceVariation,
+      BioFalsaSliceDefault,
       HeroHomeSlice,
       HeroHomeSliceDefaultPrimaryElencoListaItem,
       HeroHomeSliceDefaultPrimary,
       HeroHomeSliceVariation,
       HeroHomeSliceDefault,
-      TestoProvaSlice,
-      TestoProvaSliceDefaultPrimary,
-      TestoProvaSliceVariation,
-      TestoProvaSliceDefault,
     };
   }
 }
