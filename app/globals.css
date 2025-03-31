@@ -127,6 +127,14 @@ body {
   .font-space-grotesk {
     font-family: var(--font-space-grotesk);
   }
+
+  .sticky-top {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white; /* o qualsiasi altro sfondo desiderato */
+    z-index: 10; /* Assicurati che sia sopra altri elementi */
+  }
 }
 
 @media (min-width: 768px) {

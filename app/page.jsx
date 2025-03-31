@@ -1,5 +1,4 @@
 import { createClient } from "@/prismicio";
-import "../app/assets/fonts.css";
 import "./globals.css";
 import StarWarsHero from "./components/heroHome/StarWarsHero";
 import ListaHero from "./components/heroHome/ListaHero";
@@ -19,10 +18,29 @@ export default async function Page() {
   const elencoLista = heroHomeSlice?.primary?.elenco_lista;
 
   return (
-    <div>
-      {titoloHero && testoHero && sfondoHero && <StarWarsHero titoloHero={titoloHero} testoHero={testoHero} sfondoHero={sfondoHero} />}
+    <div className="relative">
+      {titoloHero && testoHero && sfondoHero && (
+        <StarWarsHero titoloHero={titoloHero} testoHero={testoHero} sfondoHero={sfondoHero} />
+      )}
 
-      {testoLista && elencoLista && <ListaHero testoLista={testoLista} elencoLista={elencoLista} />}
+      {testoLista && elencoLista && (
+        <ListaHero testoLista={testoLista} elencoLista={elencoLista} />
+      )}
+
+      <div className="bg-black h-screen text-white">
+        <div className="w-1/2 flex justify-center items-center">
+          <ul>
+            {elencoLista && elencoLista.map((item, index) => (
+              <li
+                key={index}
+                className="text-xl"
+              >
+                {item.bullet_point}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
