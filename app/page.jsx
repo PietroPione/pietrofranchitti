@@ -3,19 +3,31 @@ import "./globals.css";
 import StarWarsHero from "./components/heroHome/StarWarsHero";
 import ListaHero from "./components/heroHome/ListaHero";
 import FalsaBio from "./components/FalsaBio";
+import BarraHonest from "./components/BarraHonest";
+import VeraBio from "./components/VeraBio";
+import PanziDori from "./components/PanziDori";
 
 export default async function Page() {
   const client = createClient();
   const homepageResponse = await client.getSingle("homepage");
-  const biofalsaResponse = await client.getByType("biofalsa"); // Recupera i dati da "biofalsa"
+  const biofalsaResponse = await client.getByType("biofalsa");
 
   const heroHomeSlice = homepageResponse?.data?.slices?.find(
     (slice) => slice.slice_type === "hero_home"
   );
 
-  const bioSlice = biofalsaResponse?.results[0]?.data?.slices?.find( // Modifica per accedere ai dati di biofalsa
+  const bioSlice = biofalsaResponse?.results[0]?.data?.slices?.find(
     (slice) => slice.slice_type === "bio_falsa"
   );
+
+  const barraHonest = biofalsaResponse?.results[0]?.data?.slices?.find(
+    (slice) => slice.slice_type === "barra_honest"
+  );
+
+  const bioVera = biofalsaResponse?.results[0]?.data?.slices?.find(
+    (slice) => slice.slice_type === "bio_vera"
+  );
+
 
   const titoloHero = heroHomeSlice?.primary?.titolo_hero;
   const testoHero = heroHomeSlice?.primary?.testo_hero;
@@ -25,6 +37,11 @@ export default async function Page() {
   const bio = bioSlice?.primary?.bio;
   const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
   const fotofalsacattiva = bioSlice?.primary?.fotofalsacattiva;
+  const testoHonest = barraHonest?.primary?.testohonest;
+  const bioVeraText = bioVera?.primary?.bio;
+  const fotoBioVera = bioVera?.primary?.foto_buona;
+  const testoGatti = bioVera?.primary?.testo_gatti;
+
 
   return (
     <div className="relative">
@@ -40,9 +57,9 @@ export default async function Page() {
         <FalsaBio bio={bio} fotofalsabuona={fotofalsabuona} fotofalsacattiva={fotofalsacattiva} />
       )}
 
-      <div className="bg-black h-[25vh] text-center text-75 font-bold text-white">
-        Let's be honest
-      </div>
+      {testoHonest && <BarraHonest testoHonest={testoHonest} />}
+      {bioVera && (<VeraBio bioVeraText={bioVeraText} fotoBioVera={fotoBioVera} testoGatti={testoGatti} bioVera={bioVera} />)}
+      {/* {testoGatti && (<PanziDori testoGatti={testoGatti} bioVera={bioVera} />)} */}
       <div className="h-screen"></div>
     </div>
   );

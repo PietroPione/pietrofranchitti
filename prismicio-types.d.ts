@@ -4,14 +4,17 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type BiofalsaDocumentDataSlicesSlice = BioFalsaSlice;
+type BiofalsaDocumentDataSlicesSlice =
+  | BioVeraSlice
+  | BarraHonestSlice
+  | BioFalsaSlice;
 
 /**
- * Content for BioFalsa documents
+ * Content for Bio documents
  */
 interface BiofalsaDocumentData {
   /**
-   * Slice Zone field in *BioFalsa*
+   * Slice Zone field in *Bio*
    *
    * - **Field Type**: Slice Zone
    * - **Placeholder**: *None*
@@ -23,7 +26,7 @@ interface BiofalsaDocumentData {
 }
 
 /**
- * BioFalsa document from Prismic
+ * Bio document from Prismic
  *
  * - **API ID**: `biofalsa`
  * - **Repeatable**: `false`
@@ -143,6 +146,51 @@ export type AllDocumentTypes =
   | ImpostazioniDocument;
 
 /**
+ * Primary content in *BarraHonest → Default → Primary*
+ */
+export interface BarraHonestSliceDefaultPrimary {
+  /**
+   * TestoHonest field in *BarraHonest → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: barra_honest.default.primary.testohonest
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testohonest: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for BarraHonest Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BarraHonestSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BarraHonestSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BarraHonest*
+ */
+type BarraHonestSliceVariation = BarraHonestSliceDefault;
+
+/**
+ * BarraHonest Shared Slice
+ *
+ * - **API ID**: `barra_honest`
+ * - **Description**: BarraHonest
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BarraHonestSlice = prismic.SharedSlice<
+  "barra_honest",
+  BarraHonestSliceVariation
+>;
+
+/**
  * Item in *BioFalsa → Default → Primary → Bio*
  */
 export interface BioFalsaSliceDefaultPrimaryBioItem {
@@ -241,6 +289,147 @@ type BioFalsaSliceVariation = BioFalsaSliceDefault;
 export type BioFalsaSlice = prismic.SharedSlice<
   "bio_falsa",
   BioFalsaSliceVariation
+>;
+
+/**
+ * Item in *BioVera → Default → Primary → Bio*
+ */
+export interface BioVeraSliceDefaultPrimaryBioItem {
+  /**
+   * Frase field in *BioVera → Default → Primary → Bio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.bio[].frase
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  frase: prismic.KeyTextField;
+
+  /**
+   * Accento field in *BioVera → Default → Primary → Bio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.bio[].accento
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  accento: prismic.KeyTextField;
+
+  /**
+   * Punto dopo field in *BioVera → Default → Primary → Bio*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: bio_vera.default.primary.bio[].punto_dopo
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  punto_dopo: prismic.BooleanField;
+}
+
+/**
+ * Primary content in *BioVera → Default → Primary*
+ */
+export interface BioVeraSliceDefaultPrimary {
+  /**
+   * Bio field in *BioVera → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.bio[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  bio: prismic.GroupField<Simplify<BioVeraSliceDefaultPrimaryBioItem>>;
+
+  /**
+   * Foto Buona field in *BioVera → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.foto_buona
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  foto_buona: prismic.ImageField<never>;
+
+  /**
+   * Foto gatti 1 field in *BioVera → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.foto_gatti_1
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  foto_gatti_1: prismic.ImageField<never>;
+
+  /**
+   * Foto gatti 2 field in *BioVera → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.foto_gatti_2
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  foto_gatti_2: prismic.ImageField<never>;
+
+  /**
+   * Foto gatti 3 field in *BioVera → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.foto_gatti_3
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  foto_gatti_3: prismic.ImageField<never>;
+
+  /**
+   * Foto gatti 4 field in *BioVera → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.foto_gatti_4
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  foto_gatti_4: prismic.ImageField<never>;
+
+  /**
+   * Testo gatti field in *BioVera → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_vera.default.primary.testo_gatti
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_gatti: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for BioVera Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BioVeraSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BioVeraSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BioVera*
+ */
+type BioVeraSliceVariation = BioVeraSliceDefault;
+
+/**
+ * BioVera Shared Slice
+ *
+ * - **API ID**: `bio_vera`
+ * - **Description**: BioVera
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BioVeraSlice = prismic.SharedSlice<
+  "bio_vera",
+  BioVeraSliceVariation
 >;
 
 /**
@@ -386,11 +575,20 @@ declare module "@prismicio/client" {
       ImpostazioniDocumentData,
       ImpostazioniDocumentDataSlicesSlice,
       AllDocumentTypes,
+      BarraHonestSlice,
+      BarraHonestSliceDefaultPrimary,
+      BarraHonestSliceVariation,
+      BarraHonestSliceDefault,
       BioFalsaSlice,
       BioFalsaSliceDefaultPrimaryBioItem,
       BioFalsaSliceDefaultPrimary,
       BioFalsaSliceVariation,
       BioFalsaSliceDefault,
+      BioVeraSlice,
+      BioVeraSliceDefaultPrimaryBioItem,
+      BioVeraSliceDefaultPrimary,
+      BioVeraSliceVariation,
+      BioVeraSliceDefault,
       HeroHomeSlice,
       HeroHomeSliceDefaultPrimaryElencoListaItem,
       HeroHomeSliceDefaultPrimary,

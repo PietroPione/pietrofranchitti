@@ -1,7 +1,7 @@
 {
   "format": "custom",
   "id": "biofalsa",
-  "label": "BioFalsa",
+  "label": "Bio",
   "repeatable": false,
   "status": true,
   "json": {
@@ -11,6 +11,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "bio_vera": {
+              "type": "SharedSlice"
+            },
+            "barra_honest": {
+              "type": "SharedSlice"
+            },
             "bio_falsa": {
               "type": "SharedSlice"
             }
