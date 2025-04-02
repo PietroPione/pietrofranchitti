@@ -1,11 +1,7 @@
 import { createClient } from "@/prismicio";
 import "./globals.css";
 import StarWarsHero from "./components/heroHome/StarWarsHero";
-import ListaHero from "./components/heroHome/ListaHero";
-import FalsaBio from "./components/FalsaBio";
-import BarraHonest from "./components/BarraHonest";
-import VeraBio from "./components/VeraBio";
-import PanziDori from "./components/PanziDori";
+import SezioneBio from "./components/bio/SezioneBio"; // Importa SezioneBio
 
 export default async function Page() {
   const client = createClient();
@@ -28,20 +24,23 @@ export default async function Page() {
     (slice) => slice.slice_type === "bio_vera"
   );
 
+  const cosePiacciono = biofalsaResponse?.results[0]?.data?.slices?.find(
+    (slice) => slice.slice_type === "cose_piacciono"
+  );
+
+  const coseNonPiacciono = biofalsaResponse?.results[0]?.data?.slices?.find(
+    (slice) => slice.slice_type === "cose_non_piacciono"
+  );
 
   const titoloHero = heroHomeSlice?.primary?.titolo_hero;
   const testoHero = heroHomeSlice?.primary?.testo_hero;
   const sfondoHero = heroHomeSlice?.primary?.sfondo_hero?.url;
-  const testoLista = heroHomeSlice?.primary?.testo_lista;
-  const elencoLista = heroHomeSlice?.primary?.elenco_lista;
   const bio = bioSlice?.primary?.bio;
   const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
   const fotofalsacattiva = bioSlice?.primary?.fotofalsacattiva;
   const testoHonest = barraHonest?.primary?.testohonest;
   const bioVeraText = bioVera?.primary?.bio;
   const fotoBioVera = bioVera?.primary?.foto_buona;
-  const testoGatti = bioVera?.primary?.testo_gatti;
-
 
   return (
     <div className="relative">
@@ -49,17 +48,18 @@ export default async function Page() {
         <StarWarsHero titoloHero={titoloHero} testoHero={testoHero} sfondoHero={sfondoHero} />
       )}
 
-      {/* {testoLista && elencoLista && (
-        <ListaHero testoLista={testoLista} elencoLista={elencoLista} />
-      )} */}
+      <SezioneBio // Usa il componente SezioneBio
+        bioSlice={bioSlice}
+        bio={bio}
+        fotofalsabuona={fotofalsabuona}
+        fotofalsacattiva={fotofalsacattiva}
+        testoHonest={testoHonest}
+        bioVeraText={bioVeraText}
+        fotoBioVera={fotoBioVera}
+        cosePiacciono={cosePiacciono}
+        coseNonPiacciono={coseNonPiacciono}
+      />
 
-      {bioSlice && bio && fotofalsabuona && (
-        <FalsaBio bio={bio} fotofalsabuona={fotofalsabuona} fotofalsacattiva={fotofalsacattiva} />
-      )}
-
-      {testoHonest && <BarraHonest testoHonest={testoHonest} />}
-      {bioVera && (<VeraBio bioVeraText={bioVeraText} fotoBioVera={fotoBioVera} testoGatti={testoGatti} bioVera={bioVera} />)}
-      {/* {testoGatti && (<PanziDori testoGatti={testoGatti} bioVera={bioVera} />)} */}
       <div className="h-screen"></div>
     </div>
   );

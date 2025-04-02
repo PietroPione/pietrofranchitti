@@ -11,6 +11,12 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "cose_non_piacciono": {
+              "type": "SharedSlice"
+            },
+            "cose_piacciono": {
+              "type": "SharedSlice"
+            },
             "bio_vera": {
               "type": "SharedSlice"
             },

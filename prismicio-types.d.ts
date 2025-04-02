@@ -5,6 +5,8 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 type BiofalsaDocumentDataSlicesSlice =
+  | CoseNonPiaccionoSlice
+  | CosePiaccionoSlice
   | BioVeraSlice
   | BarraHonestSlice
   | BioFalsaSlice;
@@ -433,6 +435,168 @@ export type BioVeraSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *CoseNonPiacciono → Default → Primary → Cosa*
+ */
+export interface CoseNonPiaccionoSliceDefaultPrimaryCosaItem {
+  /**
+   * Nome cosa field in *CoseNonPiacciono → Default → Primary → Cosa*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_non_piacciono.default.primary.cosa[].nome_cosa
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  nome_cosa: prismic.KeyTextField;
+
+  /**
+   * Gif cosa field in *CoseNonPiacciono → Default → Primary → Cosa*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_non_piacciono.default.primary.cosa[].gif_cosa
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  gif_cosa: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *CoseNonPiacciono → Default → Primary*
+ */
+export interface CoseNonPiaccionoSliceDefaultPrimary {
+  /**
+   * Titolo cose non piacciono field in *CoseNonPiacciono → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_non_piacciono.default.primary.titolo_cose_non_piacciono
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo_cose_non_piacciono: prismic.KeyTextField;
+
+  /**
+   * Cosa field in *CoseNonPiacciono → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_non_piacciono.default.primary.cosa[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  cosa: prismic.GroupField<
+    Simplify<CoseNonPiaccionoSliceDefaultPrimaryCosaItem>
+  >;
+}
+
+/**
+ * Default variation for CoseNonPiacciono Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CoseNonPiaccionoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CoseNonPiaccionoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *CoseNonPiacciono*
+ */
+type CoseNonPiaccionoSliceVariation = CoseNonPiaccionoSliceDefault;
+
+/**
+ * CoseNonPiacciono Shared Slice
+ *
+ * - **API ID**: `cose_non_piacciono`
+ * - **Description**: CoseNonPiacciono
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CoseNonPiaccionoSlice = prismic.SharedSlice<
+  "cose_non_piacciono",
+  CoseNonPiaccionoSliceVariation
+>;
+
+/**
+ * Item in *CosePiacciono → Default → Primary → Cosa*
+ */
+export interface CosePiaccionoSliceDefaultPrimaryCosaItem {
+  /**
+   * Nome cosa field in *CosePiacciono → Default → Primary → Cosa*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_piacciono.default.primary.cosa[].nome_cosa
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  nome_cosa: prismic.KeyTextField;
+
+  /**
+   * Gif cosa field in *CosePiacciono → Default → Primary → Cosa*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_piacciono.default.primary.cosa[].gif_cosa
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  gif_cosa: prismic.ImageField<never>;
+}
+
+/**
+ * Primary content in *CosePiacciono → Default → Primary*
+ */
+export interface CosePiaccionoSliceDefaultPrimary {
+  /**
+   * Titolo cose piacciono field in *CosePiacciono → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_piacciono.default.primary.titolo_cose_piacciono
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo_cose_piacciono: prismic.KeyTextField;
+
+  /**
+   * Cosa field in *CosePiacciono → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cose_piacciono.default.primary.cosa[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  cosa: prismic.GroupField<Simplify<CosePiaccionoSliceDefaultPrimaryCosaItem>>;
+}
+
+/**
+ * Default variation for CosePiacciono Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CosePiaccionoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CosePiaccionoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *CosePiacciono*
+ */
+type CosePiaccionoSliceVariation = CosePiaccionoSliceDefault;
+
+/**
+ * CosePiacciono Shared Slice
+ *
+ * - **API ID**: `cose_piacciono`
+ * - **Description**: CosePiacciono
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CosePiaccionoSlice = prismic.SharedSlice<
+  "cose_piacciono",
+  CosePiaccionoSliceVariation
+>;
+
+/**
  * Item in *HeroHome → Default → Primary → Elenco lista*
  */
 export interface HeroHomeSliceDefaultPrimaryElencoListaItem {
@@ -589,6 +753,16 @@ declare module "@prismicio/client" {
       BioVeraSliceDefaultPrimary,
       BioVeraSliceVariation,
       BioVeraSliceDefault,
+      CoseNonPiaccionoSlice,
+      CoseNonPiaccionoSliceDefaultPrimaryCosaItem,
+      CoseNonPiaccionoSliceDefaultPrimary,
+      CoseNonPiaccionoSliceVariation,
+      CoseNonPiaccionoSliceDefault,
+      CosePiaccionoSlice,
+      CosePiaccionoSliceDefaultPrimaryCosaItem,
+      CosePiaccionoSliceDefaultPrimary,
+      CosePiaccionoSliceVariation,
+      CosePiaccionoSliceDefault,
       HeroHomeSlice,
       HeroHomeSliceDefaultPrimaryElencoListaItem,
       HeroHomeSliceDefaultPrimary,
