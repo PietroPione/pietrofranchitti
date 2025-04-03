@@ -32,9 +32,7 @@ export default async function Page() {
     (slice) => slice.slice_type === "cose_non_piacciono"
   );
 
-  const titoloHero = heroHomeSlice?.primary?.titolo_hero;
-  const testoHero = heroHomeSlice?.primary?.testo_hero;
-  const sfondoHero = heroHomeSlice?.primary?.sfondo_hero?.url;
+
   const bio = bioSlice?.primary?.bio;
   const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
   const fotofalsacattiva = bioSlice?.primary?.fotofalsacattiva;
@@ -44,11 +42,11 @@ export default async function Page() {
 
   return (
     <div className="relative">
-      {titoloHero && testoHero && sfondoHero && (
-        <StarWarsHero titoloHero={titoloHero} testoHero={testoHero} sfondoHero={sfondoHero} />
-      )}
 
-      <SezioneBio // Usa il componente SezioneBio
+      <StarWarsHero />
+
+
+      <SezioneBio
         bioSlice={bioSlice}
         bio={bio}
         fotofalsabuona={fotofalsabuona}
