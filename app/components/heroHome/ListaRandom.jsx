@@ -6,6 +6,7 @@ export default function ListaRandom({ testoLista, elencoLista }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [textBgColor, setTextBgColor] = useState('#FFFFFF');
     const positions = useRef([]);
+    const animationFrameId = useRef(null);
 
     useEffect(() => {
         const generatePositions = () => {
@@ -22,20 +23,32 @@ export default function ListaRandom({ testoLista, elencoLista }) {
 
         positions.current = generatePositions();
 
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => {
-                let nextIndex = prevIndex + 1;
-                if (nextIndex === elencoLista.length) {
-                    nextIndex = 0; // Reimposta a 0 quando raggiunge l'ultimo elemento
-                }
-                console.log(nextIndex)
-                return nextIndex;
-            });
-            setTextBgColor(getRandomLightColor());
-        }, 1200);
+        let startTime = null;
 
-        return () => clearInterval(interval);
-    }, [elencoLista.length]);
+        const animate = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+
+            if (progress > 1200) {
+                setCurrentIndex((prevIndex) => {
+                    const nextIndex = (prevIndex + 1) % elencoLista.length;
+                    positions.current[nextIndex] = {
+                        top: `${Math.random() * 80 + 10}%`,
+                        left: `${Math.random() * 80 + 10}%`,
+                    }; // Rigenera la posizione per il nuovo elemento
+                    return nextIndex;
+                });
+                setTextBgColor(getRandomLightColor());
+                startTime = timestamp;
+            }
+
+            animationFrameId.current = requestAnimationFrame(animate);
+        };
+
+        animationFrameId.current = requestAnimationFrame(animate);
+
+        return () => cancelAnimationFrame(animationFrameId.current);
+    }, [elencoLista]);
 
     function getRandomLightColor() {
         const letters = '89ABCDEF';
