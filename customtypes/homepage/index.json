@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "work_school": {
+              "type": "SharedSlice"
+            },
             "hero_home": {
               "type": "SharedSlice"
             }

@@ -4,7 +4,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import "../../../app/globals.css";
+
 
 export default function CosePiacciono({ cosePiacciono }) {
     if (!cosePiacciono || !cosePiacciono.primary || !cosePiacciono.primary.cosa) {
@@ -40,22 +40,24 @@ export default function CosePiacciono({ cosePiacciono }) {
     };
 
     return (
-        <div ref={containerRef} className="container h-screen group-hover flex-col flex justify-center relative">
-            {titolo_cose_piacciono && <h2 className="text-46">{titolo_cose_piacciono}</h2>}
+        <div ref={containerRef} className="container h-[50vh] group-hover flex-col flex space-y-10 justify-center relative">
+            {titolo_cose_piacciono && <h2 className="text-20 md:text-32 lg:text-40">{titolo_cose_piacciono}</h2>}
+            <div className="flex font-it flex-col space-y-4">
 
-            {cosa &&
-                cosa.map((item, index) => (
-                    <p
-                        className="text-95 font-black group-hover hover:text-white hover:bg-black relative"
-                        key={index}
-                        style={{ marginLeft: `${index * 5}rem` }}
-                        onMouseEnter={(event) => handleMouseEnter(item, event)}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseMove={hoveredImage ? handleMouseMove : undefined}
-                    >
-                        - {item.nome_cosa}
-                    </p>
-                ))}
+                {cosa &&
+                    cosa.map((item, index) => (
+                        <p
+                            className="text-26 md:text-40 lg:text-46 font-black group-hover hover:text-white hover:bg-black relative"
+                            key={index}
+                            style={{ marginLeft: `${index * 5}rem` }}
+                            onMouseEnter={(event) => handleMouseEnter(item, event)}
+                            onMouseLeave={handleMouseLeave}
+                            onMouseMove={hoveredImage ? handleMouseMove : undefined}
+                        >
+                            - {item.nome_cosa}
+                        </p>
+                    ))}
+            </div>
 
             <AnimatePresence>
                 {hoveredImage && (
@@ -73,8 +75,8 @@ export default function CosePiacciono({ cosePiacciono }) {
                         <Image
                             src={hoveredImage.url}
                             alt="Immagine cosa piaciuta"
-                            width={300}
-                            height={225}
+                            width={400}
+                            height={300}
                             unoptimized
                         />
                     </motion.div>

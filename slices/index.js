@@ -9,4 +9,5 @@ export const components = {
   cose_non_piacciono: dynamic(() => import("./CoseNonPiacciono")),
   cose_piacciono: dynamic(() => import("./CosePiacciono")),
   hero_home: dynamic(() => import("./HeroHome")),
+  work_school: dynamic(() => import("./WorkSchool")),
 };

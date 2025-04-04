@@ -7,6 +7,7 @@ export default function ListaRandom({ testoLista, elencoLista }) {
     const [textBgColor, setTextBgColor] = useState('#FFFFFF');
     const positions = useRef([]);
     const animationFrameId = useRef(null);
+    const margin = 5; // Margine di sicurezza ridotto (in percentuale)
 
     useEffect(() => {
         const generatePositions = () => {
@@ -33,8 +34,8 @@ export default function ListaRandom({ testoLista, elencoLista }) {
                 setCurrentIndex((prevIndex) => {
                     const nextIndex = (prevIndex + 1) % elencoLista.length;
                     positions.current[nextIndex] = {
-                        top: `${Math.random() * 80 + 10}%`,
-                        left: `${Math.random() * 80 + 10}%`,
+                        top: `${Math.random() * (80 - 2 * margin) + margin}%`, // Margine di sicurezza per top
+                        left: `${Math.random() * (80 - 2 * margin) + margin}%`, // Margine di sicurezza per left
                     }; // Rigenera la posizione per il nuovo elemento
                     return nextIndex;
                 });

@@ -40,22 +40,25 @@ export default function CoseNonPiacciono({ coseNonPiacciono }) {
     };
 
     return (
-        <div ref={containerRef} className="container h-screen group-hover flex-col flex justify-center relative">
-            {titolo_cose_non_piacciono && <h2 className="text-46">{titolo_cose_non_piacciono}</h2>}
+        <div ref={containerRef} className="container h-[50vh] group-hover flex-col space-y-10 flex justify-center relative">
+            {titolo_cose_non_piacciono && <h2 className="text-20 md:text-32 lg:text-40">{titolo_cose_non_piacciono}</h2>}
 
-            {cosa &&
-                cosa.map((item, index) => (
-                    <p
-                        className="text-95 font-black group-hover hover:text-white hover:bg-black relative"
-                        key={index}
-                        style={{ marginLeft: `${index * 5}rem` }}
-                        onMouseEnter={(event) => handleMouseEnter(item, event)}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseMove={hoveredImage ? handleMouseMove : undefined}
-                    >
-                        - {item.nome_cosa}
-                    </p>
-                ))}
+            <div className="flex flex-col space-y-4">
+
+                {cosa &&
+                    cosa.map((item, index) => (
+                        <p
+                            className="text-26 md:text-40 lg:text-46 font-black group-hover hover:text-white hover:bg-black relative"
+                            key={index}
+                            style={{ marginLeft: `${index * 5}rem` }}
+                            onMouseEnter={(event) => handleMouseEnter(item, event)}
+                            onMouseLeave={handleMouseLeave}
+                            onMouseMove={hoveredImage ? handleMouseMove : undefined}
+                        >
+                            - {item.nome_cosa}
+                        </p>
+                    ))}
+            </div>
 
             <AnimatePresence>
                 {hoveredImage && (
@@ -73,8 +76,8 @@ export default function CoseNonPiacciono({ coseNonPiacciono }) {
                         <Image
                             src={hoveredImage.url}
                             alt="Immagine cosa piaciuta"
-                            width={300}
-                            height={225}
+                            width={400}
+                            height={300}
                             unoptimized
                         />
                     </motion.div>

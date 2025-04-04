@@ -147,10 +147,39 @@ body {
   .md\:text-22 {
     font-size: var(--text-22);
   }
+  .md\:text-32 {
+    font-size: var(--text-32);
+  }
+  .md\:text-46 {
+    font-size: var(--text-46);
+  }
   .md\:text-95 {
     font-size: var(--text-95);
   }
 }
+
+@media (min-width: 1024px) {
+  .lg\:text-36 {
+    font-size: var(--text-36);
+  }
+  .lg\:text-75 {
+    font-size: var(--text-75);
+  }
+  .lg\:text-22 {
+    font-size: var(--text-22);
+  }
+  .lg\:text-46 {
+    font-size: var(--text-46);
+  }
+  .lg\:text-60 {
+    font-size: var(--text-60);
+  }
+  
+  .lg\:text-95 {
+    font-size: var(--text-95);
+  }
+}
+
 
 @utility container {
   @apply mx-auto w-full px-4;

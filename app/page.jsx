@@ -2,6 +2,8 @@ import { createClient } from "@/prismicio";
 import "./globals.css";
 import StarWarsHero from "./components/heroHome/StarWarsHero";
 import SezioneBio from "./components/bio/SezioneBio"; // Importa SezioneBio
+import WorkSchool from "./components/WorkSchool";
+
 
 export default async function Page() {
   const client = createClient();
@@ -32,6 +34,10 @@ export default async function Page() {
     (slice) => slice.slice_type === "cose_non_piacciono"
   );
 
+  const workSchool = homepageResponse?.data?.slices?.find(
+    (slice) => slice.slice_type === "work_school"
+  );
+
 
   const bio = bioSlice?.primary?.bio;
   const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
@@ -39,6 +45,7 @@ export default async function Page() {
   const testoHonest = barraHonest?.primary?.testohonest;
   const bioVeraText = bioVera?.primary?.bio;
   const fotoBioVera = bioVera?.primary?.foto_buona;
+
 
   return (
     <div className="relative">
@@ -57,6 +64,8 @@ export default async function Page() {
         cosePiacciono={cosePiacciono}
         coseNonPiacciono={coseNonPiacciono}
       />
+
+      <WorkSchool workSchool={workSchool} />
 
       <div className="h-screen"></div>
     </div>
