@@ -1,9 +1,8 @@
 @import "tailwindcss";
-@theme {
-  --font-sans: "Roboto mono", sans-serif;
-}
+
 
 :root {
+  --font-sans: "Roboto mono", sans-serif;
   --background: #ffffff;
   --foreground: #171717;
   --starwars-yellow: #FFE81F;
