@@ -2,7 +2,8 @@ import { createClient } from "@/prismicio";
 import "./globals.css";
 import StarWarsHero from "./components/heroHome/StarWarsHero";
 import SezioneBio from "./components/bio/SezioneBio"; // Importa SezioneBio
-import WorkSchool from "./components/WorkSchool";
+import WorkSchool from "./components/bio/WorkSchool";
+import PortfolioHome from "./components/bio/PortfolioHome";
 
 
 export default async function Page() {
@@ -38,6 +39,10 @@ export default async function Page() {
     (slice) => slice.slice_type === "work_school"
   );
 
+  const portfolioHome = homepageResponse?.data?.slices?.find(
+    (slice) => slice.slice_type === "portfolio_home"
+  );
+
 
   const bio = bioSlice?.primary?.bio;
   const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
@@ -66,6 +71,8 @@ export default async function Page() {
       />
 
       <WorkSchool workSchool={workSchool} />
+
+      <PortfolioHome portfolioHome={portfolioHome} />
 
       <div className="h-screen"></div>
     </div>

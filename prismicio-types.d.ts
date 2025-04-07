@@ -712,6 +712,116 @@ export type HeroHomeSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *PortfolioHome → Default → Primary → Progetti*
+ */
+export interface PortfolioHomeSliceDefaultPrimaryProgettiItem {
+  /**
+   * Nome field in *PortfolioHome → Default → Primary → Progetti*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.progetti[].nome
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  nome: prismic.KeyTextField;
+
+  /**
+   * Screen desktop field in *PortfolioHome → Default → Primary → Progetti*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.progetti[].screen_desktop
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  screen_desktop: prismic.ImageField<never>;
+
+  /**
+   * Screen mobile field in *PortfolioHome → Default → Primary → Progetti*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.progetti[].screen_mobile
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  screen_mobile: prismic.ImageField<never>;
+
+  /**
+   * Made with field in *PortfolioHome → Default → Primary → Progetti*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.progetti[].made_with
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  made_with: prismic.SelectField<
+    "Wordpress" | "Elementor" | "React" | "Vue" | "Shopify"
+  >;
+
+  /**
+   * Bg color field in *PortfolioHome → Default → Primary → Progetti*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.progetti[].bg_color
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  bg_color: prismic.KeyTextField;
+
+  /**
+   * Discover more field in *PortfolioHome → Default → Primary → Progetti*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.progetti[].discover_more
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  discover_more: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Primary content in *PortfolioHome → Default → Primary*
+ */
+export interface PortfolioHomeSliceDefaultPrimary {
+  /**
+   * Titolo portfolio field in *PortfolioHome → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.titolo_portfolio
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo_portfolio: prismic.KeyTextField;
+
+  /**
+   * Copy portfolio field in *PortfolioHome → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.copy_portfolio
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copy_portfolio: prismic.KeyTextField;
+
+  /**
+   * Progetti field in *PortfolioHome → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.progetti[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  progetti: prismic.GroupField<
+    Simplify<PortfolioHomeSliceDefaultPrimaryProgettiItem>
+  >;
+}
+
+/**
  * Default variation for PortfolioHome Slice
  *
  * - **API ID**: `default`
@@ -720,7 +830,7 @@ export type HeroHomeSlice = prismic.SharedSlice<
  */
 export type PortfolioHomeSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
+  Simplify<PortfolioHomeSliceDefaultPrimary>,
   never
 >;
 
@@ -1057,6 +1167,8 @@ declare module "@prismicio/client" {
       HeroHomeSliceVariation,
       HeroHomeSliceDefault,
       PortfolioHomeSlice,
+      PortfolioHomeSliceDefaultPrimaryProgettiItem,
+      PortfolioHomeSliceDefaultPrimary,
       PortfolioHomeSliceVariation,
       PortfolioHomeSliceDefault,
       WorkSchoolSlice,
