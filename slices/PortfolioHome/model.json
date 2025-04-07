@@ -1,0 +1,16 @@
+{
+  "id": "portfolio_home",
+  "type": "SharedSlice",
+  "name": "PortfolioHome",
+  "description": "PortfolioHome",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}

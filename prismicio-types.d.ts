@@ -43,7 +43,10 @@ export type BiofalsaDocument<Lang extends string = string> =
     Lang
   >;
 
-type HomepageDocumentDataSlicesSlice = WorkSchoolSlice | HeroHomeSlice;
+type HomepageDocumentDataSlicesSlice =
+  | PortfolioHomeSlice
+  | WorkSchoolSlice
+  | HeroHomeSlice;
 
 /**
  * Content for Homepage documents
@@ -709,6 +712,36 @@ export type HeroHomeSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Default variation for PortfolioHome Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PortfolioHomeSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *PortfolioHome*
+ */
+type PortfolioHomeSliceVariation = PortfolioHomeSliceDefault;
+
+/**
+ * PortfolioHome Shared Slice
+ *
+ * - **API ID**: `portfolio_home`
+ * - **Description**: PortfolioHome
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PortfolioHomeSlice = prismic.SharedSlice<
+  "portfolio_home",
+  PortfolioHomeSliceVariation
+>;
+
+/**
  * Item in *WorkSchool → Default → Primary → Works*
  */
 export interface WorkSchoolSliceDefaultPrimaryWorksItem {
@@ -1023,6 +1056,9 @@ declare module "@prismicio/client" {
       HeroHomeSliceDefaultPrimary,
       HeroHomeSliceVariation,
       HeroHomeSliceDefault,
+      PortfolioHomeSlice,
+      PortfolioHomeSliceVariation,
+      PortfolioHomeSliceDefault,
       WorkSchoolSlice,
       WorkSchoolSliceDefaultPrimaryWorksItem,
       WorkSchoolSliceDefaultPrimaryStudiesItem,

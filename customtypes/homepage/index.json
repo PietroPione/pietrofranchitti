@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "portfolio_home": {
+              "type": "SharedSlice"
+            },
             "work_school": {
               "type": "SharedSlice"
             },
