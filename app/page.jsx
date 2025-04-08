@@ -53,7 +53,7 @@ export default async function Page() {
 
 
   return (
-    <div className="relative">
+    <div className="relative space-y-20">
 
       <StarWarsHero />
 
