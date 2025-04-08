@@ -31,14 +31,17 @@ export default function PortfolioHome({ portfolioHome }) {
     };
 
     const currentImageUrl = isDesktopView ? selectedProject?.screen_desktop?.url : selectedProject?.screen_mobile?.url;
-    const buttonText = isDesktopView ? "Vedi mobile" : "Vedi desktop";
+    const buttonText = isDesktopView ? "Mobile -->" : "Desktop -->";
 
     const fixedImageHeight = "100vh"; // Altezza fissa desiderata per il container dell'immagine (puoi modificarla)
 
     return (
-        <div className=" container ">
-            <h2 className="text-60 font-bold py-8 bg-white z-10">{primary.titolo_portfolio}</h2>
-            <p>{primary.copy_portfolio}</p>
+        <div className=" container space-y-20">
+            <div className='space-y-4'>
+
+                <h2 className="text-60 font-bold leading-0 py-8 bg-white z-10">{primary.titolo_portfolio}</h2>
+                <p>{primary.copy_portfolio}</p>
+            </div>
             <div className="flex items-center h-[75vh]">
                 {/* Colonna sinistra (Listato progetti) */}
                 <div className="w-1/2 py-4 flex flex-col h-full">
