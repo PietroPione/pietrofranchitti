@@ -40,49 +40,53 @@ export default function CoseNonPiacciono({ coseNonPiacciono }) {
     };
 
     return (
-        <div ref={containerRef} className="container h-[50vh] group-hover flex-col space-y-10 flex justify-center relative">
-            {titolo_cose_non_piacciono && <h2 className="text-20 md:text-32 lg:text-40">{titolo_cose_non_piacciono}</h2>}
+        <div className="relative">
+            <div
+                ref={containerRef}
+                className="container min-h-[60vh] flex-col flex space-y-10 justify-center relative"
+            >
+                {titolo_cose_non_piacciono && <h2 className="text-20 md:text-32 lg:text-40">{titolo_cose_non_piacciono}</h2>}
 
-            <div className="flex flex-col space-y-4">
-
-                {cosa &&
-                    cosa.map((item, index) => (
+                <div className="flex flex-col space-y-4">
+                    {cosa.map((item, index) => (
                         <p
-                            className="text-26 md:text-40 lg:text-46 font-black group-hover hover:text-white hover:bg-black relative"
                             key={index}
-                            style={{ marginLeft: `${index * 5}rem` }}
-                            onMouseEnter={(event) => handleMouseEnter(item, event)}
+                            onMouseEnter={(e) => handleMouseEnter(item, e)}
                             onMouseLeave={handleMouseLeave}
                             onMouseMove={hoveredImage ? handleMouseMove : undefined}
+                            className="text-26 md:text-40 lg:text-46 font-black hover:text-white hover:bg-black relative"
+                            style={{ marginLeft: `${index * 5}rem` }}
                         >
                             - {item.nome_cosa}
                         </p>
                     ))}
+                </div>
             </div>
 
             <AnimatePresence>
                 {hoveredImage && (
                     <motion.div
-                        className="absolute z-10"
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.5 }}
-                        transition={{ duration: 0.2 }}
+                        className="absolute z-10 pointer-events-none"
+                        initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.8, y: -20 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
                         style={{
-                            left: mousePosition.x + 5,
-                            top: mousePosition.y - 230, // Modifica qui
+                            left: mousePosition.x + 10,
+                            top: mousePosition.y - 250,
                         }}
                     >
                         <Image
                             src={hoveredImage.url}
-                            alt="Immagine cosa piaciuta"
+                            alt="Immagine cosa non piaciuta"
                             width={400}
                             height={300}
-                            unoptimized
+                            style={{ pointerEvents: "none" }}
                         />
                     </motion.div>
                 )}
             </AnimatePresence>
         </div>
     );
+
 }

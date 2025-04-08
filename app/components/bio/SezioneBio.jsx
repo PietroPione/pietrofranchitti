@@ -19,8 +19,11 @@ export default function SezioneBio({ bioSlice, bio, fotofalsabuona, fotofalsacat
             {bioVeraText && (
                 <VeraBio bioVeraText={bioVeraText} fotoBioVera={fotoBioVera} />
             )}
-            {cosePiacciono && <CosePiacciono cosePiacciono={cosePiacciono} />}
-            {coseNonPiacciono && <CoseNonPiacciono coseNonPiacciono={coseNonPiacciono} />}
+            {cosePiacciono && coseNonPiacciono && (<div className="space-y-20 pb-20">
+
+                {cosePiacciono && <CosePiacciono cosePiacciono={cosePiacciono} />}
+                {coseNonPiacciono && <CoseNonPiacciono coseNonPiacciono={coseNonPiacciono} />}
+            </div>)}
         </>
     );
 }
