@@ -89,6 +89,31 @@
               }
             }
           }
+        },
+        "copy_vedere_altro": {
+          "type": "Text",
+          "config": {
+            "label": "Copy vedere altro",
+            "placeholder": ""
+          }
+        },
+        "testo_tasto_altro": {
+          "type": "Text",
+          "config": {
+            "label": "Testo tasto altro",
+            "placeholder": ""
+          }
+        },
+        "link_altro": {
+          "type": "Link",
+          "config": {
+            "label": "Link altro",
+            "placeholder": "",
+            "select": null,
+            "allowTargetBlank": true,
+            "allowText": true,
+            "repeat": false
+          }
         }
       },
       "items": {}

@@ -819,6 +819,42 @@ export interface PortfolioHomeSliceDefaultPrimary {
   progetti: prismic.GroupField<
     Simplify<PortfolioHomeSliceDefaultPrimaryProgettiItem>
   >;
+
+  /**
+   * Copy vedere altro field in *PortfolioHome → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.copy_vedere_altro
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copy_vedere_altro: prismic.KeyTextField;
+
+  /**
+   * Testo tasto altro field in *PortfolioHome → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.testo_tasto_altro
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_tasto_altro: prismic.KeyTextField;
+
+  /**
+   * Link altro field in *PortfolioHome → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_home.default.primary.link_altro
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link_altro: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
 }
 
 /**

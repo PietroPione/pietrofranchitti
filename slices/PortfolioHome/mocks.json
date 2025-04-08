@@ -98,8 +98,8 @@
 							[
 								"discover_more",
 								{
-									"__TYPE__": "LinkContent",
 									"key": "acd46d79-b3e4-4fdf-8e35-f9faaf14cd54",
+									"__TYPE__": "LinkContent",
 									"value": {
 										"__TYPE__": "ExternalLink",
 										"url": "http://twitter.com",
@@ -110,6 +110,25 @@
 						]
 					}
 				]
+			},
+			"copy_vedere_altro": {
+				"__TYPE__": "FieldContent",
+				"value": "lips",
+				"type": "Text"
+			},
+			"testo_tasto_altro": {
+				"__TYPE__": "FieldContent",
+				"value": "image",
+				"type": "Text"
+			},
+			"link_altro": {
+				"__TYPE__": "LinkContent",
+				"key": "437fc5c1-f0f9-4fc4-9f77-c819a288a3be",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://slicemachine.dev",
+					"text": "ruler"
+				}
 			}
 		},
 		"items": []

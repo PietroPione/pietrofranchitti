@@ -3,6 +3,7 @@
 
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import BasicButton from '../BasicButton';
 
 export default function PortfolioHome({ portfolioHome }) {
     const { primary } = portfolioHome;
@@ -35,26 +36,32 @@ export default function PortfolioHome({ portfolioHome }) {
     const fixedImageHeight = "100vh"; // Altezza fissa desiderata per il container dell'immagine (puoi modificarla)
 
     return (
-        <div className="h-screen  container relative">
+        <div className=" container ">
             <h2 className="text-60 font-bold py-8 bg-white z-10">{primary.titolo_portfolio}</h2>
             <p>{primary.copy_portfolio}</p>
             <div className="flex items-center h-[75vh]">
                 {/* Colonna sinistra (Listato progetti) */}
-                <div className="w-1/2 py-4">
-                    <ul className="space-y-4">
-                        {primary.progetti.map((progetto, index) => (
-                            <li key={index} onClick={() => handleProjectClick(progetto, index)} className="cursor-pointer">
-                                {/* Qui puoi aggiungere i dettagli di ogni progetto */}
-                                <h3
-                                    className={`text-32 font-semibold ${selectedIndex === index ? 'border-l border-b border-t pl-2' : ''}`}
-                                    style={{ backgroundColor: selectedIndex === index ? `#${selectedProject?.bg_color}` : 'transparent' }}
-                                >
-                                    {progetto.nome}
-                                </h3>
-                                {/* Altri dettagli del progetto */}
-                            </li>
-                        ))}
-                    </ul>
+                <div className="w-1/2 py-4 flex flex-col h-full">
+                    <div className="flex-grow w-full flex items-center justify-center"> {/* Contenitore per centrare la ul */}
+                        <ul className="space-y-4 text-center">
+                            {primary.progetti.map((progetto, index) => (
+                                <li key={index} onClick={() => handleProjectClick(progetto, index)} className="cursor-pointer">
+                                    {/* Qui puoi aggiungere i dettagli di ogni progetto */}
+                                    <h3
+                                        className={`text-32 font-semibold ${selectedIndex === index ? 'border pl-2' : ''}`}
+                                        style={{ backgroundColor: selectedIndex === index ? `#${selectedProject?.bg_color}` : 'transparent' }}
+                                    >
+                                        {progetto.nome}
+                                    </h3>
+                                    {/* Altri dettagli del progetto */}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className='space-y-4 text-22 flex flex-col items-center'>
+                        <div>{primary.copy_vedere_altro}</div>
+                        <BasicButton testo={primary?.testo_tasto_altro} link={primary?.link_altro.url} />
+                    </div>
                 </div>
 
                 {/* Colonna destra (Anteprima portfolio) */}
