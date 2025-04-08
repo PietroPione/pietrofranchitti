@@ -60,7 +60,7 @@ export default function PortfolioHome({ portfolioHome }) {
                     </div>
                     <div className='space-y-4 text-22 flex flex-col items-center'>
                         <div>{primary.copy_vedere_altro}</div>
-                        <BasicButton testo={primary?.testo_tasto_altro} link={primary?.link_altro.url} />
+                        <BasicButton testo={primary?.testo_tasto_altro} link={primary?.link_altro.url} scaleHover />
                     </div>
                 </div>
 
