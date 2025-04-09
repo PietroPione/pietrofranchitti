@@ -1,12 +1,11 @@
 import { createClient } from "@/prismicio";
 import "./globals.css";
 import StarWarsHero from "./components/heroHome/StarWarsHero";
-import SezioneBio from "./components/bio/SezioneBio"; // Importa SezioneBio
+import SezioneBio from "./components/bio/SezioneBio";
 import WorkSchool from "./components/bio/WorkSchool";
 import PortfolioHome from "./components/bio/PortfolioHome";
 import ContattiHome from "./components/ContattiHome";
-import Menu from "./components/Menu";
-
+import Menu from "./components/Menu"; // Importa il componente client Menu
 
 export default async function Page() {
   const client = createClient();
@@ -50,32 +49,25 @@ export default async function Page() {
     (slice) => slice.slice_type === "contatti_h"
   );
 
-  const menu = menuResponse?.results[0]?.data?.slices?.find(
+  const menuData = menuResponse?.results[0]?.data?.slices?.find(
     (slice) => slice.slice_type === "link_menu"
   );
 
-  const bio = bioSlice?.primary?.bio;
-  const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
-  const fotofalsacattiva = bioSlice?.primary?.fotofalsacattiva;
-  const testoHonest = barraHonest?.primary?.testohonest;
-  const bioVeraText = bioVera?.primary?.bio;
-  const fotoBioVera = bioVera?.primary?.foto_buona;
-
   return (
     <div className="relative space-y-20">
-      <Menu menu={menu} />
+
+
 
       <StarWarsHero />
-
-
+      <Menu menu={menuData} /> {/* Rende il componente client Menu */}
       <SezioneBio
         bioSlice={bioSlice}
-        bio={bio}
-        fotofalsabuona={fotofalsabuona}
-        fotofalsacattiva={fotofalsacattiva}
-        testoHonest={testoHonest}
-        bioVeraText={bioVeraText}
-        fotoBioVera={fotoBioVera}
+        bio={bioSlice?.primary?.bio}
+        fotofalsabuona={bioSlice?.primary?.fotofalsabuona}
+        fotofalsacattiva={bioSlice?.primary?.fotofalsacattiva}
+        testoHonest={barraHonest?.primary?.testohonest}
+        bioVeraText={bioVera?.primary?.bio}
+        fotoBioVera={bioVera?.primary?.foto_buona}
         cosePiacciono={cosePiacciono}
         coseNonPiacciono={coseNonPiacciono}
         id="who"
