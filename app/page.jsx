@@ -4,6 +4,7 @@ import StarWarsHero from "./components/heroHome/StarWarsHero";
 import SezioneBio from "./components/bio/SezioneBio"; // Importa SezioneBio
 import WorkSchool from "./components/bio/WorkSchool";
 import PortfolioHome from "./components/bio/PortfolioHome";
+import ContattiHome from "./components/ContattiHome";
 
 
 export default async function Page() {
@@ -43,6 +44,10 @@ export default async function Page() {
     (slice) => slice.slice_type === "portfolio_home"
   );
 
+  const contattiHome = homepageResponse?.data?.slices?.find(
+    (slice) => slice.slice_type === "contatti_h"
+  );
+
 
   const bio = bioSlice?.primary?.bio;
   const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
@@ -73,8 +78,9 @@ export default async function Page() {
       <WorkSchool workSchool={workSchool} />
 
       <PortfolioHome portfolioHome={portfolioHome} />
+      <ContattiHome contattiHome={contattiHome} />
 
-      <div className="h-screen"></div>
+      {contattiHome?.primary?.info_sito && <p className="container text-10 text-gray-500 pb-4">{contattiHome?.primary?.info_sito}</p>}
     </div>
   );
 }

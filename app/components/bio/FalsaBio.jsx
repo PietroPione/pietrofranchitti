@@ -36,7 +36,7 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
     });
 
     return (
-        <div ref={ref} className="h-[250vh] container">
+        <div ref={ref} className="h-[200vh] container">
             <div className="flex sticky top-0 h-screen">
                 {/* Parte sinistra: Bio */}
                 <div className="w-1/2 p-8 flex items-center justify-center">

@@ -44,6 +44,7 @@ export type BiofalsaDocument<Lang extends string = string> =
   >;
 
 type HomepageDocumentDataSlicesSlice =
+  | ContattiHSlice
   | PortfolioHomeSlice
   | WorkSchoolSlice
   | HeroHomeSlice;
@@ -435,6 +436,167 @@ type BioVeraSliceVariation = BioVeraSliceDefault;
 export type BioVeraSlice = prismic.SharedSlice<
   "bio_vera",
   BioVeraSliceVariation
+>;
+
+/**
+ * Primary content in *Contatti → Default → Primary*
+ */
+export interface ContattiHSliceDefaultPrimary {
+  /**
+   * Titolo contatti field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.titolo_contatti
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo_contatti: prismic.KeyTextField;
+
+  /**
+   * Copy contatti field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.copy_contatti
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copy_contatti: prismic.KeyTextField;
+
+  /**
+   * Titolo mail field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.titolo_mail
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo_mail: prismic.KeyTextField;
+
+  /**
+   * Mail field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.mail
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  mail: prismic.KeyTextField;
+
+  /**
+   * Link mail field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.link_mail
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link_mail: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Titolo luogo field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.titolo_luogo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo_luogo: prismic.KeyTextField;
+
+  /**
+   * Testo luogo field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.testo_luogo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_luogo: prismic.KeyTextField;
+
+  /**
+   * Quote contatti field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.quote_contatti
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  quote_contatti: prismic.KeyTextField;
+
+  /**
+   * Autore quote field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.autore_quote
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  autore_quote: prismic.KeyTextField;
+
+  /**
+   * Immagine contatti field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.immagine_contatti
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  immagine_contatti: prismic.ImageField<never>;
+
+  /**
+   * Info sito field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.info_sito
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  info_sito: prismic.KeyTextField;
+
+  /**
+   * Testo tasto scopri field in *Contatti → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: contatti_h.default.primary.testo_tasto_scopri
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_tasto_scopri: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for Contatti Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ContattiHSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<ContattiHSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Contatti*
+ */
+type ContattiHSliceVariation = ContattiHSliceDefault;
+
+/**
+ * Contatti Shared Slice
+ *
+ * - **API ID**: `contatti_h`
+ * - **Description**: ContattiH
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type ContattiHSlice = prismic.SharedSlice<
+  "contatti_h",
+  ContattiHSliceVariation
 >;
 
 /**
@@ -1187,6 +1349,10 @@ declare module "@prismicio/client" {
       BioVeraSliceDefaultPrimary,
       BioVeraSliceVariation,
       BioVeraSliceDefault,
+      ContattiHSlice,
+      ContattiHSliceDefaultPrimary,
+      ContattiHSliceVariation,
+      ContattiHSliceDefault,
       CoseNonPiaccionoSlice,
       CoseNonPiaccionoSliceDefaultPrimaryCosaItem,
       CoseNonPiaccionoSliceDefaultPrimary,

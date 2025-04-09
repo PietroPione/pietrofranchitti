@@ -82,6 +82,7 @@ export default function CoseNonPiacciono({ coseNonPiacciono }) {
                             width={400}
                             height={300}
                             style={{ pointerEvents: "none" }}
+                            unoptimized
                         />
                     </motion.div>
                 )}
