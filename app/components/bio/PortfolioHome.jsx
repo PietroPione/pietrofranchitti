@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import BasicButton from '../BasicButton';
 
-export default function PortfolioHome({ portfolioHome }) {
+export default function PortfolioHome({ portfolioHome, id }) {
     const { primary } = portfolioHome;
     const [selectedProject, setSelectedProject] = useState(primary.progetti[0]);
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -36,11 +36,11 @@ export default function PortfolioHome({ portfolioHome }) {
     const fixedImageHeight = "100vh"; // Altezza fissa desiderata per il container dell'immagine (puoi modificarla)
 
     return (
-        <div className=" container space-y-20">
+        <div id={id} className=" container space-y-20 -scroll-mt-10 ">
             <div className='space-y-4'>
 
-                <h2 className="text-60 font-bold leading-0 py-8 bg-white z-10">{primary.titolo_portfolio}</h2>
-                <p>{primary.copy_portfolio}</p>
+                <h2 className="text-60 font-bold md:leading-0 leading-normal py-8 bg-white z-10">{primary.titolo_portfolio}</h2>
+                <p >{primary.copy_portfolio}</p>
             </div>
             <div className="flex items-center h-[75vh]">
                 {/* Colonna sinistra (Listato progetti) */}

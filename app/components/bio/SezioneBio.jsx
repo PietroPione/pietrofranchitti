@@ -7,9 +7,9 @@ import VeraBio from "./VeraBio";
 import CosePiacciono from "./CosePiacciono";
 import CoseNonPiacciono from "./CoseNonPiacciono";
 
-export default function SezioneBio({ bioSlice, bio, fotofalsabuona, fotofalsacattiva, testoHonest, bioVeraText, fotoBioVera, cosePiacciono, coseNonPiacciono }) {
+export default function SezioneBio({ bioSlice, bio, fotofalsabuona, fotofalsacattiva, testoHonest, bioVeraText, fotoBioVera, cosePiacciono, coseNonPiacciono, id }) {
     return (
-        <>
+        <div id={id} className="-scroll-mt-10">
             {bioSlice && bio && fotofalsabuona && (
                 <FalsaBio bio={bio} fotofalsabuona={fotofalsabuona} fotofalsacattiva={fotofalsacattiva} />
             )}
@@ -24,6 +24,6 @@ export default function SezioneBio({ bioSlice, bio, fotofalsabuona, fotofalsacat
                 {cosePiacciono && <CosePiacciono cosePiacciono={cosePiacciono} />}
                 {coseNonPiacciono && <CoseNonPiacciono coseNonPiacciono={coseNonPiacciono} />}
             </div>)}
-        </>
+        </div>
     );
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
-export default function ContattiHome({ contattiHome }) {
+export default function ContattiHome({ contattiHome, id }) {
     const { primary } = contattiHome;
     const [showContent, setShowContent] = useState(false);
     const [clipPathActive, setClipPathActive] = useState(true);
@@ -33,7 +33,7 @@ export default function ContattiHome({ contattiHome }) {
 
 
     return (
-        <div className="min-h-screen relative overflow-hidden">
+        <div className="min-h-screen relative overflow-hidden  ">
             {clipPathActive && (
                 <div
                     ref={revealRef}
@@ -51,7 +51,7 @@ export default function ContattiHome({ contattiHome }) {
                 </div>
             )}
 
-            <div className={`relative z-10 ${showContent ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}>
+            <div id={id} className={`relative z-10 -scroll-mt-20 ${showContent ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}>
                 <div className="container py-16 flex flex-col gap-y-20 h-full">
                     <div className="max-w-[50vw] space-y-4">
 

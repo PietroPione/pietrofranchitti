@@ -41,7 +41,7 @@ export default async function Page() {
                 </div>
 
             </div>)}
-            {testoLista && elencoLista && (<ListaRandom testoLista={testoLista} elencoLista={elencoLista} />)}
+            {/* {testoLista && elencoLista && (<ListaRandom testoLista={testoLista} elencoLista={elencoLista} />)} */}
 
         </div>
     );

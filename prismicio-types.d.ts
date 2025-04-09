@@ -146,10 +146,41 @@ export type ImpostazioniDocument<Lang extends string = string> =
     Lang
   >;
 
+type MenuDocumentDataSlicesSlice = LinkMenuSlice;
+
+/**
+ * Content for Menu documents
+ */
+interface MenuDocumentData {
+  /**
+   * Slice Zone field in *Menu*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: menu.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<MenuDocumentDataSlicesSlice>;
+}
+
+/**
+ * Menu document from Prismic
+ *
+ * - **API ID**: `menu`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type MenuDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<MenuDocumentData>, "menu", Lang>;
+
 export type AllDocumentTypes =
   | BiofalsaDocument
   | HomepageDocument
-  | ImpostazioniDocument;
+  | ImpostazioniDocument
+  | MenuDocument;
 
 /**
  * Primary content in *BarraHonest → Default → Primary*
@@ -874,6 +905,76 @@ export type HeroHomeSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *LinkMenu → Default → Primary → Link*
+ */
+export interface LinkMenuSliceDefaultPrimaryLinkItem {
+  /**
+   * Testo link field in *LinkMenu → Default → Primary → Link*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: link_menu.default.primary.link[].testo_link
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_link: prismic.KeyTextField;
+
+  /**
+   * Link field in *LinkMenu → Default → Primary → Link*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: link_menu.default.primary.link[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+/**
+ * Primary content in *LinkMenu → Default → Primary*
+ */
+export interface LinkMenuSliceDefaultPrimary {
+  /**
+   * Link field in *LinkMenu → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: link_menu.default.primary.link[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  link: prismic.GroupField<Simplify<LinkMenuSliceDefaultPrimaryLinkItem>>;
+}
+
+/**
+ * Default variation for LinkMenu Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type LinkMenuSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<LinkMenuSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *LinkMenu*
+ */
+type LinkMenuSliceVariation = LinkMenuSliceDefault;
+
+/**
+ * LinkMenu Shared Slice
+ *
+ * - **API ID**: `link_menu`
+ * - **Description**: LinkMenu
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type LinkMenuSlice = prismic.SharedSlice<
+  "link_menu",
+  LinkMenuSliceVariation
+>;
+
+/**
  * Item in *PortfolioHome → Default → Primary → Progetti*
  */
 export interface PortfolioHomeSliceDefaultPrimaryProgettiItem {
@@ -1334,6 +1435,9 @@ declare module "@prismicio/client" {
       ImpostazioniDocument,
       ImpostazioniDocumentData,
       ImpostazioniDocumentDataSlicesSlice,
+      MenuDocument,
+      MenuDocumentData,
+      MenuDocumentDataSlicesSlice,
       AllDocumentTypes,
       BarraHonestSlice,
       BarraHonestSliceDefaultPrimary,
@@ -1368,6 +1472,11 @@ declare module "@prismicio/client" {
       HeroHomeSliceDefaultPrimary,
       HeroHomeSliceVariation,
       HeroHomeSliceDefault,
+      LinkMenuSlice,
+      LinkMenuSliceDefaultPrimaryLinkItem,
+      LinkMenuSliceDefaultPrimary,
+      LinkMenuSliceVariation,
+      LinkMenuSliceDefault,
       PortfolioHomeSlice,
       PortfolioHomeSliceDefaultPrimaryProgettiItem,
       PortfolioHomeSliceDefaultPrimary,

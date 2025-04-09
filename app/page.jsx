@@ -5,12 +5,14 @@ import SezioneBio from "./components/bio/SezioneBio"; // Importa SezioneBio
 import WorkSchool from "./components/bio/WorkSchool";
 import PortfolioHome from "./components/bio/PortfolioHome";
 import ContattiHome from "./components/ContattiHome";
+import Menu from "./components/Menu";
 
 
 export default async function Page() {
   const client = createClient();
   const homepageResponse = await client.getSingle("homepage");
   const biofalsaResponse = await client.getByType("biofalsa");
+  const menuResponse = await client.getByType("menu");
 
   const heroHomeSlice = homepageResponse?.data?.slices?.find(
     (slice) => slice.slice_type === "hero_home"
@@ -48,6 +50,9 @@ export default async function Page() {
     (slice) => slice.slice_type === "contatti_h"
   );
 
+  const menu = menuResponse?.results[0]?.data?.slices?.find(
+    (slice) => slice.slice_type === "link_menu"
+  );
 
   const bio = bioSlice?.primary?.bio;
   const fotofalsabuona = bioSlice?.primary?.fotofalsabuona;
@@ -56,9 +61,9 @@ export default async function Page() {
   const bioVeraText = bioVera?.primary?.bio;
   const fotoBioVera = bioVera?.primary?.foto_buona;
 
-
   return (
     <div className="relative space-y-20">
+      <Menu menu={menu} />
 
       <StarWarsHero />
 
@@ -73,12 +78,13 @@ export default async function Page() {
         fotoBioVera={fotoBioVera}
         cosePiacciono={cosePiacciono}
         coseNonPiacciono={coseNonPiacciono}
+        id="who"
       />
 
-      <WorkSchool workSchool={workSchool} />
+      <WorkSchool workSchool={workSchool} id="cv" />
 
-      <PortfolioHome portfolioHome={portfolioHome} />
-      <ContattiHome contattiHome={contattiHome} />
+      <PortfolioHome portfolioHome={portfolioHome} id="portfolio" />
+      <ContattiHome contattiHome={contattiHome} id="contatti" />
 
       {contattiHome?.primary?.info_sito && <p className="container text-10 text-gray-500 pb-4">{contattiHome?.primary?.info_sito}</p>}
     </div>
