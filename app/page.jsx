@@ -5,13 +5,13 @@ import SezioneBio from "./components/bio/SezioneBio";
 import WorkSchool from "./components/bio/WorkSchool";
 import PortfolioHome from "./components/bio/PortfolioHome";
 import ContattiHome from "./components/ContattiHome";
-import Menu from "./components/Menu"; // Importa il componente client Menu
 
 export default async function Page() {
   const client = createClient();
   const homepageResponse = await client.getSingle("homepage");
   const biofalsaResponse = await client.getByType("biofalsa");
   const menuResponse = await client.getByType("menu");
+  const portfolioPagesResponse = await client.getAllByType("portfolio"); // Fetch delle pagine portfolio
 
   const heroHomeSlice = homepageResponse?.data?.slices?.find(
     (slice) => slice.slice_type === "hero_home"
@@ -53,13 +53,11 @@ export default async function Page() {
     (slice) => slice.slice_type === "link_menu"
   );
 
+  // Passa i dati delle pagine portfolio al componente PortfolioHome
   return (
     <div className="relative space-y-20">
-
-
-
       <StarWarsHero />
-      <Menu menu={menuData} /> {/* Rende il componente client Menu */}
+      {/* <Menu menu={menuData} /> */}
       <SezioneBio
         bioSlice={bioSlice}
         bio={bioSlice?.primary?.bio}
@@ -75,7 +73,7 @@ export default async function Page() {
 
       <WorkSchool workSchool={workSchool} id="cv" />
 
-      <PortfolioHome portfolioHome={portfolioHome} id="portfolio" />
+      <PortfolioHome portfolioHome={portfolioHome} portfolioPages={portfolioPagesResponse.results} id="portfolio" />
       <ContattiHome contattiHome={contattiHome} id="contatti" />
 
       {contattiHome?.primary?.info_sito && <p className="container text-10 text-gray-500 pb-4">{contattiHome?.primary?.info_sito}</p>}

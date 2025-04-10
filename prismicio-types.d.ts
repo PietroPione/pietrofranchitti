@@ -241,12 +241,78 @@ export type PortfolioDocument<Lang extends string = string> =
     Lang
   >;
 
+type PortfoliopageDocumentDataSlicesSlice = PortfolioInfoSlice;
+
+/**
+ * Content for PortfolioPage documents
+ */
+interface PortfoliopageDocumentData {
+  /**
+   * Slice Zone field in *PortfolioPage*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfoliopage.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PortfoliopageDocumentDataSlicesSlice> /**
+   * Meta Title field in *PortfolioPage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: portfoliopage.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *PortfolioPage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: portfoliopage.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *PortfolioPage*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfoliopage.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * PortfolioPage document from Prismic
+ *
+ * - **API ID**: `portfoliopage`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PortfoliopageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<PortfoliopageDocumentData>,
+    "portfoliopage",
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | BiofalsaDocument
   | HomepageDocument
   | ImpostazioniDocument
   | MenuDocument
-  | PortfolioDocument;
+  | PortfolioDocument
+  | PortfoliopageDocument;
 
 /**
  * Primary content in *BarraHonest → Default → Primary*
@@ -1440,6 +1506,61 @@ export type PortfolioHomeSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *PortfolioInfo → Default → Primary*
+ */
+export interface PortfolioInfoSliceDefaultPrimary {
+  /**
+   * Titolo field in *PortfolioInfo → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_info.default.primary.titolo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo: prismic.KeyTextField;
+
+  /**
+   * Copy field in *PortfolioInfo → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio_info.default.primary.copy
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copy: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for PortfolioInfo Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PortfolioInfoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<PortfolioInfoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *PortfolioInfo*
+ */
+type PortfolioInfoSliceVariation = PortfolioInfoSliceDefault;
+
+/**
+ * PortfolioInfo Shared Slice
+ *
+ * - **API ID**: `portfolio_info`
+ * - **Description**: PortfolioInfo
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type PortfolioInfoSlice = prismic.SharedSlice<
+  "portfolio_info",
+  PortfolioInfoSliceVariation
+>;
+
+/**
  * Item in *WorkSchool → Default → Primary → Works*
  */
 export interface WorkSchoolSliceDefaultPrimaryWorksItem {
@@ -1730,6 +1851,9 @@ declare module "@prismicio/client" {
       PortfolioDocument,
       PortfolioDocumentData,
       PortfolioDocumentDataSlicesSlice,
+      PortfoliopageDocument,
+      PortfoliopageDocumentData,
+      PortfoliopageDocumentDataSlicesSlice,
       AllDocumentTypes,
       BarraHonestSlice,
       BarraHonestSliceDefaultPrimary,
@@ -1784,6 +1908,10 @@ declare module "@prismicio/client" {
       PortfolioHomeSliceDefaultPrimary,
       PortfolioHomeSliceVariation,
       PortfolioHomeSliceDefault,
+      PortfolioInfoSlice,
+      PortfolioInfoSliceDefaultPrimary,
+      PortfolioInfoSliceVariation,
+      PortfolioInfoSliceDefault,
       WorkSchoolSlice,
       WorkSchoolSliceDefaultPrimaryWorksItem,
       WorkSchoolSliceDefaultPrimaryStudiesItem,

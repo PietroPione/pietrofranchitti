@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef, forwardRef } from "react";
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+
 
 const Menu = forwardRef(({ menu }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +15,9 @@ const Menu = forwardRef(({ menu }, ref) => {
     const navRef = useRef(null);
     const nodeRef = useRef(null); // Ref per il container del menu
     const toggleContainerRef = useRef(null); // Ref per il container del bottone toggle
+    const pathname = usePathname();
+    const isHome = pathname === '/';
+
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -20,21 +25,24 @@ const Menu = forwardRef(({ menu }, ref) => {
 
     // Gestisce sia la visualizzazione del toggle che lo sticky menu
     useEffect(() => {
+        if (!isHome) {
+            setShowToggle(true); // Mostra sempre il toggle nelle pagine diverse dalla home
+            return;
+        }
+
         let timeoutId;
 
         const handleScroll = () => {
             if (window.scrollY > window.innerHeight) {
                 setShowToggle(true);
             } else {
-                // Ritarda la disattivazione per evitare "flickering" su mobile
                 clearTimeout(timeoutId);
                 timeoutId = setTimeout(() => {
                     setShowToggle(false);
-                    setIsOpen(false); // chiude il menu se torni su
-                }, 100); // Regola il ritardo (in millisecondi) se necessario
+                    setIsOpen(false);
+                }, 100);
             }
 
-            // Sticky menu
             const navElement = navRef.current;
             if (navElement) {
                 const offsetTop = navElement.offsetTop;
@@ -50,7 +58,8 @@ const Menu = forwardRef(({ menu }, ref) => {
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [isSticky]);
+    }, [isSticky, isHome]);
+
 
     // Chiude il menu cliccando fuori
     useEffect(() => {
@@ -72,9 +81,9 @@ const Menu = forwardRef(({ menu }, ref) => {
     };
 
     const linkVariants = {
-        initial: { x: 20, opacity: 0 }, // Partono da destra
+        initial: { x: 20, opacity: 0 },
         animate: { x: 0, opacity: 1 },
-        exit: { x: 20, opacity: 0 }, // Escono a destra
+        exit: { opacity: 0 }, // Solo fade out
     };
 
     return (
@@ -89,7 +98,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                     >
                         <div className="w-8 h-8 flex items-center justify-center ">
                             {isOpen ? (
-                                <X className="w-6 h-6 transition duration-200 hover:scale-110 hover:rotate-45" />
+                                <X className="w-6 h-6 transition duration-200 hover:scale-110 " />
                             ) : (
                                 <div className="border px-2 py-1 text-sm transition duration-200 hover:scale-110">menu</div>
                             )}
@@ -108,7 +117,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                         initial="closed"
                         animate="open"
                         exit="closed"
-                        transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                        transition={{ duration: 0.2 }}
                     >
                         <div className="container py-6 flex justify-end">
                             <ul className="flex flex-col md:flex-row items-end md:space-x-4">
@@ -135,6 +144,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                     </motion.nav>
                 )}
             </AnimatePresence>
+
 
             {/* Div invisibile per mantenere lo spazio quando il menu diventa sticky */}
             {isSticky && (
