@@ -176,11 +176,77 @@ interface MenuDocumentData {
 export type MenuDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<MenuDocumentData>, "menu", Lang>;
 
+type PortfolioDocumentDataSlicesSlice = GallerySlice | InformazioniSlice;
+
+/**
+ * Content for Portfolio documents
+ */
+interface PortfolioDocumentData {
+  /**
+   * Slice Zone field in *Portfolio*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PortfolioDocumentDataSlicesSlice> /**
+   * Meta Title field in *Portfolio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: portfolio.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Portfolio*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: portfolio.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Portfolio*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Portfolio document from Prismic
+ *
+ * - **API ID**: `portfolio`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PortfolioDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<PortfolioDocumentData>,
+    "portfolio",
+    Lang
+  >;
+
 export type AllDocumentTypes =
   | BiofalsaDocument
   | HomepageDocument
   | ImpostazioniDocument
-  | MenuDocument;
+  | MenuDocument
+  | PortfolioDocument;
 
 /**
  * Primary content in *BarraHonest → Default → Primary*
@@ -793,6 +859,115 @@ export type CosePiaccionoSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Item in *Gallery → Default → Primary → Screen desktop*
+ */
+export interface GallerySliceDefaultPrimaryScreenDesktopItem {
+  /**
+   * Screen field in *Gallery → Default → Primary → Screen desktop*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gallery.default.primary.screen_desktop[].screen
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  screen: prismic.ImageField<never>;
+
+  /**
+   * Spiega field in *Gallery → Default → Primary → Screen desktop*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gallery.default.primary.screen_desktop[].spiega
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  spiega: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Gallery → Default → Primary → Screen mobile*
+ */
+export interface GallerySliceDefaultPrimaryScreenMobileItem {
+  /**
+   * Screen field in *Gallery → Default → Primary → Screen mobile*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gallery.default.primary.screen_mobile[].screen
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  screen: prismic.ImageField<never>;
+
+  /**
+   * Spiega field in *Gallery → Default → Primary → Screen mobile*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gallery.default.primary.screen_mobile[].spiega
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  spiega: prismic.KeyTextField;
+}
+
+/**
+ * Primary content in *Gallery → Default → Primary*
+ */
+export interface GallerySliceDefaultPrimary {
+  /**
+   * Screen desktop field in *Gallery → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gallery.default.primary.screen_desktop[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  screen_desktop: prismic.GroupField<
+    Simplify<GallerySliceDefaultPrimaryScreenDesktopItem>
+  >;
+
+  /**
+   * Screen mobile field in *Gallery → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gallery.default.primary.screen_mobile[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  screen_mobile: prismic.GroupField<
+    Simplify<GallerySliceDefaultPrimaryScreenMobileItem>
+  >;
+}
+
+/**
+ * Default variation for Gallery Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type GallerySliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<GallerySliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Gallery*
+ */
+type GallerySliceVariation = GallerySliceDefault;
+
+/**
+ * Gallery Shared Slice
+ *
+ * - **API ID**: `gallery`
+ * - **Description**: Gallery
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type GallerySlice = prismic.SharedSlice<
+  "gallery",
+  GallerySliceVariation
+>;
+
+/**
  * Item in *HeroHome → Default → Primary → Elenco lista*
  */
 export interface HeroHomeSliceDefaultPrimaryElencoListaItem {
@@ -902,6 +1077,120 @@ type HeroHomeSliceVariation = HeroHomeSliceDefault;
 export type HeroHomeSlice = prismic.SharedSlice<
   "hero_home",
   HeroHomeSliceVariation
+>;
+
+/**
+ * Primary content in *Informazioni → Default → Primary*
+ */
+export interface InformazioniSliceDefaultPrimary {
+  /**
+   * Titolo field in *Informazioni → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: informazioni.default.primary.titolo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo: prismic.KeyTextField;
+
+  /**
+   * Made with field in *Informazioni → Default → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: informazioni.default.primary.made_with
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  made_with: prismic.SelectField<
+    "Wordpress" | "Elementor" | "React" | "Vue" | "Shopify"
+  >;
+
+  /**
+   * Testo tasto field in *Informazioni → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: informazioni.default.primary.testo_tasto
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_tasto: prismic.KeyTextField;
+
+  /**
+   * Link progetto field in *Informazioni → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: informazioni.default.primary.link_progetto
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link_progetto: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Visibile field in *Informazioni → Default → Primary*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: informazioni.default.primary.visibile
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  visibile: prismic.BooleanField;
+
+  /**
+   * Messaggio non visibile field in *Informazioni → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: informazioni.default.primary.messaggio_non_visibile
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  messaggio_non_visibile: prismic.KeyTextField;
+
+  /**
+   * Descrizione progetto field in *Informazioni → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: informazioni.default.primary.descrizione_progetto
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  descrizione_progetto: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for Informazioni Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type InformazioniSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<InformazioniSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Informazioni*
+ */
+type InformazioniSliceVariation = InformazioniSliceDefault;
+
+/**
+ * Informazioni Shared Slice
+ *
+ * - **API ID**: `informazioni`
+ * - **Description**: Informazioni
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type InformazioniSlice = prismic.SharedSlice<
+  "informazioni",
+  InformazioniSliceVariation
 >;
 
 /**
@@ -1438,6 +1727,9 @@ declare module "@prismicio/client" {
       MenuDocument,
       MenuDocumentData,
       MenuDocumentDataSlicesSlice,
+      PortfolioDocument,
+      PortfolioDocumentData,
+      PortfolioDocumentDataSlicesSlice,
       AllDocumentTypes,
       BarraHonestSlice,
       BarraHonestSliceDefaultPrimary,
@@ -1467,11 +1759,21 @@ declare module "@prismicio/client" {
       CosePiaccionoSliceDefaultPrimary,
       CosePiaccionoSliceVariation,
       CosePiaccionoSliceDefault,
+      GallerySlice,
+      GallerySliceDefaultPrimaryScreenDesktopItem,
+      GallerySliceDefaultPrimaryScreenMobileItem,
+      GallerySliceDefaultPrimary,
+      GallerySliceVariation,
+      GallerySliceDefault,
       HeroHomeSlice,
       HeroHomeSliceDefaultPrimaryElencoListaItem,
       HeroHomeSliceDefaultPrimary,
       HeroHomeSliceVariation,
       HeroHomeSliceDefault,
+      InformazioniSlice,
+      InformazioniSliceDefaultPrimary,
+      InformazioniSliceVariation,
+      InformazioniSliceDefault,
       LinkMenuSlice,
       LinkMenuSliceDefaultPrimaryLinkItem,
       LinkMenuSliceDefaultPrimary,
