@@ -42,7 +42,7 @@ export default async function PortfolioPage({ params }) {
 
     return (
         <div className="container">
-            <div className="flex flex-wrap gap-x-6 gap-y-20 md:gap-y-6">
+            <div className="flex flex-wrap gap-x-6 gap-y-10 md:gap-y-6">
                 {/* 1. screen_desktop[0] */}
                 <div className="w-full md:w-[calc(50%-1.5rem)]  overflow-hidden">
                     {screenDesktop[0] && <PortfolioDesktopCard index={0} screenDesktop={screenDesktop} />}
@@ -54,13 +54,13 @@ export default async function PortfolioPage({ params }) {
                 </div>
 
                 {/* 3. infoSlice */}
-                <div className="w-full md:w-[calc(50%-1.5rem)]  space-y-10 flex flex-col justify-center">
-                    <div className="space-y-10 flex flex-col">
-                        <div className="space-y-10 grid grid-cols-[max-content] gap-y-2">
+                <div className="w-full md:w-[calc(50%-1.5rem)]  space-y-4 md:space-y-10 flex flex-col justify-center">
+                    <div className="space-y-4 md:space-y-10 flex flex-col">
+                        <div className="space-y-4 md:space-y-10 grid grid-cols-[max-content] gap-y-2">
                             {infoSlice?.made_with && (
                                 <div className="px-4 py-2 border font-medium">{infoSlice?.made_with}</div>
                             )}
-                            {infoSlice?.titolo && <h2 className="text-60 leading-14 font-semibold">{infoSlice.titolo}</h2>}
+                            {infoSlice?.titolo && <h2 className=" text-36 md:text-46 lg:text-60 leading-14 font-semibold">{infoSlice.titolo}</h2>}
                         </div>
                         {infoSlice?.descrizione_progetto && <p>{infoSlice.descrizione_progetto}</p>}
                         <div className="mt-4">

@@ -4,8 +4,7 @@ import React, { useState, useEffect, useRef, forwardRef } from "react";
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePathname } from 'next/navigation';
-
+import { usePathname, useRouter } from 'next/navigation';
 
 const Menu = forwardRef(({ menu }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,62 +12,65 @@ const Menu = forwardRef(({ menu }, ref) => {
     const [isSticky, setIsSticky] = useState(false);
     const [menuHeight, setMenuHeight] = useState(0);
     const navRef = useRef(null);
-    const nodeRef = useRef(null); // Ref per il container del menu
-    const toggleContainerRef = useRef(null); // Ref per il container del bottone toggle
+    const nodeRef = useRef(null);
     const pathname = usePathname();
+    const router = useRouter();
     const isHome = pathname === '/';
-
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
-    // Gestisce sia la visualizzazione del toggle che lo sticky menu
     useEffect(() => {
-        if (!isHome) {
-            setShowToggle(true); // Mostra sempre il toggle nelle pagine diverse dalla home
-            return;
+        if (pathname !== '/') {
+            setShowToggle(true); // Mostra sempre i bottoni su pagine diverse dalla home
+        } else {
+            // Su homepage, imposta lo stato iniziale in base allo scroll
+            setShowToggle(window.scrollY > window.innerHeight);
+
+            // E poi gestisci gli aggiornamenti con lo scroll
+            const handleScroll = () => {
+                setShowToggle(window.scrollY > window.innerHeight);
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
         }
+    }, [pathname]);
 
-        let timeoutId;
+    useEffect(() => {
+        // Reset menu e sticky al cambio pagina
+        setIsOpen(false);
+        setIsSticky(false);
+    }, [pathname]);
 
-        const handleScroll = () => {
-            if (window.scrollY > window.innerHeight) {
-                setShowToggle(true);
-            } else {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
-                    setShowToggle(false);
-                    setIsOpen(false);
-                }, 100);
+    // Gestione dello scroll per il comportamento sticky
+    const handleScrollSticky = () => {
+        const navElement = navRef.current;
+        if (navElement) {
+            const offsetTop = navElement.offsetTop;
+            if (window.scrollY >= offsetTop && !isSticky) {
+                setIsSticky(true);
+                setMenuHeight(navElement.offsetHeight);
+            } else if (window.scrollY < offsetTop && isSticky) {
+                setIsSticky(false);
+                setMenuHeight(0);
             }
+        }
+    };
 
-            const navElement = navRef.current;
-            if (navElement) {
-                const offsetTop = navElement.offsetTop;
-                if (window.scrollY >= offsetTop && !isSticky) {
-                    setIsSticky(true);
-                    setMenuHeight(navElement.offsetHeight);
-                } else if (window.scrollY < offsetTop && isSticky) {
-                    setIsSticky(false);
-                    setMenuHeight(0);
-                }
-            }
-        };
+    useEffect(() => {
+        window.addEventListener("scroll", handleScrollSticky);
+        return () => window.removeEventListener("scroll", handleScrollSticky);
+    }, [isSticky]);
 
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [isSticky, isHome]);
-
-
-    // Chiude il menu cliccando fuori
+    // Chiudi il menu quando si clicca fuori
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (nodeRef.current && !nodeRef.current.contains(event.target) && isOpen) {
                 setIsOpen(false);
             }
         };
-
         document.addEventListener("mousedown", handleOutsideClick);
         return () => document.removeEventListener("mousedown", handleOutsideClick);
     }, [isOpen]);
@@ -77,35 +79,50 @@ const Menu = forwardRef(({ menu }, ref) => {
 
     const menuVariants = {
         open: { x: 0 },
-        closed: { x: "100%" }, // Il menu entra da destra
+        closed: { x: "100%" },
     };
 
     const linkVariants = {
         initial: { x: 20, opacity: 0 },
         animate: { x: 0, opacity: 1 },
-        exit: { opacity: 0 }, // Solo fade out
+        exit: { opacity: 0 },
     };
 
     return (
         <div ref={nodeRef} className="relative">
-            {/* Contenitore per il bottone apri/chiudi */}
-            <div ref={toggleContainerRef} className="fixed top-4 right-8 z-50">
-                {showToggle && (
-                    <button
-                        onClick={toggleMenu}
-                        className="p-2 transition flex items-center justify-center"
-                        aria-label={isOpen ? "Chiudi menu" : "Apri menu"}
-                    >
-                        <div className="w-8 h-8 flex items-center justify-center ">
-                            {isOpen ? (
-                                <X className="w-6 h-6 transition duration-200 hover:scale-110 " />
-                            ) : (
-                                <div className="border px-2 py-1 text-sm transition duration-200 hover:scale-110">menu</div>
-                            )}
-                        </div>
-                    </button>
-                )}
-            </div>
+            {/* Button per tornare alla homepage */}
+            {!isHome && showToggle && (
+                <button
+                    onClick={() => {
+                        setIsOpen(false);
+                        setTimeout(() => {
+                            router.replace("/");
+                        }, 100);
+                    }}
+                    className="fixed top-6 left-8 z-50 border px-2 py-1 bg-white hover:scale-110 transition text-sm"
+                >
+                    homepage
+                </button>
+            )}
+
+            {/* Toggle per aprire/chiudere il menu */}
+            {showToggle && (
+                <button
+                    onClick={toggleMenu}
+                    className="fixed top-4 right-8 z-50 p-2 transition flex items-center justify-center"
+                    aria-label={isOpen ? "Chiudi menu" : "Apri menu"}
+                >
+                    <div className="w-8 h-8 flex items-center justify-center">
+                        {isOpen ? (
+                            <X className="z-50 w-6 h-6 transition duration-200 hover:scale-110" />
+                        ) : (
+                            <div className="border px-2 py-1 text-16 bg-white transition duration-200 hover:scale-110">
+                                menu
+                            </div>
+                        )}
+                    </div>
+                </button>
+            )}
 
             {/* Menu visibile solo se aperto */}
             <AnimatePresence>
@@ -128,7 +145,11 @@ const Menu = forwardRef(({ menu }, ref) => {
                                         initial="initial"
                                         animate="animate"
                                         exit="exit"
-                                        transition={{ delay: index * 0.1, duration: 0.3, ease: "easeInOut" }}
+                                        transition={{
+                                            delay: index * 0.1,
+                                            duration: 0.3,
+                                            ease: "easeInOut",
+                                        }}
                                     >
                                         <Link
                                             href={item.link.url}
@@ -145,8 +166,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                 )}
             </AnimatePresence>
 
-
-            {/* Div invisibile per mantenere lo spazio quando il menu diventa sticky */}
+            {/* Spazio riservato per sticky menu */}
             {isSticky && (
                 <div style={{ height: `${menuHeight}px` }} aria-hidden="true" />
             )}
