@@ -11,7 +11,7 @@ export default function GeneralGallery({ images }) {
 
     const variants = {
         enter: (direction) => ({
-            x: direction === 'left' ? '-15%' : '15%',
+            x: direction === 'left' ? '-50%' : '50%',
             opacity: 0,
             zIndex: 0,
         }),
@@ -21,7 +21,7 @@ export default function GeneralGallery({ images }) {
             zIndex: 1,
         },
         exit: (direction) => ({
-            x: direction === 'left' ? '15%' : '-15%',
+            x: direction === 'left' ? '50%' : '-50%',
             opacity: 0,
             zIndex: 0,
         }),

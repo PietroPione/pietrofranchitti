@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
+import DarkModeToggle from "./DarkModeToggle";
 
 const Menu = forwardRef(({ menu }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -99,7 +100,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                             router.replace("/");
                         }, 100);
                     }}
-                    className="fixed top-6 left-8 z-50 border px-2 py-1 bg-white hover:scale-110 transition text-sm"
+                    className="fixed top-6 left-8 z-50 border dark:border-white px-2 py-1 bg-white dark:bg-dark-gray dark:text-white hover:scale-110 transition text-16"
                 >
                     homepage
                 </button>
@@ -114,9 +115,9 @@ const Menu = forwardRef(({ menu }, ref) => {
                 >
                     <div className="w-8 h-8 flex items-center justify-center">
                         {isOpen ? (
-                            <X className="z-50 w-6 h-6 transition duration-200 hover:scale-110" />
+                            <X className="z-50 w-6 h-6 transition duration-200 dark:text-white hover:scale-110" />
                         ) : (
-                            <div className="border px-2 py-1 text-16 bg-white transition duration-200 hover:scale-110">
+                            <div className="border px-2 py-1 text-16 bg-white dark:bg-dark-gray dark:text-white transition duration-200 hover:scale-110">
                                 menu
                             </div>
                         )}
@@ -129,7 +130,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                 {isOpen && (
                     <motion.nav
                         ref={navRef}
-                        className="fixed top-0 right-8 md:right-4 w-full bg-white z-40 transition-all duration-300"
+                        className="fixed top-0 right-8 md:right-4 w-full bg-white dark:bg-dark-gray dark:text-white z-40 transition-all duration-300"
                         variants={menuVariants}
                         initial="closed"
                         animate="open"
@@ -137,6 +138,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                         transition={{ duration: 0.2 }}
                     >
                         <div className="container py-6 flex justify-end">
+                            <DarkModeToggle />
                             <ul className="flex flex-col md:flex-row items-end md:space-x-4">
                                 {menu.primary.link.map((item, index) => (
                                     <motion.li

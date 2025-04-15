@@ -16,7 +16,7 @@ export default function PortfolioDesktopCard({ index, screenDesktop }) {
                     />
                 </div>
             )}
-            {text && <div className="mt-2">{text}</div>}
+            {text && <div className="mt-2 dark:text-white">{text}</div>}
         </div>
     );
 }

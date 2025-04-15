@@ -3,13 +3,25 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useTheme } from "@/app/components/ThemeProvider"; // Importa useTheme
 
 export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
-    const ref = useRef(null); // Riferimento alla sezione
+    const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+    const { isDarkMode } = useTheme(); // Ottieni lo stato della modalità scura
 
     const opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.75], [0, 0.75, 0.75]);
-    const backgroundColor = useTransform(scrollYProgress, [0.33, 0.42, 0.66], ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.75)", "rgba(0, 0, 0, 1)"]);
+
+    // Definisci l'intervallo di colori di sfondo in base alla modalità scura
+    const lightModeBackgroundColor = ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.75)", "rgba(0, 0, 0, 1)"];
+    const darkModeBackgroundColor = ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.75)", "rgba(255, 255, 255, 1)"];
+
+    // Usa un array di colori condizionale in base alla modalità scura
+    const backgroundColor = useTransform(
+        scrollYProgress,
+        [0.33, 0.42, 0.66],
+        isDarkMode ? darkModeBackgroundColor : lightModeBackgroundColor
+    );
 
     let formattedText = [];
     let currentLine = [];

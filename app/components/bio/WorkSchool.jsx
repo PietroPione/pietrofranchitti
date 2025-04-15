@@ -6,8 +6,8 @@ export default function WortkSchool({ workSchool, id }) {
     const { primary } = workSchool;
 
     return (
-        <div id={id} className="relative container -scroll-mt-20">
-            <h2 className="text-60 font-bold py-8 sticky top-0 bg-white z-10">{primary.title}</h2>
+        <div id={id} className="relative container -scroll-mt-20 text-black dark:text-white">
+            <h2 className="text-60 font-bold py-8 sticky top-0 z-10">{primary.title}</h2>
             <div className="flex flex-col md:flex-row gap-x-20">
                 {/* Colonna Lavoro */}
                 <div className="w-full md:w-1/3 p-4 md:sticky top-24 max-h-screen overflow-y-auto contain-paint">

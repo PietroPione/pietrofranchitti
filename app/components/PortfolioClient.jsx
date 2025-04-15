@@ -20,7 +20,7 @@ export default function PortfolioClient({ title, description, pages }) {
     const filtriDisponibili = ['tutti', 'Wordpress', 'Elementor', 'React', 'View', 'Shopify'];
 
     return (
-        <div className='container py-20 space-y-12'>
+        <div className='container py-20 space-y-12 dark:text-white'>
             <div className='space-y-2'>
                 <h1 className="text-60 font-bold">{title}</h1>
                 <div>{description}</div>
@@ -35,8 +35,9 @@ export default function PortfolioClient({ title, description, pages }) {
                         className={`
                         px-4 py-2 border font-medium transition
                         shadow-[1px_1px_0px_0px,2px_2px_0px_0px,3px_3px_0px_0px,4px_4px_0px_0px,5px_5px_0px_0px]
+                        
                         ${filtro === tipo
-                                ? 'bg-black text-white border-black'
+                                ? 'bg-white text-black border-black dark:shadow-none'
                                 : 'hover:scale-110 duration-200'}
                     `}
                     >

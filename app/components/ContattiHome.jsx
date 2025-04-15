@@ -33,7 +33,7 @@ export default function ContattiHome({ contattiHome, id }) {
 
 
     return (
-        <div className="min-h-screen relative overflow-hidden  ">
+        <div className="min-h-screen relative overflow-hidden  text-black dark:text-white">
             {clipPathActive && (
                 <div
                     ref={revealRef}
@@ -77,7 +77,7 @@ export default function ContattiHome({ contattiHome, id }) {
                     </div>
 
                     {primary.quote_contatti && primary.autore_quote && (
-                        <blockquote className="italic text-gray-600 mb-8">
+                        <blockquote className="italic  mb-8">
                             <p className="text-32">{primary.quote_contatti}</p>
                             <footer className="mt-2">- {primary.autore_quote}</footer>
                         </blockquote>

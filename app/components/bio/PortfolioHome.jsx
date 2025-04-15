@@ -36,10 +36,10 @@ export default function PortfolioHome({ portfolioHome, id }) {
     const fixedImageHeight = "100vh"; // Altezza fissa desiderata per il container dell'immagine (puoi modificarla)
 
     return (
-        <div id={id} className=" container space-y-20 -scroll-mt-10 ">
+        <div id={id} className=" container space-y-20 -scroll-mt-10 text-black dark:text-white ">
             <div className='space-y-4'>
 
-                <h2 className="text-60 font-bold md:leading-0 leading-normal py-8 bg-white z-10">{primary.titolo_portfolio}</h2>
+                <h2 className="text-60 font-bold md:leading-0 leading-normal py-8  z-10">{primary.titolo_portfolio}</h2>
                 <p >{primary.copy_portfolio}</p>
             </div>
             <div className="flex items-center h-[75vh]">
@@ -69,7 +69,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
 
                 {/* Colonna destra (Anteprima portfolio) */}
                 <div className="w-1/2 p-4 border h-full py-10 px-20 flex flex-col items-center justify-center space-y-10" style={{ backgroundColor: `#${selectedProject?.bg_color}` }}>
-                    <button onClick={toggleImageView} className="px-4 py-2 bg-white hover:bg-black hover:text-white border">
+                    <button onClick={toggleImageView} className="px-4 py-2 bg-white dark:bg-dark-gray hover:bg-black hover:text-white hover:dark:bg-white hover:dark:text-[var(--dark-gray)] border">
                         {buttonText}
                     </button>
                     <div

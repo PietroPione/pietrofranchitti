@@ -8,7 +8,7 @@ const Footer = ({ footerData }) => {
     }
 
     return (
-        <footer className="container py-8 text-black border-t">
+        <footer className="container py-8 text-black dark:text-white border-t">
             <div className="space-y-6">
                 <div className='flex flex-col md:flex-row space-x-0 md:space-x-10 space-y-4 md:space-y-0'>
                     <div>

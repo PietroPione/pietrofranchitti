@@ -54,7 +54,7 @@ export default function CosePiacciono({ cosePiacciono }) {
                             onMouseEnter={(e) => handleMouseEnter(item, e)}
                             onMouseLeave={handleMouseLeave}
                             onMouseMove={hoveredImage ? handleMouseMove : undefined}
-                            className="text-26 md:text-40 lg:text-46 font-black hover:text-white hover:bg-black relative"
+                            className="text-26 md:text-40 lg:text-46 font-black hover:text-white hover:bg-black dark:hover:bg-gray-400 relative"
                             style={{ marginLeft: `${index * 5}rem` }}
                         >
                             - {item.nome_cosa}

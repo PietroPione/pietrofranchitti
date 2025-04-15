@@ -58,11 +58,11 @@ export default async function PortfolioPage({ params }) {
                     <div className="space-y-4 md:space-y-10 flex flex-col">
                         <div className="space-y-4 md:space-y-10 grid grid-cols-[max-content] gap-y-2">
                             {infoSlice?.made_with && (
-                                <div className="px-4 py-2 border font-medium">{infoSlice?.made_with}</div>
+                                <div className="px-4 py-2 border text-black dark:text-white dark:border-white font-medium">{infoSlice?.made_with}</div>
                             )}
-                            {infoSlice?.titolo && <h2 className=" text-36 md:text-46 lg:text-60 leading-14 font-semibold">{infoSlice.titolo}</h2>}
+                            {infoSlice?.titolo && <h2 className="dark:text-white text-black text-36 md:text-46 lg:text-60 leading-14 font-semibold">{infoSlice.titolo}</h2>}
                         </div>
-                        {infoSlice?.descrizione_progetto && <p>{infoSlice.descrizione_progetto}</p>}
+                        {infoSlice?.descrizione_progetto && <p className="dark:text-white">{infoSlice.descrizione_progetto}</p>}
                         <div className="mt-4">
                             <BasicButton
                                 testo={infoSlice?.testo_tasto}

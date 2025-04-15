@@ -4,6 +4,7 @@ import "./globals.css";
 import Menu from "./components/Menu"; // Importa il componente Menu
 import Footer from "./components/Footer"; // Importa il componente Footer
 import { createClient } from "@/prismicio"; // Importa createClient
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const robotoMono = Roboto_Mono({
   variable: "--font-roboto-mono",
@@ -32,9 +33,12 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="it">
       <body className={`${robotoMono.variable} font-roboto-mono antialiased relative`}>
+        <ThemeProvider>
+
         <Menu menu={menuData} />
         {children}
         <Footer footerData={footerData} />
+        </ThemeProvider>
       </body>
     </html>
   );

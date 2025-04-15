@@ -3,13 +3,25 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useTheme } from "@/app/components/ThemeProvider"; // Assicurati che il percorso sia corretto
 
 export default function VeraBio({ bioVeraText, fotoBioVera }) {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+    const { isDarkMode } = useTheme(); // Ottieni lo stato della modalità scura
 
     const opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.75], [0, 0.75, 0.75]);
-    const backgroundColor = useTransform(scrollYProgress, [0.33, 0.42, 0.66], ["rgba(0, 0, 0, 1)", "rgba(0, 0, 0, 0.75)", "rgba(0, 0, 0, 0)"]);
+
+    // Definisci l'intervallo di colori di sfondo in base alla modalità scura
+    const lightModeBackgroundColor = ["rgba(0, 0, 0, 1)", "rgba(0, 0, 0, 0.75)", "rgba(0, 0, 0, 0)"];
+    const darkModeBackgroundColor = ["rgba(255, 255, 255, 1)", "rgba(255, 255, 255, 0.75)", "rgba(255, 255, 255, 0)"];
+
+    const backgroundColor = useTransform(
+        scrollYProgress,
+        [0.33, 0.42, 0.66],
+        isDarkMode ? darkModeBackgroundColor : lightModeBackgroundColor
+    );
+
     const imageOpacity = useTransform(scrollYProgress, [0.3, 0.4, 0.5], [0, 0.5, 1]);
     let formattedText = [];
     let currentLine = [];
