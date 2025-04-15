@@ -1,7 +1,6 @@
 import { createClient } from "@/prismicio";
 import StarWarsTitle from "./StarWarsTitle";
 import StarWarsParagraph from "./StarWarsParagraph";
-import ListaRandom from "./ListaRandom";
 
 
 
@@ -16,8 +15,7 @@ export default async function Page() {
     const titoloHero = heroHomeSlice?.primary?.titolo_hero;
     const testoHero = heroHomeSlice?.primary?.testo_hero;
     const sfondoHero = heroHomeSlice?.primary?.sfondo_hero?.url;
-    const testoLista = heroHomeSlice?.primary?.testo_lista;
-    const elencoLista = heroHomeSlice?.primary?.elenco_lista;
+
 
     return (
         <div className="relative">
@@ -31,7 +29,7 @@ export default async function Page() {
                 }}
             >
                 {/* Titolo Hero occupa metà dello spazio */}
-                <div className="h-1/2 flex items-end justify-center w-full">
+                <div className="h-1/2 flex items-end justify-center w-full overflow-hidden">
                     {titoloHero && <StarWarsTitle titoloHero={titoloHero} />}
                 </div>
 

@@ -39,7 +39,7 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
 
         if (item.punto_dopo) {
             formattedText.push(
-                <p key={`paragraph-${index}`} className="text-2xl mb-4">
+                <p key={`paragraph-${index}`} className="text-14 md:text-22 mb-4">
                     {currentLine}
                 </p>
             );
@@ -48,16 +48,16 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
     });
 
     return (
-        <div ref={ref} className="h-[200vh] container">
-            <div className="flex sticky top-0 h-screen">
+        <div ref={ref} className="h-screen md:h-[200vh] container">
+            <div className="flex flex-col md:flex-row sticky top-0">
                 {/* Parte sinistra: Bio */}
-                <div className="w-1/2 p-8 flex items-center justify-center">
+                <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
                     <div>{formattedText}</div>
                 </div>
 
                 {/* Parte destra: Immagine */}
-                <div className="w-1/2 p-8 flex items-center justify-center">
-                    <div className="relative h-[75vh] w-auto aspect-[9/16] flex items-center justify-center">
+                <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
+                    <div className="relative h-[50vh] md:h-[75vh] w-auto aspect-[9/16] flex items-center justify-center">
                         {fotofalsabuona && fotofalsacattiva && (
                             <>
                                 <Image

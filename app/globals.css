@@ -183,6 +183,12 @@ body {
   .md\:text-95 {
     font-size: var(--text-95);
   }
+  .md\:.text-22 {
+    font-size: var(--text-22);
+  }
+  .md\:.text-26 {
+    font-size: var(--text-26);
+  }
 }
 
 @media (min-width: 1024px) {

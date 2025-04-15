@@ -10,7 +10,7 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
     const { isDarkMode } = useTheme(); // Ottieni lo stato della modalità scura
 
-    const opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.75], [0, 0.75, 0.75]);
+    const opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.66], [0, 0.66, 0.75]);
 
     // Definisci l'intervallo di colori di sfondo in base alla modalità scura
     const lightModeBackgroundColor = ["rgba(0, 0, 0, 1)", "rgba(0, 0, 0, 0.75)", "rgba(0, 0, 0, 0)"];
@@ -39,7 +39,7 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
 
         if (item.punto_dopo) {
             formattedText.push(
-                <p key={`paragraph-${index}`} className="text-2xl mb-4">
+                <p key={`paragraph-${index}`} className="text-14 md:text-22 mb-4">
                     {currentLine}
                 </p>
             );
@@ -48,15 +48,17 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
     });
 
     return (
-        <div ref={ref} className="h-[200vh] container">
-            <div className="flex sticky top-0 h-screen">
-                <div className="w-1/2 p-8 flex items-center justify-center">
+        <div ref={ref} className="h-screen md:h-[200vh] container">
+            <div className="flex flex-col md:flex-row sticky top-0">
+                {/* Parte sinistra: Bio */}
+                <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
                     <div>{formattedText}</div>
                 </div>
 
-                <div className="w-1/2 p-8 flex items-center justify-center">
+                <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
+
                     <motion.div
-                        className="relative h-[75vh] w-auto aspect-[9/16] flex items-center justify-center"
+                        className="relative h-[50vh] md:h-[75vh] w-auto aspect-[9/16] flex items-center justify-center"
                         style={{ opacity: imageOpacity }}
                     >
                         {fotoBioVera && (
@@ -65,10 +67,11 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
                                 alt={fotoBioVera.alt || "Immagine Vera Bio"}
                                 width={fotoBioVera.dimensions.width}
                                 height={fotoBioVera.dimensions.height}
-                                className="max-w-full max-h-full object-contain"
+                                className="max-w-full max-h-full object-contain absolute top-0 left-0"
                             />
                         )}
                     </motion.div>
+
                 </div>
             </div>
         </div>

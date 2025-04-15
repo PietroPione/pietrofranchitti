@@ -9,7 +9,7 @@ import CoseNonPiacciono from "./CoseNonPiacciono";
 
 export default function SezioneBio({ bioSlice, bio, fotofalsabuona, fotofalsacattiva, testoHonest, bioVeraText, fotoBioVera, cosePiacciono, coseNonPiacciono, id }) {
     return (
-        <div id={id} className="-scroll-mt-10 text-balck dark:text-white">
+        <div id={id} className="md:-scroll-mt-10 text-black dark:text-white">
             {bioSlice && bio && fotofalsabuona && (
                 <FalsaBio bio={bio} fotofalsabuona={fotofalsabuona} fotofalsacattiva={fotofalsacattiva} />
             )}
