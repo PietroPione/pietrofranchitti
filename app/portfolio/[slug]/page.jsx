@@ -42,7 +42,7 @@ export default async function PortfolioPage({ params }) {
 
     return (
         <div className="container">
-            <div className="flex flex-wrap gap-x-6 gap-y-10 md:gap-y-6">
+            <div className="flex flex-wrap gap-x-6 gap-y-10 md:gap-y-6 pb-10">
                 {/* 1. screen_desktop[0] */}
                 <div className="w-full md:w-[calc(50%-1.5rem)]  overflow-hidden">
                     {screenDesktop[0] && <PortfolioDesktopCard index={0} screenDesktop={screenDesktop} />}

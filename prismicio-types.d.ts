@@ -112,14 +112,14 @@ export type HomepageDocument<Lang extends string = string> =
     Lang
   >;
 
-type ImpostazioniDocumentDataSlicesSlice = never;
+type ImpostazioniDocumentDataSlicesSlice = FooterSlice;
 
 /**
  * Content for Impostazioni documents
  */
 interface ImpostazioniDocumentData {
   /**
-   * `slices` field in *Impostazioni*
+   * Slice Zone field in *Impostazioni*
    *
    * - **Field Type**: Slice Zone
    * - **Placeholder**: *None*
@@ -923,6 +923,201 @@ export type CosePiaccionoSlice = prismic.SharedSlice<
   "cose_piacciono",
   CosePiaccionoSliceVariation
 >;
+
+/**
+ * Item in *Footer → Default → Primary → Social*
+ */
+export interface FooterSliceDefaultPrimarySocialItem {
+  /**
+   * Nome social field in *Footer → Default → Primary → Social*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.social[].nome_social
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  nome_social: prismic.KeyTextField;
+
+  /**
+   * Link social field in *Footer → Default → Primary → Social*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.social[].link_social
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link_social: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Primary content in *Footer → Default → Primary*
+ */
+export interface FooterSliceDefaultPrimary {
+  /**
+   * Mail field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.mail
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  mail: prismic.KeyTextField;
+
+  /**
+   * Testo mail field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.testo_mail
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_mail: prismic.KeyTextField;
+
+  /**
+   * Link mail field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.link_mail
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link_mail: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Testo dettagli sviluppo field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.testo_dettagli_sviluppo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_dettagli_sviluppo: prismic.KeyTextField;
+
+  /**
+   * Disclaimer field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.disclaimer
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  disclaimer: prismic.KeyTextField;
+
+  /**
+   * Copyright field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.copyright
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copyright: prismic.KeyTextField;
+
+  /**
+   * Testo iva field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.testo_iva
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_iva: prismic.KeyTextField;
+
+  /**
+   * Partita iva field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.partita_iva
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  partita_iva: prismic.KeyTextField;
+
+  /**
+   * Testo social field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.testo_social
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_social: prismic.KeyTextField;
+
+  /**
+   * Social field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.social[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  social: prismic.GroupField<Simplify<FooterSliceDefaultPrimarySocialItem>>;
+
+  /**
+   * Link cookie field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.link_cookie
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link_cookie: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Testo cookie field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.testo_cookie
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_cookie: prismic.KeyTextField;
+}
+
+/**
+ * Default variation for Footer Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FooterSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FooterSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Footer*
+ */
+type FooterSliceVariation = FooterSliceDefault;
+
+/**
+ * Footer Shared Slice
+ *
+ * - **API ID**: `footer`
+ * - **Description**: Footer
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FooterSlice = prismic.SharedSlice<"footer", FooterSliceVariation>;
 
 /**
  * Item in *Gallery → Default → Primary → Screen desktop*
@@ -1883,6 +2078,11 @@ declare module "@prismicio/client" {
       CosePiaccionoSliceDefaultPrimary,
       CosePiaccionoSliceVariation,
       CosePiaccionoSliceDefault,
+      FooterSlice,
+      FooterSliceDefaultPrimarySocialItem,
+      FooterSliceDefaultPrimary,
+      FooterSliceVariation,
+      FooterSliceDefault,
       GallerySlice,
       GallerySliceDefaultPrimaryScreenDesktopItem,
       GallerySliceDefaultPrimaryScreenMobileItem,

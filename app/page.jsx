@@ -76,7 +76,7 @@ export default async function Page() {
       <PortfolioHome portfolioHome={portfolioHome} portfolioPages={portfolioPagesResponse.results} id="portfolio" />
       <ContattiHome contattiHome={contattiHome} id="contatti" />
 
-      {contattiHome?.primary?.info_sito && <p className="container text-10 text-gray-500 pb-4">{contattiHome?.primary?.info_sito}</p>}
+
     </div>
   );
 }

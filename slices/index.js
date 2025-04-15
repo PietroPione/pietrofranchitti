@@ -9,6 +9,7 @@ export const components = {
   contatti_h: dynamic(() => import("./Contatti")),
   cose_non_piacciono: dynamic(() => import("./CoseNonPiacciono")),
   cose_piacciono: dynamic(() => import("./CosePiacciono")),
+  footer: dynamic(() => import("./Footer")),
   gallery: dynamic(() => import("./Gallery")),
   hero_home: dynamic(() => import("./HeroHome")),
   informazioni: dynamic(() => import("./Informazioni")),
