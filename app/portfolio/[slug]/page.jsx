@@ -75,7 +75,7 @@ export default async function PortfolioPage({ params }) {
                 </div>
 
                 {/* 4. Gallery screen_mobile */}
-                <div className="w-full md:w-[calc(50%-1.5rem)]  overflow-hidden">
+                <div className="w-full md:w-[calc(50%-1.5rem)] flex justify-center  overflow-hidden">
                     {screenMobile && <GeneralGallery images={mobileImagesForGallery} />}
                 </div>
 
