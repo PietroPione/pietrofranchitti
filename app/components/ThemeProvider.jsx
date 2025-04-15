@@ -17,9 +17,7 @@ export const ThemeProvider = ({ children }) => {
     useEffect(() => {
         if (typeof document !== 'undefined') {
             document.documentElement.classList.toggle('dark', isDarkMode);
-        }
-        if (typeof localStorage !== 'undefined') {
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            document.body.setAttribute('data-theme-initialized', 'true');
         }
     }, [isDarkMode]);
 

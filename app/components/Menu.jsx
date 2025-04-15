@@ -22,6 +22,21 @@ const Menu = forwardRef(({ menu }, ref) => {
         setIsOpen(!isOpen);
     };
 
+    const [themeVersion, setThemeVersion] = useState(0);
+
+    useEffect(() => {
+        const handleThemeChange = () => {
+            setThemeVersion((prev) => prev + 1);
+        };
+
+        window.addEventListener('themeChanged', handleThemeChange);
+        return () => window.removeEventListener('themeChanged', handleThemeChange);
+    }, []);
+
+
+
+
+
     useEffect(() => {
         if (pathname !== '/') {
             setShowToggle(true); // Mostra sempre i bottoni su pagine diverse dalla home
@@ -100,7 +115,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                             router.replace("/");
                         }, 100);
                     }}
-                    className="fixed top-6 left-8 z-50 border dark:border-white px-2 py-1 bg-white dark:bg-dark-gray dark:text-white hover:scale-110 transition text-16"
+                    className="fixed top-6 left-8 z-50 border dark:border-white px-2 py-1  text-black dark:bg-transparent bg-white dark:text-white hover:scale-110 transition text-16"
                 >
                     homepage
                 </button>
@@ -117,7 +132,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                         {isOpen ? (
                             <X className="z-50 w-6 h-6 transition duration-200 dark:text-white hover:scale-110" />
                         ) : (
-                            <div className="border px-2 py-1 text-16 bg-white dark:bg-dark-gray dark:text-white transition duration-200 hover:scale-110">
+                            <div className="border px-2 py-1 text-16  text-black dark:bg-transparent bg-white dark:text-white transition duration-200 hover:scale-110">
                                 menu
                             </div>
                         )}
@@ -130,16 +145,19 @@ const Menu = forwardRef(({ menu }, ref) => {
                 {isOpen && (
                     <motion.nav
                         ref={navRef}
-                        className="fixed top-0 right-8 md:right-4 w-full bg-white dark:bg-dark-gray dark:text-white z-40 transition-all duration-300"
+                        className="fixed top-0 right-8 md:right-4 w-full  text-black dark:bg-[var(--dark-gray)] bg-white dark:text-white z-40 transition-all duration-300"
                         variants={menuVariants}
                         initial="closed"
                         animate="open"
                         exit="closed"
                         transition={{ duration: 0.2 }}
                     >
-                        <div className="container py-6 flex justify-end">
-                            <DarkModeToggle />
-                            <ul className="flex flex-col md:flex-row items-end md:space-x-4">
+                        <div className="container py-6 flex flex-col md:flex-row justify-end space-x-0 md:space-x-4">
+                            <div className="flex justify-end order-2 md:order-1">
+
+                                <DarkModeToggle />
+                            </div>
+                            <ul className="flex flex-col md:flex-row items-end justify-center md:space-x-4 order-1 md:order-2">
                                 {menu.primary.link.map((item, index) => (
                                     <motion.li
                                         key={index}

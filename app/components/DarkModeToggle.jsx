@@ -1,4 +1,3 @@
-// components/DarkModeToggle.jsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -7,34 +6,33 @@ const DarkModeToggle = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
-        // Funzione per applicare il tema in base al localStorage o alle preferenze OS
         const applyTheme = () => {
             const storedTheme = localStorage.getItem('theme');
-            const prefersDarkFromOS = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-            if (storedTheme === 'dark' || (!storedTheme && prefersDarkFromOS)) {
+            if (storedTheme === 'dark') {
                 document.documentElement.classList.add('dark');
                 setIsDarkMode(true);
             } else {
+                // Default a light se nulla è salvato
                 document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
                 setIsDarkMode(false);
             }
         };
 
-        applyTheme(); // Applica il tema al caricamento del componente
+        applyTheme();
 
-        // Listener per cambiamenti nelle preferenze del sistema operativo
         const handleOSPreferenceChange = (event) => {
             if (!localStorage.getItem('theme')) {
-                document.documentElement.classList.toggle('dark', event.matches);
-                setIsDarkMode(event.matches);
+                const isDark = event.matches;
+                document.documentElement.classList.toggle('dark', isDark);
+                setIsDarkMode(isDark);
             }
         };
 
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         mediaQuery.addEventListener('change', handleOSPreferenceChange);
 
-        // Cleanup del listener
         return () => {
             mediaQuery.removeEventListener('change', handleOSPreferenceChange);
         };
@@ -51,11 +49,14 @@ const DarkModeToggle = () => {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
         }
+
+        // Forza il re-render dei componenti che lo ascoltano
+        window.dispatchEvent(new Event('themeChanged'));
     };
 
     return (
-        <button onClick={toggleDarkMode}>
-            {isDarkMode ? 'Attiva Light Mode' : 'Attiva Dark Mode'}
+        <button onClick={toggleDarkMode} className="px-1 py-0 border dark:border-white text-16 w-auto">
+            {isDarkMode ? 'Luce' : 'Tenebre'}
         </button>
     );
 };
