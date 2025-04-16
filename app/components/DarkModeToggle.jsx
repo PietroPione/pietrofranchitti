@@ -56,7 +56,7 @@ const DarkModeToggle = () => {
 
     return (
         <button onClick={toggleDarkMode} className="px-1 py-0 border dark:border-white text-16 w-auto">
-            {isDarkMode ? 'Luce' : 'Tenebre'}
+            {isDarkMode ? 'LUMOS' : 'NOX'}
         </button>
     );
 };

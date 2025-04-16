@@ -5,7 +5,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-
 export default function CosePiacciono({ cosePiacciono }) {
     if (!cosePiacciono || !cosePiacciono.primary || !cosePiacciono.primary.cosa) {
         return null;
@@ -15,6 +14,18 @@ export default function CosePiacciono({ cosePiacciono }) {
     const [hoveredImage, setHoveredImage] = useState(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const containerRef = useRef(null);
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth >= 768); // Definisci la larghezza per il desktop
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleMouseEnter = (item, event) => {
         setHoveredImage(item.gif_cosa);
@@ -39,11 +50,16 @@ export default function CosePiacciono({ cosePiacciono }) {
         }
     };
 
+    const imageWidth = isDesktop ? 400 : 200;
+    const imageHeight = isDesktop ? 300 : 150;
+    const offsetX = isDesktop ? 10 : 5;
+    const offsetY = isDesktop ? -250 : -160;
+
     return (
         <div className="relative">
             <div
                 ref={containerRef}
-                className="container min-h-[60vh] flex-col flex space-y-10 justify-center relative"
+                className="container min-h-[35vh] md:min-h-[60vh] flex-col flex space-y-10 justify-center relative"
             >
                 {titolo_cose_piacciono && <h2 className="text-20 md:text-32 lg:text-40">{titolo_cose_piacciono}</h2>}
 
@@ -55,7 +71,7 @@ export default function CosePiacciono({ cosePiacciono }) {
                             onMouseLeave={handleMouseLeave}
                             onMouseMove={hoveredImage ? handleMouseMove : undefined}
                             className="text-26 md:text-40 lg:text-46 font-black hover:text-white hover:bg-black dark:hover:bg-gray-400 relative"
-                            style={{ marginLeft: `${index * 5}rem` }}
+                            style={{ marginLeft: isDesktop ? `${index * 5}rem` : '0' }}
                         >
                             - {item.nome_cosa}
                         </p>
@@ -72,15 +88,15 @@ export default function CosePiacciono({ cosePiacciono }) {
                         exit={{ opacity: 0, scale: 0.8, y: -20 }}
                         transition={{ duration: 0.15, ease: "easeOut" }}
                         style={{
-                            left: mousePosition.x + 10,
-                            top: mousePosition.y - 250,
+                            left: mousePosition.x + offsetX,
+                            top: mousePosition.y + offsetY,
                         }}
                     >
                         <Image
                             src={hoveredImage.url}
                             alt="Immagine cosa non piaciuta"
-                            width={400}
-                            height={300}
+                            width={imageWidth}
+                            height={imageHeight}
                             style={{ pointerEvents: "none" }}
                             unoptimized
                         />
@@ -89,5 +105,4 @@ export default function CosePiacciono({ cosePiacciono }) {
             </AnimatePresence>
         </div>
     );
-
 }

@@ -36,7 +36,7 @@ function StarWarsParagraph({ testoHero }) {
                 initial={{ y: 100, opacity: 0 }} // Parte in basso e trasparente
                 animate={{ y: 0, opacity: 1 }} // Sale e diventa visibile
                 transition={{ duration: 2, ease: "easeOut" }} // Animazione lenta e fluida
-                className={`text-starwars-yellow text-32 text-center ${spaceGrotesk.variable} font-space-grotesk`}
+                className={`text-starwars-yellow text-22 md:text-32 text-center ${spaceGrotesk.variable} font-space-grotesk`}
             >
                 <PrismicRichText field={testoHero} />
             </motion.div>

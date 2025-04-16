@@ -165,29 +165,30 @@ body {
 }
 
 @media (min-width: 768px) {
-  .md\:text-36 {
-    font-size: var(--text-36);
-  }
-  .md\:text-75 {
-    font-size: var(--text-75);
-  }
   .md\:text-22 {
     font-size: var(--text-22);
+  }
+
+  .md\:.text-26 {
+    font-size: var(--text-26);
   }
   .md\:text-32 {
     font-size: var(--text-32);
   }
+  .md\:text-36 {
+    font-size: var(--text-36);
+  }
   .md\:text-46 {
     font-size: var(--text-46);
   }
+  .md\:text-60 {
+    font-size: var(--text-60);
+  }
+  .md\:text-75 {
+    font-size: var(--text-75);
+  }
   .md\:text-95 {
     font-size: var(--text-95);
-  }
-  .md\:.text-22 {
-    font-size: var(--text-22);
-  }
-  .md\:.text-26 {
-    font-size: var(--text-26);
   }
 }
 

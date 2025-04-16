@@ -34,7 +34,7 @@ function StarWarsTitle({ titoloHero }) {
             <motion.div
                 ref={scope}
                 style={{ fontFamily: "SwFont" }}
-                className="text-75 text-starwars-yellow leading-none text-center"
+                className="text-60 md:text-75 text-starwars-yellow leading-none text-center"
             >
                 <PrismicRichText field={titoloHero} />
             </motion.div>
