@@ -35,13 +35,13 @@
 }
 
 html {
-  @apply h-full w-full bg-white dark:bg-[var(--dark-gray)] ;
+  @apply h-full w-full bg-white dark:bg-black ;
   scroll-padding-top: 5rem;
   font-size: 0.875rem;
 }
 
 body {
-  color: #101010;
+ 
   background: inherit;
   font-family: var(--font-sans);
   @apply min-h-full selection:bg-[var(--starwars-yellow)] selection:text-white;

@@ -15,6 +15,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
     const [isMobileView, setIsMobileView] = useState(false);
     const [expandedProjectIndex, setExpandedProjectIndex] = useState(null);
     const projectListRef = useRef(null);
+    const [showMobileImage, setShowMobileImage] = useState(false); // Nuovo stato
 
     useEffect(() => {
         const handleResize = () => {
@@ -50,15 +51,15 @@ export default function PortfolioHome({ portfolioHome, id }) {
     };
 
     const toggleImageView = () => {
-        setIsDesktopView(!isDesktopView);
+        setShowMobileImage(!showMobileImage); // Modifica solo questo stato
     };
 
-    const currentImageUrl = isDesktopView ? selectedProject?.screen_desktop?.url : selectedProject?.screen_mobile?.url;
-    const buttonText = isDesktopView ? "Mobile -->" : "Desktop -->";
+    const currentImageUrl = showMobileImage ? selectedProject?.screen_mobile?.url : selectedProject?.screen_desktop?.url;
+    const buttonText = showMobileImage ? "Desktop -->" : "Mobile -->";
     const fixedImageHeight = "auto"; // L'altezza si adatta al contenuto
 
     return (
-        <div id={id} className=" container space-y-20 -scroll-mt-10 text-black dark:text-white ">
+        <div id={id} className=" container space-y-10 md:space-y-20 -scroll-mt-10 text-black dark:text-white ">
             <div className='space-y-4'>
                 <h2 className="text-46 md:text-60 leading-11 md:leading-14 font-bold py-4 md:py-8  z-10">{primary.titolo_portfolio}</h2>
                 <p >{primary.copy_portfolio}</p>
@@ -72,7 +73,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                 <li key={index} className="cursor-pointer w-full flex flex-col items-start">
                                     <h3
                                         onClick={() => handleProjectClick(progetto, index)}
-                                        className={`text-32 font-semibold w-full text-left md:text-center ${selectedIndex === index ? 'border-l-4 md:border-none pl-2' : ''} ${expandedProjectIndex === index ? 'bg-gray-100 dark:bg-dark-gray p-2 rounded-sm' : ''}`}
+                                        className={`text-32 font-semibold w-full text-left md:text-center ${selectedIndex === index ? 'border-l-4 md:border-none pl-2' : ''} ${expandedProjectIndex === index ? 'bg-gray-100 dark:bg-dark-gray p-2' : ''}`}
                                         style={{ backgroundColor: selectedIndex === index && !isMobileView ? `#${selectedProject?.bg_color}` : 'transparent' }}
                                     >
                                         {progetto.nome}
@@ -86,8 +87,8 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                                 transition={{ duration: 0.2, ease: "easeInOut" }}
                                                 className="mt-2 space-y-2 w-full"
                                             >
-                                                <div className="w-full border p-4 rounded-md bg-white dark:bg-dark-secondary">
-                                                    <div className="relative w-full h-40 aspect-[9_16] mb-4 overflow-hidden rounded-md">
+                                                <div className="w-full border p-4 bg-white dark:bg-dark-secondary">
+                                                    <div className="relative w-full h-40 aspect-[9_16] mb-4 overflow-hidden">
                                                         <Image
                                                             src={progetto.screen_desktop?.url}
                                                             alt={progetto.nome}
@@ -96,16 +97,21 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                                         />
                                                     </div>
                                                     <p className="text-lg">{progetto.descrizione_mobile}</p>
-
-                                                    {progetto.made_with && ( // Usa i dati del progetto corrente nell'iterazione
+                                                    {progetto.link_sito?.url && (
+                                                        <BasicButton testo="Visita il sito" link={progetto.link_sito.url} scaleHover className="mt-2" />
+                                                    )}
+                                                    {progetto.link_github?.url && (
+                                                        <BasicButton testo="Guarda il codice" link={progetto.link_github.url} scaleHover className="mt-2" />
+                                                    )}
+                                                    {progetto.made_with && (
                                                         <div className="mt-4 text-center">
-                                                            <div>Made with:</div>
+                                                            <div className='text-black'>Made with:</div>
                                                             <Image
-                                                                src={`/logos/${progetto.made_with}Logo.png`} // Usa i dati del progetto corrente
-                                                                alt={`Logo ${progetto.made_with}`} // Usa i dati del progetto corrente
+                                                                src={`/logos/${progetto.made_with}Logo.png`}
+                                                                alt={`Logo ${progetto.made_with}`}
                                                                 width={150}
                                                                 height={50}
-                                                                className="w-auto h-20 mx-auto"
+                                                                className="w-auto h-14 md:h-20 mx-auto"
                                                                 onError={(e) => {
                                                                     console.error("Errore nel caricamento dell'immagine:", e.target.src);
                                                                 }}
@@ -126,16 +132,16 @@ export default function PortfolioHome({ portfolioHome, id }) {
                     </div>
                 </div>
 
-                {/* Colonna destra (Anteprima portfolio) - Nascondi su mobile */}
+                {/* Colonna destra (Anteprima portfolio) - Solo cambio immagine */}
                 {!isMobileView && (
                     <div className={`w-full md:w-1/2 p-4 border h-1/2 md:h-full py-10 px-20 flex flex-col items-center justify-center space-y-10`} style={{ backgroundColor: `#${selectedProject?.bg_color}` }}>
-                        <button onClick={toggleImageView} className="px-4 py-2 bg-white dark:bg-dark-gray hover:bg-black hover:text-white hover:dark:bg-white hover:dark:text-[var(--dark-gray)] border">
+                        <button onClick={toggleImageView} className="px-4 py-2 bg-white dark:bg-[var(--dark-gray)] hover:bg-black hover:text-white hover:dark:bg-white hover:dark:text-[var(--dark-gray)] border">
                             {buttonText}
                         </button>
                         <div
                             className={` w-full ${isDesktopView ? 'aspect-video' : `aspect-[9_16]`}`}
                             style={{
-                                height: `${fixedImageHeight}`,
+                                height: `70vh`,
                                 backgroundImage: `url(${currentImageUrl})`,
                                 backgroundSize: 'contain',
                                 backgroundRepeat: 'no-repeat',

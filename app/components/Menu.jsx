@@ -145,7 +145,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                 {isOpen && (
                     <motion.nav
                         ref={navRef}
-                        className="fixed top-0 right-8 md:right-4 w-full  text-black dark:bg-[var(--dark-gray)] bg-white dark:text-white z-40 transition-all duration-300"
+                        className="fixed top-0 right-8 md:right-4 w-full  text-black dark:bg-black bg-white dark:text-white z-40 transition-all duration-300"
                         variants={menuVariants}
                         initial="closed"
                         animate="open"

@@ -183,6 +183,17 @@ type PortfolioDocumentDataSlicesSlice = GallerySlice | InformazioniSlice;
  */
 interface PortfolioDocumentData {
   /**
+   * Order field in *Portfolio*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: *None*
+   * - **API ID Path**: portfolio.order
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  order: prismic.NumberField;
+
+  /**
    * Slice Zone field in *Portfolio*
    *
    * - **Field Type**: Slice Zone
