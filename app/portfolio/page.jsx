@@ -39,3 +39,20 @@ export default async function PortfolioPage() {
         />
     );
 }
+
+export async function generateMetadata() {
+    const client = createClient();
+    const portfolioResponse = await client.getSingle("portfoliopage");
+    console.log(portfolioResponse.data.meta_description)
+    return {
+        title: portfolioResponse?.data?.meta_title,
+        description: portfolioResponse?.data?.meta_description,
+        openGraph: {
+            title: portfolioResponse?.data?.meta_title || undefined,
+            description: portfolioResponse?.data?.meta_description || undefined,
+            images: portfolioResponse?.data?.meta_image
+                ? [portfolioResponse?.data?.meta_image.url]
+                : undefined,
+        },
+    };
+}

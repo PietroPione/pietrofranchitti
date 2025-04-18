@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import BasicButton from '../BasicButton';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 export default function PortfolioHome({ portfolioHome, id }) {
     const { primary } = portfolioHome;
@@ -73,7 +74,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                 <li key={index} className="cursor-pointer w-full flex flex-col items-start">
                                     <h3
                                         onClick={() => handleProjectClick(progetto, index)}
-                                        className={`text-32 font-semibold w-full text-left md:text-center ${selectedIndex === index ? 'border-l-4 md:border-none pl-2' : ''} ${expandedProjectIndex === index ? 'bg-gray-100 dark:bg-dark-gray p-2' : ''}`}
+                                        className={`text-32 font-semibold w-full text-left md:text-center px-2 ${selectedIndex === index ? 'border-l-4 md:border-none pl-2' : ''} ${expandedProjectIndex === index ? 'bg-gray-100 dark:bg-dark-gray p-2' : ''}`}
                                         style={{ backgroundColor: selectedIndex === index && !isMobileView ? `#${selectedProject?.bg_color}` : 'transparent' }}
                                     >
                                         {progetto.nome}
@@ -96,13 +97,9 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                                             objectFit="contain"
                                                         />
                                                     </div>
-                                                    <p className="text-lg">{progetto.descrizione_mobile}</p>
-                                                    {progetto.link_sito?.url && (
-                                                        <BasicButton testo="Visita il sito" link={progetto.link_sito.url} scaleHover className="mt-2" />
-                                                    )}
-                                                    {progetto.link_github?.url && (
-                                                        <BasicButton testo="Guarda il codice" link={progetto.link_github.url} scaleHover className="mt-2" />
-                                                    )}
+
+
+
                                                     {progetto.made_with && (
                                                         <div className="mt-4 text-center">
                                                             <div className='text-black'>Made with:</div>
@@ -134,7 +131,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
 
                 {/* Colonna destra (Anteprima portfolio) - Solo cambio immagine */}
                 {!isMobileView && (
-                    <div className={`w-full md:w-1/2 p-4 border h-1/2 md:h-full py-10 px-20 flex flex-col items-center justify-center space-y-10`} style={{ backgroundColor: `#${selectedProject?.bg_color}` }}>
+                    <div className={`w-full md:w-1/2 p-4 border h-1/2 md:h-full py-10 px-20 flex flex-col items-center justify-center lg:space-y-10`} style={{ backgroundColor: `#${selectedProject?.bg_color}` }}>
                         <button onClick={toggleImageView} className="px-4 py-2 bg-white dark:bg-[var(--dark-gray)] hover:bg-black hover:text-white hover:dark:bg-white hover:dark:text-[var(--dark-gray)] border">
                             {buttonText}
                         </button>
@@ -149,20 +146,29 @@ export default function PortfolioHome({ portfolioHome, id }) {
                             }}
                         ></div>
                         {logoSrc && (
-                            <div className="mt-4 text-center">
+                            <div className="text-center space-y-2">
                                 <div>Made with:</div>
                                 <Image
                                     src={logoSrc}
                                     alt={`Logo ${selectedProject?.made_with}`}
                                     width={150}
                                     height={50}
-                                    className="w-auto h-20 mx-auto"
+                                    className="w-auto md:h-16 lg:h-20 mx-auto"
                                     onError={(e) => {
                                         console.error("Errore nel caricamento dell'immagine:", e.target.src);
                                         setLogoSrc('');
                                     }}
                                 />
                             </div>
+                        )}
+                        {selectedProject?.discover_more?.url && (
+                            <Link
+                                href={selectedProject.discover_more.url}
+                                rel="noopener noreferrer"
+                                className="px-4 py-2 bg-white dark:bg-[var(--dark-gray)] hover:bg-black hover:text-white hover:dark:bg-white hover:dark:text-[var(--dark-gray)] border mt-4 inline-block"
+                            >
+                                Bello! Vediamolo!
+                            </Link>
                         )}
                     </div>
                 )}

@@ -12,6 +12,25 @@ export async function generateStaticParams() {
     }));
 }
 
+export async function generateMetadata({ params }) {
+    const { slug } = params;
+    const client = createClient();
+    const portfolio = await client.getByUID("portfolio", slug);
+
+
+    return {
+        title: portfolio?.data?.meta_title || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.titolo || 'Portfolio Progetto',
+        description: portfolio?.data?.meta_description || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.descrizione_progetto || 'Dettagli del progetto',
+        openGraph: {
+            title: portfolio?.data?.meta_title || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.titolo || undefined,
+            description: portfolio?.data?.meta_description || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.descrizione_progetto || undefined,
+            images: portfolio?.data?.meta_image
+                ? [portfolio?.data?.meta_image.url]
+                : undefined,
+        },
+    };
+}
+
 export default async function PortfolioPage({ params }) {
     const { slug } = await params;
     const client = createClient();
@@ -63,14 +82,18 @@ export default async function PortfolioPage({ params }) {
                             {infoSlice?.titolo && <h2 className="dark:text-white text-black text-36 md:text-46 lg:text-60 leading-14 font-semibold">{infoSlice.titolo}</h2>}
                         </div>
                         {infoSlice?.descrizione_progetto && <p className="dark:text-white">{infoSlice.descrizione_progetto}</p>}
-                        <div className="mt-4">
-                            <BasicButton
-                                testo={infoSlice?.testo_tasto}
-                                link={infoSlice?.link_progetto?.url}
-                                scaleHover
-                                externalLink
-                            />
-                        </div>
+                        {infoSlice?.testo_tasto ? (
+                            <div className="mt-4">
+                                <BasicButton
+                                    testo={infoSlice?.testo_tasto}
+                                    link={infoSlice?.link_progetto?.url}
+                                    scaleHover
+                                    externalLink
+                                />
+                            </div>
+                        ) : (
+                            infoSlice?.messaggio_non_visibile && <p className="dark:text-white">{infoSlice.messaggio_non_visibile}</p>
+                        )}
                     </div>
                 </div>
 

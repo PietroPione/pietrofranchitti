@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export default function ContattiHome({ contattiHome, id }) {
     const { primary } = contattiHome;
@@ -8,13 +8,29 @@ export default function ContattiHome({ contattiHome, id }) {
     const [clipPathActive, setClipPathActive] = useState(true);
     const revealRef = useRef(null);
     const buttonRef = useRef(null);
+    const contentRef = useRef(null);
+    const [isMobile, setIsMobile] = useState(false);
+    const [contentMinHeight, setContentMinHeight] = useState(0);
+    const [expandContent, setExpandContent] = useState(false);
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleClick = () => {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
         const endRadius = 0;
 
-        if (revealRef.current) {
+        if (revealRef.current && contentRef.current) {
             revealRef.current.style.clipPath = `circle(150% at ${centerX}px ${centerY}px)`;
             revealRef.current.style.transition = `clip-path 1.2s ease-in-out`;
 
@@ -22,22 +38,29 @@ export default function ContattiHome({ contattiHome, id }) {
 
             revealRef.current.style.clipPath = `circle(${endRadius}px at ${centerX}px ${centerY}px)`;
 
+            // Imposta l'altezza minima del contenuto su mobile e avvia la transizione
+            if (isMobile) {
+                setContentMinHeight('75vh');
+                setExpandContent(true); // abilita espansione dinamica
+            }
+
+
             setTimeout(() => {
                 setClipPathActive(false);
                 setShowContent(true);
+                setContentMinHeight(0); // Resetta l'altezza minima
             }, 1200);
         } else {
             setShowContent(true);
         }
     };
 
-
     return (
-        <div className="min-h-screen relative overflow-hidden  text-black dark:text-white">
+        <div className="min-h-[50vh] md:min-h-screen relative overflow-hidden  text-black dark:text-white">
             {clipPathActive && (
                 <div
                     ref={revealRef}
-                    className="absolute top-0 left-0 w-full h-full bg-black flex flex-col items-center justify-center z-20"
+                    className={`absolute top-0 left-0 w-full ${isMobile ? 'h-[75vh]' : 'h-full'} bg-black flex flex-col items-center justify-center z-20`}
                     style={{ clipPath: "circle(150% at 50% 50%)" }}
                 >
                     <h2 className="text-white text-center text-6xl font-bold mb-8">{primary.titolo_contatti}</h2>
@@ -51,16 +74,22 @@ export default function ContattiHome({ contattiHome, id }) {
                 </div>
             )}
 
-            <div id={id} className={`relative z-10 -scroll-mt-20 ${showContent ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'}`}>
+            <div
+                ref={contentRef}
+                id={id}
+                className={`relative z-10 -scroll-mt-20 transition-all duration-[1200ms] ease-in-out overflow-hidden ${showContent ? 'opacity-100' : 'opacity-0'}`}
+                style={{
+                    height: isMobile && clipPathActive ? '75vh' : 'auto',
+                    maxHeight: expandContent ? '2000px' : undefined, // solo per migliorare transizione su mobile
+                }}
+            >
+
                 <div className="container py-16 flex flex-col gap-y-20 h-full">
                     <div className="max-w-[50vw] space-y-4">
-
                         <h2 className="text-60 font-bold mb-8">{primary.titolo_contatti}</h2>
                         <p className="text-16 mb-8">{primary.copy_contatti}</p>
                     </div>
-
                     <div className="max-w-[50vw] flex flex-col gap-y-10">
-
                         <div className="mb-6">
                             <h3 className="text-xl font-semibold mb-2">{primary.titolo_mail}</h3>
                             <p className="text-lg">
@@ -69,21 +98,17 @@ export default function ContattiHome({ contattiHome, id }) {
                                 </a>
                             </p>
                         </div>
-
                         <div className="mb-6">
                             <h3 className="text-xl font-semibold mb-2">{primary.titolo_luogo}</h3>
                             <p className="text-lg">{primary.testo_luogo}</p>
                         </div>
                     </div>
-
                     {primary.quote_contatti && primary.autore_quote && (
                         <blockquote className="italic  mb-8">
                             <p className="text-32">{primary.quote_contatti}</p>
                             <footer className="mt-2">- {primary.autore_quote}</footer>
                         </blockquote>
                     )}
-
-
                 </div>
             </div>
         </div>
