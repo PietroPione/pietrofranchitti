@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "who_is_pio": {
+              "type": "SharedSlice"
+            },
             "contatti_h": {
               "type": "SharedSlice"
             },

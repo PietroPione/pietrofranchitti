@@ -44,6 +44,7 @@ export type BiofalsaDocument<Lang extends string = string> =
   >;
 
 type HomepageDocumentDataSlicesSlice =
+  | WhoIsPioSlice
   | ContattiHSlice
   | PortfolioHomeSlice
   | WorkSchoolSlice
@@ -1767,6 +1768,97 @@ export type PortfolioInfoSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *WhoIsPio → Default → Primary*
+ */
+export interface WhoIsPioSliceDefaultPrimary {
+  /**
+   * Titolo field in *WhoIsPio → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: who_is_pio.default.primary.titolo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo: prismic.KeyTextField;
+
+  /**
+   * Testo field in *WhoIsPio → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: who_is_pio.default.primary.testo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo: prismic.KeyTextField;
+
+  /**
+   * Immagine field in *WhoIsPio → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: who_is_pio.default.primary.immagine
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  immagine: prismic.ImageField<never>;
+
+  /**
+   * Testo tasto field in *WhoIsPio → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: who_is_pio.default.primary.testo_tasto
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  testo_tasto: prismic.KeyTextField;
+
+  /**
+   * Link tasto field in *WhoIsPio → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: who_is_pio.default.primary.link_tasto
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link_tasto: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+}
+
+/**
+ * Default variation for WhoIsPio Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type WhoIsPioSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<WhoIsPioSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *WhoIsPio*
+ */
+type WhoIsPioSliceVariation = WhoIsPioSliceDefault;
+
+/**
+ * WhoIsPio Shared Slice
+ *
+ * - **API ID**: `who_is_pio`
+ * - **Description**: WhoIsPio
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type WhoIsPioSlice = prismic.SharedSlice<
+  "who_is_pio",
+  WhoIsPioSliceVariation
+>;
+
+/**
  * Item in *WorkSchool → Default → Primary → Works*
  */
 export interface WorkSchoolSliceDefaultPrimaryWorksItem {
@@ -2123,6 +2215,10 @@ declare module "@prismicio/client" {
       PortfolioInfoSliceDefaultPrimary,
       PortfolioInfoSliceVariation,
       PortfolioInfoSliceDefault,
+      WhoIsPioSlice,
+      WhoIsPioSliceDefaultPrimary,
+      WhoIsPioSliceVariation,
+      WhoIsPioSliceDefault,
       WorkSchoolSlice,
       WorkSchoolSliceDefaultPrimaryWorksItem,
       WorkSchoolSliceDefaultPrimaryStudiesItem,

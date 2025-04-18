@@ -16,5 +16,6 @@ export const components = {
   link_menu: dynamic(() => import("./LinkMenu")),
   portfolio_home: dynamic(() => import("./PortfolioHome")),
   portfolio_info: dynamic(() => import("./PortfolioInfo")),
+  who_is_pio: dynamic(() => import("./WhoIsPio")),
   work_school: dynamic(() => import("./WorkSchool")),
 };

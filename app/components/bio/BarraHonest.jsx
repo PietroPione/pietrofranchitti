@@ -49,19 +49,19 @@ export default function BarraHonest({ testoHonest }) {
                     <div className="flex flex-col gap-8 items-center justify-center">
                         <motion.div
                             style={{ x: x1 }}
-                            className="text-75 font-bold text-white dark:text-black whitespace-nowrap"
+                            className="text-95 font-bold text-white dark:text-black whitespace-nowrap"
                         >
                             {testoHonest}
                         </motion.div>
                         <motion.div
                             style={{ x: x2 }}
-                            className="text-75 font-bold text-white dark:text-black whitespace-nowrap"
+                            className="text-95 font-bold text-white dark:text-black whitespace-nowrap"
                         >
                             {testoHonest}
                         </motion.div>
                         <motion.div
                             style={{ x: x3 }}
-                            className="text-75 font-bold text-white dark:text-black whitespace-nowrap"
+                            className="text-95 font-bold text-white dark:text-black whitespace-nowrap"
                         >
                             {testoHonest}
                         </motion.div>

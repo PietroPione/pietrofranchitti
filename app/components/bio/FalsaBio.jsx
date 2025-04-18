@@ -33,7 +33,7 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
                 <motion.span style={{ backgroundColor }} className="font-bold">
                     {item.accento}
                 </motion.span>
-                {item.punto_dopo ? "." : ""}
+                {item.punto_dopo ? "." : " "} {/* Aggiunto uno spazio se non c'è il punto */}
             </React.Fragment>
         );
 
@@ -57,7 +57,7 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
 
                 {/* Parte destra: Immagine */}
                 <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
-                    <div className="relative h-[50vh] md:h-[75vh] w-auto aspect-[9/16] flex items-center justify-center">
+                    <div className="relative h-[50vh] md:h-[90vh] w-auto aspect-[9/16] flex items-center justify-center">
                         {fotofalsabuona && fotofalsacattiva && (
                             <>
                                 <Image

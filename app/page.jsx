@@ -5,6 +5,7 @@ import SezioneBio from "./components/bio/SezioneBio";
 import WorkSchool from "./components/bio/WorkSchool";
 import PortfolioHome from "./components/bio/PortfolioHome";
 import ContattiHome from "./components/ContattiHome";
+import WhoIsPio from "./components/WhoIsPio";
 
 export default async function Page() {
   const client = createClient();
@@ -15,6 +16,10 @@ export default async function Page() {
 
   const heroHomeSlice = homepageResponse?.data?.slices?.find(
     (slice) => slice.slice_type === "hero_home"
+  );
+
+  const whoIsPioSlice = homepageResponse?.data?.slices?.find(
+    (slice) => slice.slice_type === "who_is_pio"
   );
 
   const bioSlice = biofalsaResponse?.results[0]?.data?.slices?.find(
@@ -49,34 +54,26 @@ export default async function Page() {
     (slice) => slice.slice_type === "contatti_h"
   );
 
-  const menuData = menuResponse?.results[0]?.data?.slices?.find(
-    (slice) => slice.slice_type === "link_menu"
-  );
 
-  // Passa i dati delle pagine portfolio al componente PortfolioHome
   return (
-    <div className="relative space-y-20">
+    <div className="relative space-y-20 md:space-y-40">
       <StarWarsHero />
-      {/* <Menu menu={menuData} /> */}
-      <SezioneBio
-        bioSlice={bioSlice}
-        bio={bioSlice?.primary?.bio}
-        fotofalsabuona={bioSlice?.primary?.fotofalsabuona}
-        fotofalsacattiva={bioSlice?.primary?.fotofalsacattiva}
-        testoHonest={barraHonest?.primary?.testohonest}
-        bioVeraText={bioVera?.primary?.bio}
-        fotoBioVera={bioVera?.primary?.foto_buona}
-        cosePiacciono={cosePiacciono}
-        coseNonPiacciono={coseNonPiacciono}
-        id="who"
-      />
-
-      <WorkSchool workSchool={workSchool} id="cv" />
-
+      {whoIsPioSlice && <WhoIsPio whoIsPioSlice={whoIsPioSlice} />}
       <PortfolioHome portfolioHome={portfolioHome} portfolioPages={portfolioPagesResponse.results} id="portfolio" />
+      <WorkSchool workSchool={workSchool} id="cv" />
+      {/* <SezioneBio
+                bioSlice={bioSlice}
+                bio={bioSlice?.primary?.bio}
+                fotofalsabuona={bioSlice?.primary?.fotofalsabuona}
+                fotofalsacattiva={bioSlice?.primary?.fotofalsacattiva}
+                testoHonest={barraHonest?.primary?.testohonest}
+                bioVeraText={bioVera?.primary?.bio}
+                fotoBioVera={bioVera?.primary?.foto_buona}
+                cosePiacciono={cosePiacciono}
+                coseNonPiacciono={coseNonPiacciono}
+                id="who"
+            /> */}
       <ContattiHome contattiHome={contattiHome} id="contatti" />
-
-
     </div>
   );
 }

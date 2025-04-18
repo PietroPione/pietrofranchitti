@@ -18,11 +18,11 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
 
     const backgroundColor = useTransform(
         scrollYProgress,
-        [0.33, 0.42, 0.66],
+        [0.25, 0.40, 0.50],
         isDarkMode ? darkModeBackgroundColor : lightModeBackgroundColor
     );
 
-    const imageOpacity = useTransform(scrollYProgress, [0.3, 0.4, 0.5], [0, 0.5, 1]);
+    const imageOpacity = useTransform(scrollYProgress, [0.2, 0.3, 0.4], [0, 0.5, 1]);
     let formattedText = [];
     let currentLine = [];
 
@@ -33,7 +33,7 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
                 <motion.span style={{ backgroundColor }} className="font-bold">
                     {item.accento}
                 </motion.span>
-                {item.punto_dopo ? "." : ""}
+                {item.punto_dopo ? "." : " "} {/* Aggiunto uno spazio se non c'è il punto */}
             </React.Fragment>
         );
 
@@ -58,7 +58,7 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
                 <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
 
                     <motion.div
-                        className="relative h-[50vh] md:h-[75vh] w-auto aspect-[9/16] flex items-center justify-center"
+                        className="relative h-[50vh] md:h-[90vh] w-auto aspect-[9/16] flex items-center justify-center"
                         style={{ opacity: imageOpacity }}
                     >
                         {fotoBioVera && (

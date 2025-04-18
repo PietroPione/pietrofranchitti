@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-    const { slug } = params;
+    const { slug } = await params;
     const client = createClient();
     const portfolio = await client.getByUID("portfolio", slug);
 

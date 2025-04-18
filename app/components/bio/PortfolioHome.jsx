@@ -61,7 +61,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
 
     return (
         <div id={id} className=" container space-y-10 md:space-y-20 -scroll-mt-10 text-black dark:text-white ">
-            <div className='space-y-4'>
+            <div>
                 <h2 className="text-46 md:text-60 leading-11 md:leading-14 font-bold py-4 md:py-8  z-10">{primary.titolo_portfolio}</h2>
                 <p >{primary.copy_portfolio}</p>
             </div>
@@ -161,7 +161,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                 />
                             </div>
                         )}
-                        {selectedProject?.discover_more?.url && (
+                        {/* {selectedProject?.discover_more?.url && (
                             <Link
                                 href={selectedProject.discover_more.url}
                                 rel="noopener noreferrer"
@@ -169,7 +169,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
                             >
                                 Bello! Vediamolo!
                             </Link>
-                        )}
+                        )} */}
                     </div>
                 )}
             </div>
