@@ -15,7 +15,7 @@ export default function WhoISpio({ whoIsPioSlice }) {
                     transition={{ duration: 1, ease: 'easeOut' }}
                     viewport={{ once: true }}
                 >
-                    <div className="space-y-4">
+                    <div className="space-y-4 dark:text-white">
                         {whoIsPioSlice.primary?.titolo && (
                             <h2 className="text-46 md:text-60 leading-11 md:leading-14 font-bold">
                                 {whoIsPioSlice.primary?.titolo}
