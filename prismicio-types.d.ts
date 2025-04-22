@@ -43,6 +43,71 @@ export type BiofalsaDocument<Lang extends string = string> =
     Lang
   >;
 
+type CookiePolicyDocumentDataSlicesSlice = CookiePolicySlice;
+
+/**
+ * Content for Cookie policy documents
+ */
+interface CookiePolicyDocumentData {
+  /**
+   * Slice Zone field in *Cookie policy*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cookie_policy.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<CookiePolicyDocumentDataSlicesSlice> /**
+   * Meta Title field in *Cookie policy*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: cookie_policy.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Cookie policy*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: cookie_policy.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Cookie policy*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cookie_policy.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Cookie policy document from Prismic
+ *
+ * - **API ID**: `cookie_policy`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type CookiePolicyDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<CookiePolicyDocumentData>,
+    "cookie_policy",
+    Lang
+  >;
+
 type HomepageDocumentDataSlicesSlice =
   | WhoIsPioSlice
   | ContattiHSlice
@@ -320,6 +385,7 @@ export type PortfoliopageDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | BiofalsaDocument
+  | CookiePolicyDocument
   | HomepageDocument
   | ImpostazioniDocument
   | MenuDocument
@@ -772,6 +838,88 @@ type ContattiHSliceVariation = ContattiHSliceDefault;
 export type ContattiHSlice = prismic.SharedSlice<
   "contatti_h",
   ContattiHSliceVariation
+>;
+
+/**
+ * Item in *CookiePolicy → Default → Primary → Paragrafi*
+ */
+export interface CookiePolicySliceDefaultPrimaryParagrafiItem {
+  /**
+   * Titolo paragrafo field in *CookiePolicy → Default → Primary → Paragrafi*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cookie_policy.default.primary.paragrafi[].titolo_paragrafo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo_paragrafo: prismic.KeyTextField;
+
+  /**
+   * Testo paragrafo field in *CookiePolicy → Default → Primary → Paragrafi*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cookie_policy.default.primary.paragrafi[].testo_paragrafo
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  testo_paragrafo: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *CookiePolicy → Default → Primary*
+ */
+export interface CookiePolicySliceDefaultPrimary {
+  /**
+   * Titolo field in *CookiePolicy → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cookie_policy.default.primary.titolo
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titolo: prismic.KeyTextField;
+
+  /**
+   * Paragrafi field in *CookiePolicy → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: cookie_policy.default.primary.paragrafi[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  paragrafi: prismic.GroupField<
+    Simplify<CookiePolicySliceDefaultPrimaryParagrafiItem>
+  >;
+}
+
+/**
+ * Default variation for CookiePolicy Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CookiePolicySliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<CookiePolicySliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *CookiePolicy*
+ */
+type CookiePolicySliceVariation = CookiePolicySliceDefault;
+
+/**
+ * CookiePolicy Shared Slice
+ *
+ * - **API ID**: `cookie_policy`
+ * - **Description**: CookiePolicy
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type CookiePolicySlice = prismic.SharedSlice<
+  "cookie_policy",
+  CookiePolicySliceVariation
 >;
 
 /**
@@ -2137,6 +2285,9 @@ declare module "@prismicio/client" {
       BiofalsaDocument,
       BiofalsaDocumentData,
       BiofalsaDocumentDataSlicesSlice,
+      CookiePolicyDocument,
+      CookiePolicyDocumentData,
+      CookiePolicyDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
@@ -2171,6 +2322,11 @@ declare module "@prismicio/client" {
       ContattiHSliceDefaultPrimary,
       ContattiHSliceVariation,
       ContattiHSliceDefault,
+      CookiePolicySlice,
+      CookiePolicySliceDefaultPrimaryParagrafiItem,
+      CookiePolicySliceDefaultPrimary,
+      CookiePolicySliceVariation,
+      CookiePolicySliceDefault,
       CoseNonPiaccionoSlice,
       CoseNonPiaccionoSliceDefaultPrimaryCosaItem,
       CoseNonPiaccionoSliceDefaultPrimary,

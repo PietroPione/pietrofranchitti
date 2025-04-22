@@ -7,6 +7,7 @@ export const components = {
   bio_falsa: dynamic(() => import("./BioFalsa")),
   bio_vera: dynamic(() => import("./BioVera")),
   contatti_h: dynamic(() => import("./Contatti")),
+  cookie_policy: dynamic(() => import("./CookiePolicy")),
   cose_non_piacciono: dynamic(() => import("./CoseNonPiacciono")),
   cose_piacciono: dynamic(() => import("./CosePiacciono")),
   footer: dynamic(() => import("./Footer")),

@@ -1,22 +1,20 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useTheme } from "@/app/components/ThemeProvider"; // Importa useTheme
+import { useTheme } from "@/app/components/ThemeProvider";
+import { ArrowBigDownDash } from "lucide-react";
 
 export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-    const { isDarkMode } = useTheme(); // Ottieni lo stato della modalità scura
+    const { isDarkMode } = useTheme();
 
     const opacity = useTransform(scrollYProgress, [0.33, 0.5, 0.75], [0, 0.75, 0.75]);
 
-    // Definisci l'intervallo di colori di sfondo in base alla modalità scura
     const lightModeBackgroundColor = ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.75)", "rgba(0, 0, 0, 1)"];
     const darkModeBackgroundColor = ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.75)", "rgba(255, 255, 255, 1)"];
-
-    // Usa un array di colori condizionale in base alla modalità scura
     const backgroundColor = useTransform(
         scrollYProgress,
         [0.33, 0.42, 0.66],
@@ -33,7 +31,7 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
                 <motion.span style={{ backgroundColor }} className="font-bold">
                     {item.accento}
                 </motion.span>
-                {item.punto_dopo ? "." : " "} {/* Aggiunto uno spazio se non c'è il punto */}
+                {item.punto_dopo ? "." : " "}
             </React.Fragment>
         );
 
@@ -47,12 +45,40 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
         }
     });
 
+    const [showIcon, setShowIcon] = useState(false); // Inizializza a false
+
+    useEffect(() => {
+        setShowIcon(true); // Imposta a true dopo il mount sul client
+
+        const handleScroll = () => {
+            setShowIcon(false);
+            window.removeEventListener("scroll", handleScroll);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+
     return (
-        <div ref={ref} className="h-screen md:h-[200vh] container">
+        <div ref={ref} className="h-screen md:h-[200vh] container relative">
+            {/* Iconcina Scroll Down */}
+            {showIcon && ( // Renderizza condizionalmente
+                <div
+                    className={`absolute top-[75vh] translate-y-1/2 right-1/2 translate-x-1/2 z-50 transition-opacity duration-300 opacity-100`}
+                >
+                    <ArrowBigDownDash
+                        size={40}
+                        strokeWidth={1.5}
+                        className={`rounded-full ${isDarkMode ? "text-black bg-white" : "text-white bg-black"}`}
+                    />
+                </div>
+            )}
+
             <div className="flex flex-col md:flex-row sticky top-0">
                 {/* Parte sinistra: Bio */}
                 <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
-                    <div>{formattedText}</div>
+                    {formattedText && <div>{formattedText}</div>}
                 </div>
 
                 {/* Parte destra: Immagine */}

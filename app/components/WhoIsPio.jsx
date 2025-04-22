@@ -39,7 +39,7 @@ export default function WhoISpio({ whoIsPioSlice }) {
 
                 {/* Colonna di destra (Immagine) */}
                 <motion.div
-                    className="relative w-full md:w-1/2 h-[25vh] md:h-[50vh] pt-40 md:pt-0 overflow-hidden rounded-md"
+                    className="relative w-full md:w-1/2 h-[25vh] md:h-[50vh] pt-40 md:pt-0 overflow-hidden border"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ duration: 1.2, ease: 'easeOut', delay: 0.1 }}
