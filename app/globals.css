@@ -44,7 +44,7 @@ body {
  
   background: inherit;
   font-family: var(--font-sans);
-  @apply min-h-full selection:bg-[var(--starwars-yellow)] selection:text-white;
+  @apply min-h-full selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizelegibility;
@@ -159,8 +159,8 @@ body {
     position: sticky;
     top: 0;
     width: 100%;
-    background-color: white; /* o qualsiasi altro sfondo desiderato */
-    z-index: 10; /* Assicurati che sia sopra altri elementi */
+    background-color: white; 
+    z-index: 10; 
   }
 }
 

@@ -105,7 +105,7 @@ export default function ContattiHome({ contattiHome, id }) {
                     </div>
                     {primary.quote_contatti && primary.autore_quote && (
                         <blockquote className="italic  mb-8">
-                            <p className="text-32">{primary.quote_contatti}</p>
+                            <p className="text-22 md:text-26">{primary.quote_contatti}</p>
                             <footer className="mt-2">- {primary.autore_quote}</footer>
                         </blockquote>
                     )}
