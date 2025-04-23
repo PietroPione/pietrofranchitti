@@ -33,7 +33,7 @@ function StarWarsTitle({ titoloHero }) {
         titoloHero && (
             <motion.div
                 ref={scope}
-                style={{ fontFamily: "SwFont", willChange: "transform, opacity" }}
+                style={{ fontFamily: "SwFont", transformOrigin: "50% 0%" }}
                 className="text-60 md:text-75 text-starwars-yellow leading-none text-center"
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
