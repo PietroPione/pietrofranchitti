@@ -43,7 +43,7 @@ function StarWarsTitle({ titoloHero }) {
                     transformStyle: "preserve-3d",
                     transform: "translateZ(0)"
                 }}
-                className="text-60 md:text-75 text-starwars-yellow leading-none text-center "
+                className="text-60 md:text-75 text-starwars-yellow leading-none text-center p-2"
             >
                 <PrismicRichText field={titoloHero} />
             </motion.div>
