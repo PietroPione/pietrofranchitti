@@ -1,4 +1,6 @@
+// app/components/StarWarsTitle.jsx
 "use client";
+
 import { PrismicRichText } from "@prismicio/react";
 import "../../../app/assets/fonts.css";
 import "../../../app/globals.css";
@@ -25,7 +27,7 @@ function StarWarsTitle({ titoloHero }) {
                 ).then(() => {
                     localStorage.setItem("firstAnimationCompleted", "true");
                 });
-            }, 1000); // Aspetta 1 secondo
+            }, 1000);
         });
     }, [scope, animate]);
 
@@ -33,22 +35,15 @@ function StarWarsTitle({ titoloHero }) {
         titoloHero && (
             <motion.div
                 ref={scope}
-                style={{ fontFamily: "SwFont", transformOrigin: "50% 0%" }}
-                className="text-60 md:text-75 text-starwars-yellow leading-none text-center"
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                onAnimationComplete={() => {
-                    setTimeout(() => {
-                        animate(
-                            scope.current,
-                            { y: ["0%", "-33%"], scale: 0.75 },
-                            { duration: 1, ease: "easeOut" }
-                        ).then(() => {
-                            localStorage.setItem("firstAnimationCompleted", "true");
-                        });
-                    }, 1000);
+                style={{
+                    fontFamily: "SwFont",
+                    willChange: "transform, opacity",
+                    backfaceVisibility: "hidden",
+                    WebkitBackfaceVisibility: "hidden",
+                    transformStyle: "preserve-3d",
+                    transform: "translateZ(0)"
                 }}
+                className="text-60 md:text-75 text-starwars-yellow leading-none text-center overflow-hidden"
             >
                 <PrismicRichText field={titoloHero} />
             </motion.div>
