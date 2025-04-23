@@ -59,7 +59,7 @@ export default async function CookiePolicyPage() {
                 return (
                     <div key={i} className="mb-8">
                         {subtitleBlocks.length > 0 && (
-                            <h2 className="text-xl font-semibold mb-2">
+                            <h2 className="text-22 md:text-26 font-semibold mb-2">
                                 <PrismicRichText field={subtitleBlocks} />
                             </h2>
                         )}

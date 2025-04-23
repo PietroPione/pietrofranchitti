@@ -67,7 +67,7 @@ export default function ContattiHome({ contattiHome, id }) {
                     <button
                         ref={buttonRef}
                         onClick={handleClick}
-                        className="relative inline-block text-14 tracking-widest uppercase text-white cursor-pointer border-3 border-white py-2 px-4 shadow-[1px_1px_0px_0px,2px_2px_0px_0px,3px_3px_0px_0px,4px_4px_0px_0px,5px_5px_0px_0px] active:shadow-[0px_0px_0px_0px] active:top-[5px] active:left-[5px] select-none touch-action-manipulation md:px-6 hover:scale-110 transition-transform duration-200"
+                        className="relative inline-block text-14 tracking-widest uppercase text-white cursor-pointer border-3 border-white py-2 px-4 button-shadow active:shadow-[0px_0px_0px_0px] active:top-[5px] active:left-[5px] select-none touch-action-manipulation md:px-6 hover:scale-110 transition-transform duration-200"
                     >
                         {primary.testo_tasto_scopri}
                     </button>
@@ -80,32 +80,32 @@ export default function ContattiHome({ contattiHome, id }) {
                 className={`relative z-10 -scroll-mt-20 transition-all duration-[1200ms] ease-in-out overflow-hidden ${showContent ? 'opacity-100' : 'opacity-0'}`}
                 style={{
                     height: isMobile && clipPathActive ? '75vh' : 'auto',
-                    maxHeight: expandContent ? '2000px' : undefined, // solo per migliorare transizione su mobile
+                    maxHeight: expandContent ? '2000px' : undefined,
                 }}
             >
 
-                <div className="container py-16 flex flex-col gap-y-20 h-full">
-                    <div className="max-w-[50vw] space-y-4">
-                        <h2 className="text-60 font-bold mb-8">{primary.titolo_contatti}</h2>
+                <div className="container py-16 flex flex-col gap-y-10 lg:gap-y-20 h-full">
+                    <div className="md:max-w-[50vw] space-y-4">
+                        <h2 className="text-60 leading-14 font-bold mb-8">{primary.titolo_contatti}</h2>
                         <p className="text-16 mb-8">{primary.copy_contatti}</p>
                     </div>
                     <div className="max-w-[50vw] flex flex-col gap-y-10">
                         <div className="mb-6">
-                            <h3 className="text-xl font-semibold mb-2">{primary.titolo_mail}</h3>
-                            <p className="text-lg">
-                                <a href={`mailto:${primary.mail}`} className="hover:underline">
+                            <h3 className="text-18 font-semibold mb-2">{primary.titolo_mail}</h3>
+                            <p className="text-14">
+                                <a href={`mailto:${primary.mail}`} target="_blank" className="hover:underline">
                                     {primary.mail}
                                 </a>
                             </p>
                         </div>
                         <div className="mb-6">
-                            <h3 className="text-xl font-semibold mb-2">{primary.titolo_luogo}</h3>
-                            <p className="text-lg">{primary.testo_luogo}</p>
+                            <h3 className="text-18 font-semibold mb-2">{primary.titolo_luogo}</h3>
+                            <p className="text-14">{primary.testo_luogo}</p>
                         </div>
                     </div>
                     {primary.quote_contatti && primary.autore_quote && (
                         <blockquote className="italic  mb-8">
-                            <p className="text-22 md:text-26">{primary.quote_contatti}</p>
+                            <p className="text-20 md:text-22">{primary.quote_contatti}</p>
                             <footer className="mt-2">- {primary.autore_quote}</footer>
                         </blockquote>
                     )}

@@ -1,7 +1,7 @@
 import { createClient } from "@/prismicio";
 import BasicButton from "@/app/components/BasicButton";
 import PortfolioDesktopCard from "@/app/components/card/PortfolioDesktopCard";
-import GeneralGallery from "@/app/components/GeneralGallery"; // Importa GeneralGallery
+import GeneralGallery from "@/app/components/GeneralGallery";
 
 export async function generateStaticParams() {
     const client = createClient();

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import BasicButton from '../BasicButton';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
+
 
 export default function PortfolioHome({ portfolioHome, id }) {
     const { primary } = portfolioHome;
@@ -16,14 +16,14 @@ export default function PortfolioHome({ portfolioHome, id }) {
     const [isMobileView, setIsMobileView] = useState(false);
     const [expandedProjectIndex, setExpandedProjectIndex] = useState(null);
     const projectListRef = useRef(null);
-    const [showMobileImage, setShowMobileImage] = useState(false); // Nuovo stato
+    const [showMobileImage, setShowMobileImage] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
             setIsMobileView(window.innerWidth < 768);
             setIsDesktopView(window.innerWidth >= 768);
             if (window.innerWidth >= 768) {
-                setExpandedProjectIndex(null); // Chiudi l'accordion su desktop
+                setExpandedProjectIndex(null); // Nasconde l'accordion su desktop
             }
         };
 
@@ -47,17 +47,17 @@ export default function PortfolioHome({ portfolioHome, id }) {
         if (isMobileView) {
             setExpandedProjectIndex(expandedProjectIndex === index ? null : index);
         } else {
-            setIsDesktopView(true); // Reset alla visualizzazione desktop al cambio progetto
+            setIsDesktopView(true);
         }
     };
 
     const toggleImageView = () => {
-        setShowMobileImage(!showMobileImage); // Modifica solo questo stato
+        setShowMobileImage(!showMobileImage);
     };
 
     const currentImageUrl = showMobileImage ? selectedProject?.screen_mobile?.url : selectedProject?.screen_desktop?.url;
     const buttonText = showMobileImage ? "Desktop -->" : "Mobile -->";
-    const fixedImageHeight = "auto"; // L'altezza si adatta al contenuto
+
 
     return (
         <div id={id} className=" container space-y-10 md:space-y-20 -scroll-mt-10 text-black dark:text-white ">
@@ -89,7 +89,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                                 className="mt-2 space-y-2 w-full"
                                             >
                                                 <div className="w-full border p-4 bg-white dark:bg-dark-secondary">
-                                                    <div className="relative w-full h-40 aspect-[9_16] mb-4 overflow-hidden">
+                                                    <div className="relative w-full h-40 aspect-[9/16] mb-4 overflow-hidden">
                                                         <Image
                                                             src={progetto.screen_desktop?.url}
                                                             alt={progetto.nome}
@@ -136,7 +136,7 @@ export default function PortfolioHome({ portfolioHome, id }) {
                             {buttonText}
                         </button>
                         <div
-                            className={` w-full ${isDesktopView ? 'aspect-video' : `aspect-[9_16]`}`}
+                            className={` w-full ${isDesktopView ? 'aspect-video' : `aspect-[9/16]`}`}
                             style={{
                                 height: `70vh`,
                                 backgroundImage: `url(${currentImageUrl})`,
@@ -161,15 +161,6 @@ export default function PortfolioHome({ portfolioHome, id }) {
                                 />
                             </div>
                         )}
-                        {/* {selectedProject?.discover_more?.url && (
-                            <Link
-                                href={selectedProject.discover_more.url}
-                                rel="noopener noreferrer"
-                                className="px-4 py-2 bg-white dark:bg-[var(--dark-gray)] hover:bg-black hover:text-white hover:dark:bg-white hover:dark:text-[var(--dark-gray)] border mt-4 inline-block"
-                            >
-                                Bello! Vediamolo!
-                            </Link>
-                        )} */}
                     </div>
                 )}
             </div>

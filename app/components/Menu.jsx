@@ -145,14 +145,14 @@ const Menu = forwardRef(({ menu }, ref) => {
                 {isOpen && (
                     <motion.nav
                         ref={navRef}
-                        className="fixed top-0 right-8 md:right-0 w-full  text-black dark:bg-black bg-white dark:text-white z-40 transition-all duration-300"
+                        className="fixed top-0 right-0 md:right-0 w-full  text-black dark:bg-black bg-white dark:text-white z-40 transition-all duration-300"
                         variants={menuVariants}
                         initial="closed"
                         animate="open"
                         exit="closed"
                         transition={{ duration: 0.2 }}
                     >
-                        <div className="container py-6 flex flex-col md:flex-row justify-end space-x-0 md:space-x-4">
+                        <div className="container pr-16 md:pr-4 py-6 flex flex-col md:flex-row justify-end space-x-0 md:space-x-4">
                             <div className="flex justify-end order-2 md:order-1">
 
                                 <DarkModeToggle />
