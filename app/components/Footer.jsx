@@ -18,7 +18,7 @@ const Footer = ({ footerData }) => {
                     </div>
                     <div>
                         {footerData.primary?.testo_iva && <span className="font-semibold ">{footerData.primary?.testo_iva}: </span>}
-                        {footerData.primary?.partita_iva && <span>{footerData.primary?.partita_iva}: </span>}
+                        {footerData.primary?.partita_iva && <span>{footerData.primary?.partita_iva} </span>}
 
                     </div>
                     <div className='flex space-x-4'>

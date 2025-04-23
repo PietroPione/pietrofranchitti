@@ -43,6 +43,71 @@ export type BiofalsaDocument<Lang extends string = string> =
     Lang
   >;
 
+type BiometadatiDocumentDataSlicesSlice = never;
+
+/**
+ * Content for BioMetadati documents
+ */
+interface BiometadatiDocumentData {
+  /**
+   * Slice Zone field in *BioMetadati*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: biometadati.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BiometadatiDocumentDataSlicesSlice> /**
+   * Meta Title field in *BioMetadati*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: biometadati.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *BioMetadati*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: biometadati.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *BioMetadati*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: biometadati.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * BioMetadati document from Prismic
+ *
+ * - **API ID**: `biometadati`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BiometadatiDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<BiometadatiDocumentData>,
+    "biometadati",
+    Lang
+  >;
+
 type CookiePolicyDocumentDataSlicesSlice = CookiePolicySlice;
 
 /**
@@ -385,6 +450,7 @@ export type PortfoliopageDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | BiofalsaDocument
+  | BiometadatiDocument
   | CookiePolicyDocument
   | HomepageDocument
   | ImpostazioniDocument
@@ -486,6 +552,16 @@ export interface BioFalsaSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   bio: prismic.GroupField<Simplify<BioFalsaSliceDefaultPrimaryBioItem>>;
+
+  /**
+   * Keep scrolling field in *BioFalsa → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bio_falsa.default.primary.keep_scrolling
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  keep_scrolling: prismic.KeyTextField;
 
   /**
    * FotoFalsaBuona field in *BioFalsa → Default → Primary*
@@ -2285,6 +2361,9 @@ declare module "@prismicio/client" {
       BiofalsaDocument,
       BiofalsaDocumentData,
       BiofalsaDocumentDataSlicesSlice,
+      BiometadatiDocument,
+      BiometadatiDocumentData,
+      BiometadatiDocumentDataSlicesSlice,
       CookiePolicyDocument,
       CookiePolicyDocumentData,
       CookiePolicyDocumentDataSlicesSlice,

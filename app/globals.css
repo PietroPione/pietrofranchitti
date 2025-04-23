@@ -169,7 +169,7 @@ body {
     font-size: var(--text-22);
   }
 
-  .md\:.text-26 {
+  .md\:text-26 {
     font-size: var(--text-26);
   }
   .md\:text-32 {
@@ -193,6 +193,9 @@ body {
 }
 
 @media (min-width: 1024px) {
+  .lg\:text-26 {
+    font-size: var(--text-26);
+  }
   .lg\:text-36 {
     font-size: var(--text-36);
   }

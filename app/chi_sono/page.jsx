@@ -6,6 +6,7 @@ export default async function BioPage() {
     const client = createClient();
     const biofalsaResponse = await client.getByType("biofalsa");
 
+
     const bioSlice = biofalsaResponse?.results[0]?.data?.slices?.find(
         (slice) => slice.slice_type === "bio_falsa"
     );
@@ -25,7 +26,6 @@ export default async function BioPage() {
     const coseNonPiacciono = biofalsaResponse?.results[0]?.data?.slices?.find(
         (slice) => slice.slice_type === "cose_non_piacciono"
     );
-
     return (
         <div className="relative py-20">
             <SezioneBio
@@ -33,6 +33,7 @@ export default async function BioPage() {
                 bio={bioSlice?.primary?.bio}
                 fotofalsabuona={bioSlice?.primary?.fotofalsabuona}
                 fotofalsacattiva={bioSlice?.primary?.fotofalsacattiva}
+                keep_scrolling={bioSlice?.primary?.keep_scrolling}
                 testoHonest={barraHonest?.primary?.testohonest}
                 bioVeraText={bioVera?.primary?.bio}
                 fotoBioVera={bioVera?.primary?.foto_buona}
@@ -46,8 +47,8 @@ export default async function BioPage() {
 
 export async function generateMetadata() {
     const client = createClient();
-    const biofalsaResponse = await client.getByType("biofalsa");
-    const metaData = biofalsaResponse?.results[0]?.data;
+    const biometadati = await client.getByType("biometadati");
+    const metaData = biometadati?.results[0]?.data;
 
     return {
         title: metaData?.meta_title || 'Bio',

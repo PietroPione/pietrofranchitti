@@ -81,6 +81,11 @@
 						]
 					}
 				]
+			},
+			"keep_scrolling": {
+				"__TYPE__": "FieldContent",
+				"value": "cat",
+				"type": "Text"
 			}
 		},
 		"items": []

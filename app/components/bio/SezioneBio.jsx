@@ -9,11 +9,11 @@ import CoseNonPiacciono from "./CoseNonPiacciono";
 
 
 
-export default function SezioneBio({ bioSlice, bio, fotofalsabuona, fotofalsacattiva, testoHonest, bioVeraText, fotoBioVera, cosePiacciono, coseNonPiacciono, id }) {
+export default function SezioneBio({ bioSlice, bio, fotofalsabuona, fotofalsacattiva, testoHonest, bioVeraText, fotoBioVera, cosePiacciono, coseNonPiacciono, id, keep_scrolling }) {
     return (
         <div id={id} className="md:-scroll-mt-10 text-black dark:text-white">
             {bioSlice && bio && fotofalsabuona && (
-                <FalsaBio bio={bio} fotofalsabuona={fotofalsabuona} fotofalsacattiva={fotofalsacattiva} />
+                <FalsaBio bio={bio} fotofalsabuona={fotofalsabuona} fotofalsacattiva={fotofalsacattiva} keep_scrolling={keep_scrolling} />
             )}
 
             {testoHonest && <BarraHonest testoHonest={testoHonest} />}

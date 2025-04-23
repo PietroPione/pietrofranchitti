@@ -48,14 +48,14 @@ export default function VeraBio({ bioVeraText, fotoBioVera }) {
     });
 
     return (
-        <div ref={ref} className="h-screen md:h-[200vh] container">
+        <div ref={ref} className="h-[200vh] container">
             <div className="flex flex-col md:flex-row sticky top-0">
                 {/* Parte sinistra: Bio */}
                 <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
                     <div>{formattedText}</div>
                 </div>
 
-                <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
+                <div className="w-full md:w-1/2 pb-8 pr-8 pl-8 md:p-8 flex items-center justify-center">
 
                     <motion.div
                         className="relative h-[50vh] md:h-[90vh] w-auto aspect-[9/16] flex items-center justify-center"

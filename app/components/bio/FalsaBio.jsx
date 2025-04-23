@@ -4,9 +4,8 @@ import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useTheme } from "@/app/components/ThemeProvider";
-import { ArrowBigDownDash } from "lucide-react";
 
-export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
+export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva, keep_scrolling }) {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
     const { isDarkMode } = useTheme();
@@ -20,6 +19,16 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
         [0.33, 0.42, 0.66],
         isDarkMode ? darkModeBackgroundColor : lightModeBackgroundColor
     );
+
+    const [shouldAnimate, setShouldAnimate] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShouldAnimate(true);
+        }, 3500);
+
+        return () => clearTimeout(timer); // Pulisce il timer se il componente viene smontato
+    }, []);
 
     let formattedText = [];
     let currentLine = [];
@@ -45,44 +54,31 @@ export default function FalsaBio({ bio, fotofalsabuona, fotofalsacattiva }) {
         }
     });
 
-    const [showIcon, setShowIcon] = useState(false); // Inizializza a false
-
-    useEffect(() => {
-        setShowIcon(true); // Imposta a true dopo il mount sul client
-
-        const handleScroll = () => {
-            setShowIcon(false);
-            window.removeEventListener("scroll", handleScroll);
-        };
-
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
-
-
     return (
-        <div ref={ref} className="h-screen md:h-[200vh] container relative">
-            {/* Iconcina Scroll Down */}
-            {showIcon && ( // Renderizza condizionalmente
-                <div
-                    className={`absolute top-[75vh] translate-y-1/2 right-1/2 translate-x-1/2 z-50 transition-opacity duration-300 opacity-100`}
-                >
-                    <ArrowBigDownDash
-                        size={40}
-                        strokeWidth={1.5}
-                        className={`rounded-full ${isDarkMode ? "text-black bg-white" : "text-white bg-black"}`}
-                    />
-                </div>
-            )}
-
+        <div ref={ref} className="h-[200vh] container relative">
             <div className="flex flex-col md:flex-row sticky top-0">
                 {/* Parte sinistra: Bio */}
-                <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
+                <div className="w-full md:w-1/2 p-8 flex flex-col justify-center space-y-4">
                     {formattedText && <div>{formattedText}</div>}
+                    <div className="text-14 md:text-22 lg:text-26 font-black">
+                        {keep_scrolling && shouldAnimate && (
+                            <motion.span
+                                animate={{ opacity: [1, 0, 1] }}
+                                transition={{
+                                    repeat: Infinity,
+                                    duration: 3.0,
+                                    ease: "easeInOut",
+                                }}
+                            >
+                                {keep_scrolling}
+                            </motion.span>
+                        )}
+                        {keep_scrolling && !shouldAnimate && <span style={{ opacity: 0 }}>{keep_scrolling}</span>}
+                    </div>
                 </div>
 
                 {/* Parte destra: Immagine */}
-                <div className="w-full md:w-1/2 p-8 flex items-center justify-center">
+                <div className="w-full md:w-1/2  pb-8 pr-8 pl-8 md:p-8 flex items-center justify-center">
                     <div className="relative h-[50vh] md:h-[90vh] w-auto aspect-[9/16] flex items-center justify-center">
                         {fotofalsabuona && fotofalsacattiva && (
                             <>

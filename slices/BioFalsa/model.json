@@ -44,6 +44,13 @@
             }
           }
         },
+        "keep_scrolling": {
+          "type": "Text",
+          "config": {
+            "label": "Keep scrolling",
+            "placeholder": ""
+          }
+        },
         "fotofalsabuona": {
           "type": "Image",
           "config": {
