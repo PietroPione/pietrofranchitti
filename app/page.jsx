@@ -32,10 +32,11 @@ export default async function Page() {
   return (
     <div className="relative space-y-20 md:space-y-40">
       <StarWarsHero />
-      {whoIsPioSlice && <WhoIsPio whoIsPioSlice={whoIsPioSlice} />}
+      {whoIsPioSlice && <WhoIsPio whoIsPioSlice={whoIsPioSlice} id="who" />}
       {portfolioHome && <PortfolioHome portfolioHome={portfolioHome} portfolioPages={portfolioPagesResponse.results} id="portfolio" />}
       {workSchool && <WorkSchool workSchool={workSchool} id="cv" />}
       {contattiHome && <ContattiHome contattiHome={contattiHome} id="contatti" />}
+
     </div>
   );
 }

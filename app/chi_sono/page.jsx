@@ -39,7 +39,7 @@ export default async function BioPage() {
                 fotoBioVera={bioVera?.primary?.foto_buona}
                 cosePiacciono={cosePiacciono}
                 coseNonPiacciono={coseNonPiacciono}
-                id="who" // Puoi mantenere l'id o cambiarlo se necessario
+
             />
         </div>
     );

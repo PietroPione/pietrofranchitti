@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export default function WhoISpio({ whoIsPioSlice }) {
     return (
-        <div className="container min-h-[60vh] py-10 md:py-20">
+        <div className="container min-h-[60vh] py-10 md:py-20 scroll-mt-20" id="who">
             <div className="flex flex-col md:flex-row gap-10 gap-x-20 items-stretch">
                 {/* Colonna di sinistra (Testi) */}
                 <motion.div
