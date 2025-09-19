@@ -172,7 +172,7 @@ const Menu = forwardRef(({ menu }, ref) => {
                                         }}
                                     >
                                         <Link
-                                            href={item.link.url}
+                                            href={`/${item.link.url}`}
                                             className="hover:underline text-lg"
                                             onClick={() => setIsOpen(false)}
                                         >
