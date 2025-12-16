@@ -6,7 +6,7 @@ const sm = require("../slicemachine.config.json");
 const siteUrl =
   process.env.SITE_URL ||
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://www.pietrofranchitti.com";
+  "https://www.pietrofranchitti.it";
 
 const staticRoutes = [
   { path: "/", changefreq: "monthly", priority: "1.0" },
