@@ -3,6 +3,12 @@
 import { createClient } from '@/prismicio';
 import { notFound } from 'next/navigation';
 import PortfolioClient from '../components/PortfolioClient';
+import {
+    defaultDescription,
+    defaultKeywords,
+    defaultTitle,
+    siteUrl,
+} from '../seoConfig';
 
 async function getPortfolioPages() {
     const client = createClient();
@@ -43,16 +49,29 @@ export default async function PortfolioPage() {
 export async function generateMetadata() {
     const client = createClient();
     const portfolioResponse = await client.getSingle("portfoliopage");
-    console.log(portfolioResponse.data.meta_description)
+    const title =
+        portfolioResponse?.data?.meta_title ||
+        `${defaultTitle} | Portfolio e case study`;
+    const description =
+        portfolioResponse?.data?.meta_description ||
+        `${defaultDescription} Dai un'occhiata ai progetti frontend sviluppati per brand e startup a Torino.`;
     return {
-        title: portfolioResponse?.data?.meta_title,
-        description: portfolioResponse?.data?.meta_description,
+        title,
+        description,
+        keywords: [...defaultKeywords, "portfolio", "case study frontend"],
+        alternates: { canonical: "/portfolio" },
         openGraph: {
-            title: portfolioResponse?.data?.meta_title || undefined,
-            description: portfolioResponse?.data?.meta_description || undefined,
+            title,
+            description,
+            url: `${siteUrl}/portfolio`,
             images: portfolioResponse?.data?.meta_image
                 ? [portfolioResponse?.data?.meta_image.url]
                 : undefined,
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
         },
     };
 }

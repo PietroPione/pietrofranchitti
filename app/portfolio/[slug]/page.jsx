@@ -2,6 +2,12 @@ import { createClient } from "@/prismicio";
 import BasicButton from "@/app/components/BasicButton";
 import PortfolioDesktopCard from "@/app/components/card/PortfolioDesktopCard";
 import GeneralGallery from "@/app/components/GeneralGallery";
+import {
+    defaultKeywords,
+    defaultTitle,
+    siteUrl,
+    defaultDescription,
+} from "../../seoConfig";
 
 export async function generateStaticParams() {
     const client = createClient();
@@ -13,26 +19,43 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-    const { slug } = await params;
+    const { slug } = params;
     const client = createClient();
     const portfolio = await client.getByUID("portfolio", slug);
+    const infoSlice = portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni');
+    const title =
+        portfolio?.data?.meta_title ||
+        infoSlice?.primary?.titolo ||
+        `${defaultTitle} | Progetto`;
+    const description =
+        portfolio?.data?.meta_description ||
+        infoSlice?.primary?.descrizione_progetto ||
+        `${defaultDescription} Scopri il progetto ${slug} e il processo di sviluppo frontend.`;
 
 
     return {
-        title: portfolio?.data?.meta_title || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.titolo || 'Portfolio Progetto',
-        description: portfolio?.data?.meta_description || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.descrizione_progetto || 'Dettagli del progetto',
+        title,
+        description,
+        keywords: [...defaultKeywords, "case study", slug],
+        alternates: { canonical: `/portfolio/${slug}` },
         openGraph: {
-            title: portfolio?.data?.meta_title || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.titolo || undefined,
-            description: portfolio?.data?.meta_description || portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni')?.primary?.descrizione_progetto || undefined,
+            title,
+            description,
+            url: `${siteUrl}/portfolio/${slug}`,
             images: portfolio?.data?.meta_image
                 ? [portfolio?.data?.meta_image.url]
                 : undefined,
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
         },
     };
 }
 
 export default async function PortfolioPage({ params }) {
-    const { slug } = await params;
+    const { slug } = params;
     const client = createClient();
 
     const response = await client.getByType("portfolio");

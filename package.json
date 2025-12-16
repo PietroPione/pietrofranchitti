@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "slicemachine": "start-slicemachine"
+    "slicemachine": "start-slicemachine",
+    "generate:sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
     "@prismicio/client": "^7.17.0",
@@ -15,7 +16,7 @@
     "@prismicio/react": "^3.2.0",
     "lucide-react": "^0.487.0",
     "motion": "^12.6.2",
-    "next": "15.2.4",
+    "next": "^16.0.10",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

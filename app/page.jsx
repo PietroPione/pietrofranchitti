@@ -5,6 +5,12 @@ import WorkSchool from "./components/bio/WorkSchool";
 import PortfolioHome from "./components/bio/PortfolioHome";
 import ContattiHome from "./components/ContattiHome";
 import WhoIsPio from "./components/WhoIsPio";
+import {
+  defaultDescription,
+  defaultKeywords,
+  defaultTitle,
+  siteUrl,
+} from "./seoConfig";
 
 export default async function Page() {
   const client = createClient();
@@ -45,15 +51,27 @@ export async function generateMetadata() {
   const client = createClient();
   const homepageResponse = await client.getSingle("homepage");
 
+  const title = homepageResponse?.data?.meta_title || defaultTitle;
+  const description =
+    homepageResponse?.data?.meta_description || defaultDescription;
+
   return {
-    title: homepageResponse?.data?.meta_title,
-    description: homepageResponse?.data?.meta_description,
+    title,
+    description,
+    keywords: defaultKeywords,
+    alternates: { canonical: "/" },
     openGraph: {
-      title: homepageResponse?.data?.meta_title || undefined,
-      description: homepageResponse?.data?.meta_description || undefined,
+      title,
+      description,
+      url: siteUrl,
       images: homepageResponse?.data?.meta_image
         ? [homepageResponse?.data?.meta_image.url]
         : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }

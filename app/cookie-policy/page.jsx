@@ -3,6 +3,12 @@
 import { createClient } from "@/prismicio";
 import { notFound } from "next/navigation";
 import { PrismicRichText } from "@prismicio/react";
+import {
+    defaultDescription,
+    defaultKeywords,
+    defaultTitle,
+    siteUrl,
+} from "../seoConfig";
 
 async function getCookiePolicyPage() {
     const client = createClient();
@@ -73,4 +79,31 @@ export default async function CookiePolicyPage() {
             })}
         </div>
     );
+}
+
+export async function generateMetadata() {
+    const cookiePolicyData = await getCookiePolicyPage();
+    const metaTitle =
+        cookiePolicyData?.data?.meta_title ||
+        `${defaultTitle} | Cookie policy e privacy`;
+    const metaDescription =
+        cookiePolicyData?.data?.meta_description ||
+        `${defaultDescription} Leggi come gestisco cookie e tracciamenti sul sito.`;
+
+    return {
+        title: metaTitle,
+        description: metaDescription,
+        keywords: [...defaultKeywords, "cookie policy", "privacy web"],
+        alternates: { canonical: "/cookie-policy" },
+        openGraph: {
+            title: metaTitle,
+            description: metaDescription,
+            url: `${siteUrl}/cookie-policy`,
+        },
+        twitter: {
+            card: "summary",
+            title: metaTitle,
+            description: metaDescription,
+        },
+    };
 }

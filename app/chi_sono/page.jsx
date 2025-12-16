@@ -1,5 +1,11 @@
 import { createClient } from "@/prismicio";
 import SezioneBio from "../components/bio/SezioneBio";
+import {
+    defaultDescription,
+    defaultKeywords,
+    defaultTitle,
+    siteUrl,
+} from "../seoConfig";
 
 
 export default async function BioPage() {
@@ -49,16 +55,30 @@ export async function generateMetadata() {
     const client = createClient();
     const biometadati = await client.getByType("biometadati");
     const metaData = biometadati?.results[0]?.data;
+    const title =
+        metaData?.meta_title ||
+        `${defaultTitle} | Chi sono e percorso`;
+    const description =
+        metaData?.meta_description ||
+        `${defaultDescription} Scopri chi sono, il mio percorso e come lavoro con i brand di Torino.`;
 
     return {
-        title: metaData?.meta_title || 'Bio',
-        description: metaData?.meta_description || 'La mia biografia',
+        title,
+        description,
+        keywords: [...defaultKeywords, "biografia", "esperienza lavorativa"],
+        alternates: { canonical: "/chi_sono" },
         openGraph: {
-            title: metaData?.meta_title || undefined,
-            description: metaData?.meta_description || undefined,
+            title,
+            description,
+            url: `${siteUrl}/chi_sono`,
             images: metaData?.meta_image
                 ? [metaData?.meta_image.url]
                 : undefined,
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
         },
     };
 }
