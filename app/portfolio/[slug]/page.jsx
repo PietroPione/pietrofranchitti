@@ -11,15 +11,19 @@ import {
 
 export async function generateStaticParams() {
     const client = createClient();
-    const response = await client.getByType("portfolio");
+    const response = await client.getAllByType("portfolio");
 
-    return response.results.map((portfolio) => ({
-        slug: portfolio.uid,
-    }));
+    return response
+        .map((portfolio) => portfolio.uid)
+        .filter(Boolean)
+        .map((uid) => ({ slug: uid }));
 }
 
 export async function generateMetadata({ params }) {
-    const { slug } = params;
+    const { slug } = params || {};
+    if (!slug) {
+        return {};
+    }
     const client = createClient();
     const portfolio = await client.getByUID("portfolio", slug);
     const infoSlice = portfolio?.data?.slices?.find(slice => slice.slice_type === 'informazioni');
@@ -55,11 +59,13 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PortfolioPage({ params }) {
-    const { slug } = params;
+    const { slug } = params || {};
+    if (!slug) {
+        return <p>Documento non trovato</p>;
+    }
     const client = createClient();
 
-    const response = await client.getByType("portfolio");
-    const portfolio = response.results.find((doc) => doc.uid === slug);
+    const portfolio = await client.getByUID("portfolio", slug);
 
     if (!portfolio) {
         return <p>Documento non trovato</p>;
