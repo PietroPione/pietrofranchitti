@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-    const { slug } = params || {};
+    const { slug } = (await params) || {};
     if (!slug) {
         return {};
     }
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PortfolioPage({ params }) {
-    const { slug } = params || {};
+    const { slug } = (await params) || {};
     if (!slug) {
         return <p>Documento non trovato</p>;
     }
